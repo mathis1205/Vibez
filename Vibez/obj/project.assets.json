@@ -8,23 +8,23 @@
     "net8.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\mathi\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\THE-MACHINE\\.nuget\\packages\\": {},
+    "E:\\visual studio 2022\\SHARED\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mathi\\Documents\\Werkplekleer1\\Vibez\\Vibez.csproj",
+      "projectUniqueName": "C:\\Users\\THE-MACHINE\\Documents\\GitHub\\Vibez\\Vibez\\Vibez.csproj",
       "projectName": "Vibez",
-      "projectPath": "C:\\Users\\mathi\\Documents\\Werkplekleer1\\Vibez\\Vibez.csproj",
-      "packagesPath": "C:\\Users\\mathi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mathi\\Documents\\Werkplekleer1\\Vibez\\obj\\",
+      "projectPath": "C:\\Users\\THE-MACHINE\\Documents\\GitHub\\Vibez\\Vibez\\Vibez.csproj",
+      "packagesPath": "C:\\Users\\THE-MACHINE\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\THE-MACHINE\\Documents\\GitHub\\Vibez\\Vibez\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "E:\\visual studio 2022\\SHARED\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\mathi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\THE-MACHINE\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

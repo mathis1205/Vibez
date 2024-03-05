@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Vibez")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+69399d48558eb8b5b9e064dc490a5e8fa1002549")]
 [assembly: System.Reflection.AssemblyProductAttribute("Vibez")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Vibez")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
