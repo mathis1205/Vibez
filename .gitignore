@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/MVC_Vibez/.vs/MVC_Vibez/FileContentIndex
+/MVC_Vibez/bin/Debug/net8.0
+/MVC_Vibez/obj/Debug/net8.0
