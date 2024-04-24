@@ -66,8 +66,8 @@ footer {
     transform: translate(-50%, -50%);
     width: 650px;
     text-align: center;
-    color: rgba(255, 255, 255, 0.9);
-    background-color: rgba(128, 128, 128, 0.1); /* Subtiele grijze achtergrondkleur */
-    border-radius: 10px; /* Ronde border radius */
-    padding: 20px; /* Optioneel: voeg wat padding toe voor ruimte rond de tekst */
+    color: rgb(82, 246, 251, 0.6);
+    background-color: rgb(0, 0, 0, 0.65);
+    border-radius: 25px;
+    padding: 20px;
 }
