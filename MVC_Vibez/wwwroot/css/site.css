@@ -34,10 +34,11 @@ body {
 .mk-logo {
     width: 200px;
     height: auto;
-    
 }
 
-
+footer {
+    text-align: center;
+}
 
 .btnContinue {
     text-align: center;
