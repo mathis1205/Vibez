@@ -1,0 +1,76 @@
+/********** INFORMATION ***********
+* Styling for the Index
+* Created by: [Je eigen naam]
+* Created at: 07/12/2023
+* Updated at: 07/12/2023
+**********************************/
+
+*::before,
+*::after 
+{
+    box-sizing: border-box;
+    /* Standard syntax */
+    -webkit-box-sizing: border-box;
+    /* For Safari 5.1 to 6.0 */
+    -moz-box-sizing: border-box;
+    /* For Firefox 3.6 to 15 */
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+header
+{
+    background-image: url(../Content/intro-page.jpg);
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.mk-logo
+{
+    float: left;
+    width: 15%;
+    margin: 25px;
+    height: auto;
+}
+
+header ul 
+{
+    float: right;
+    list-style-type: none;
+    margin-top: 25px;
+    margin-right: 25px;
+}
+
+header ul li
+{
+    display: inline-block;
+}
+
+ul li a 
+{
+    text-decoration: none;
+    color: #fff;
+    padding: 5px 20px;
+    border: 1px solid #fff transparent;
+    transition: 0.6s ease;
+    border-radius: 5px;
+}
+
+ul li a:hover
+{
+    background-color: #fff;
+    color: #000;
+}
+
+.mk-navbar
+{
+    width: 1200px;
+    margin: auto;
+}
+
+
