@@ -4,7 +4,8 @@ public class SpotifySearch
 {
     public class ExternalUrls { public string spotify { get; set; } }
 
-    public class Followers { public object href { get; set; } public int total { get; set; } }
+    public class Followers { public object href { get; set; }        public int total { get; set; }
+    }
 
     public class ImageSP
     {
@@ -23,12 +24,16 @@ public class SpotifySearch
         public List<ImageSP> images { get; set; }
         public string name { get; set; }
         public int popularity { get; set; }
+
         public string type { get; set; }
         public string uri { get; set; }
     }
 
     public class Artists
     {
+        public string id { get; set; }  
+        public string name { get; set; }
+        public string url { get; set; }
         public string href { get; set; }
         public List<Item> items { get; set; }
         public int limit { get; set; }
@@ -38,5 +43,8 @@ public class SpotifySearch
         public int total { get; set; }
     }
 
-    public class SpotifyResult { public Artists artists { get; set; } }
+    public class SpotifyResult
+    {
+        public Artists artists { get; set; }
+    }
 }

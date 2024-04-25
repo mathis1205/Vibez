@@ -34,7 +34,7 @@ namespace MVC_Vibez.Models
 
 	    public static async Task<SpotifySearch.SpotifyResult> SearchArtistOrSong(string searchWord)
 	    {
-		    var token = await GetTokenAsync(); // Ensure token is valid
+		    var token = await GetTokenAsync();
 		    var client = new RestClient("https://api.spotify.com/v1/search");
 		    client.AddDefaultHeader("Authorization", $"Bearer {token.access_token}");
 		    var request = new RestRequest($"?q={searchWord}&type=artist", Method.Get);
