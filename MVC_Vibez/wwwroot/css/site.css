@@ -72,12 +72,29 @@ footer {
     padding: 20px;
 }
 
-.txtAbout {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 650px;
-    text-align: center;
-    font-size: 30px;
+
+.abBody {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
+.abHeader {
+    background-color: #52F6FB;
+    color: #F9D354;
+    padding: 40px 20px;
+    text-align: center;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 40px;
+    padding: 40px;
+    font-size: 18px;
+}
+
+    .container img {
+        max-width: 500%;
+        height: auto;
+    }
