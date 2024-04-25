@@ -1,6 +1,14 @@
 ﻿@{
-    ViewData["Title"] = "Program Page";
+    ViewData["Title"] = "Library";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
+<div>
+    <p class="txtAbout">
+        library info comes here
+    </p>
+</div>
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
@@ -30,45 +38,4 @@
         </div>
     </nav>
 </header>
-<div class="text-center">
-    <h1 class="display-4">Program data</h1>
-</div>
-}
 
-<div>
-	<input type="text" id="txtSearch" />
-	<button id="btnSearch">Search</button>
-</div>
-
-<div id="searchResults"></div>
-
-<script>
-    $(document).ready(function () {
-        $("#btnSearch").click(function () {
-            var searchText = $("#txtSearch").val();
-
-            $.ajax({
-                type: "POST",
-                url: "@Url.Action("Search", "Program")",
-                data: { searchText: searchText },
-                success: function (response) {
-                    if (response.success) {
-                        var listArtistHtml = "";
-                        $.each(response.artists, function (index, artist) {
-                            listArtistHtml += "<div>";
-                            listArtistHtml += "<img src='" + artist.Image + "' />";
-                            listArtistHtml += "<p>" + artist.Name + "</p>";
-                            listArtistHtml += "</div>";
-                        });
-                        $("#searchResults").html(listArtistHtml);
-                    } else {
-                        alert("An error occurred: " + response.error);
-                    }
-                },
-                error: function () {
-                    alert("An error occurred while processing your request.");
-                }
-            });
-        });
-    });
-</script>

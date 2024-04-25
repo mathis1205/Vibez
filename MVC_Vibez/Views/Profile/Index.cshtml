@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Program Page";
+    ViewData["Title"] = "Profile Page";
 }
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -13,7 +13,7 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
+                   <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Library" asp-action="Index">Library</a>
                     </li>
                     <li class="nav-item">
@@ -31,44 +31,5 @@
     </nav>
 </header>
 <div class="text-center">
-    <h1 class="display-4">Program data</h1>
+    <h1 class="display-4">Profile data</h1>
 </div>
-}
-
-<div>
-	<input type="text" id="txtSearch" />
-	<button id="btnSearch">Search</button>
-</div>
-
-<div id="searchResults"></div>
-
-<script>
-    $(document).ready(function () {
-        $("#btnSearch").click(function () {
-            var searchText = $("#txtSearch").val();
-
-            $.ajax({
-                type: "POST",
-                url: "@Url.Action("Search", "Program")",
-                data: { searchText: searchText },
-                success: function (response) {
-                    if (response.success) {
-                        var listArtistHtml = "";
-                        $.each(response.artists, function (index, artist) {
-                            listArtistHtml += "<div>";
-                            listArtistHtml += "<img src='" + artist.Image + "' />";
-                            listArtistHtml += "<p>" + artist.Name + "</p>";
-                            listArtistHtml += "</div>";
-                        });
-                        $("#searchResults").html(listArtistHtml);
-                    } else {
-                        alert("An error occurred: " + response.error);
-                    }
-                },
-                error: function () {
-                    alert("An error occurred while processing your request.");
-                }
-            });
-        });
-    });
-</script>
