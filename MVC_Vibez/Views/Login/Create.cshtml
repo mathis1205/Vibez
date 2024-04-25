@@ -8,17 +8,19 @@
 @section Styles {
     <link rel="stylesheet" type="text/css" href="~/css/login.css" />
 }
+<div id="loglogo">
+    <img src="~/images/logo.png" class="mb-3" alt="Logo" style="height: auto; max-height: 50px; width: auto;">
+</div>
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-4">
-            <h1>@ViewBag.Title</h1>
+            <h1 style="color: #52F6FB;">@ViewBag.Title</h1>
 
             <form method="post">
                 <partial name="CreateEditPartial" model="Model" />
-                <button type="submit" class="btn btn-primary" style="background-color: #BEDC6D; border-color: #52F6FB;" onmouseover="this.style.backgroundColor='#52F6FB'; this.style.borderColor='#BEDC6D';" onmouseout="this.style.backgroundColor='#008000'; this.style.borderColor='#008000';">Create</button>
-                <a class="btn btn-secondary" asp-controller="Home" asp-action="Index" style="background-color: #BEDC6D; border-color: #52F6FB;" onmouseover="this.style.backgroundColor='#52F6FB'; this.style.borderColor='#BEDC6D';" onmouseout="this.style.backgroundColor='#008000'; this.style.borderColor='#008000';">Back to login</a>
-
+                <button type="submit" class="btn btn-primary">Create</button>
+                <a class="btn btn-secondary" asp-controller="Login" asp-action="Index">Back to login</a>
             </form>
         </div>
     </div>
