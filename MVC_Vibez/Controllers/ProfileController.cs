@@ -2,7 +2,7 @@
 
 namespace MVC_Vibez.Controllers
 {
-	public class ProfielController : Controller
+	public class ProfileController : Controller
 	{
 		public IActionResult Index()
 		{
