@@ -6,120 +6,108 @@
 <!DOCTYPE html>
 <html lang="en">
 
-   <header>
-      <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-         <div class="container-fluid">
-             <a class="navbar-brand" asp-area="" asp-controller="Program" asp-action="Index">
-                 <img src="~/images/logo.png" alt="Logo" style="height: auto; max-height: 50px; width: auto;">
-             </a>
-             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
-                     aria-expanded="false" aria-label="Toggle navigation">
-                 <span class="navbar-toggler-icon"></span>
-             </button>
-             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                 <ul class="navbar-nav">
-                     <li class="nav-item">
-                         <a class="nav-link text-dark" asp-area="" asp-controller="Library" asp-action="Index">Library</a>
-                     </li>
-                     <li class="nav-item">
-                         <a class="nav-link text-dark" asp-area="" asp-controller="Contact" asp-action="Index">Contact</a>
-                     </li>
-                     <li class="nav-item">
-                         <a class="nav-link text-dark" asp-area="" asp-controller="About" asp-action="Index">About</a>
-                     </li>
-                     <li class="nav-item">
-                         <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Index">Profile</a>
-                     </li>
-                 </ul>
-             </div>
-         </div>
-     </nav>
-   </header>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Program" asp-action="Index">
+                <img src="~/images/logo.png" alt="Logo" style="height: auto; max-height: 50px; width: auto;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Library" asp-action="Index">Library</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Contact" asp-action="Index">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="About" asp-action="Index">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Index">Profile</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us</title>
 </head>
 <body>
-    <header class="abHeader">
-        <h1>Welcome to Vibez</h1>
-    </header>
-    <div class="abContainment">
-        <div class="abText">
-            <h2 class="center">Who We Are</h2>
-            <p>
-                Vibez is a music streaming platform powered by the Spotify API,
-                made by people who love music just as much as you do! It is Vibez's mission to allow all artists,
-                new and entrenched, to promote their music and reach new audiences.
-            </p>
-        </div>
-        <div class="abTeam">
-            <h2>Meet the Team</h2>
-            <p>
-                Pictured above are the team that made Vibez possible including:
-                the one and only swamp boss,
-                the code donkeys,
-                the web development donkeys,
-                and the all-around donkey.
-            </p>
-        </div>
+<header class="abHeader">
+    <h1>Welcome to Vibez</h1>
+</header>
+<div class="abContainment">
+    <div class="abText">
+        <h2 class="center">Who We Are</h2>
+        <p>
+            Vibez is a music streaming platform powered by the Spotify API,
+            made by people who love music just as much as you do! It is Vibez's mission to allow all artists,
+            new and entrenched, to promote their music and reach new audiences.
+        </p>
     </div>
-    <img src="~/images/Temp.jpg" alt="Company Image" class="abImage">
+    <div class="abTeam">
+        <h2>Meet the Team</h2>
+        <p>
+            Pictured above are the team that made Vibez possible including:
+            the one and only swamp boss,
+            the code donkeys,
+            the web development donkeys,
+            and the all-around donkey.
+        </p>
+    </div>
+</div>
+<img src="~/images/Temp.jpg" alt="Company Image" class="abImage">
 </body>
-
-
-
-<style>
-    <meta charset="UTF-8" >
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-    <title > About Us</title >
-    <style >
+<style >
     .abContainment {
+        align-items: center;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        height: 100vh;
         justify-content: center;
-        height: 100vh; 
     }
 
     .abText, .abTeam {
-        text-align: center;
         color: #BEDC6D;
+        text-align: center;
     }
 
-    .abImageContainer {
-        margin-top: 20px; 
-    }
+    .abImageContainer { margin-top: 20px; }
 
     .abImage {
-        max-width: 45%; 
         height: auto;
+        max-width: 45%;
     }
 
     .abTeam {
         margin-left: 20px;
-        margin-top: 10px; 
+        margin-top: 10px;
     }
 
     .abHeader {
         background-color: #F9D354;
-        color: #52F6FB;
         border: solid;
         border-color: #BEDC6D;
+        border-radius: 10px;
+        color: #52F6FB;
+        margin: 0 auto;
+        max-width: 400px;
         padding: 10px;
         text-align: center;
-        max-width: 400px;
-        margin: 0 auto;
-        border-radius: 10px;
     }
 
-    .center {
-        margin-bottom: 20px;
-    }
+    .center { margin-bottom: 20px; }
 </style>
 </html>
 @* to be changed:
 er moet nog een meet the team stuk komen onder de text
 een foto van ons alle 4 samen zou leuk zijn + onze bijnamen (swamp boss etc)
 *@
-
