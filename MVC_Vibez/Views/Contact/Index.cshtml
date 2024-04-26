@@ -36,3 +36,16 @@
 <div class="text-center">
 	<h1 class="display-4">Contact form</h1>
 </div>
+@model ContactFormSubmission
+@using (Html.BeginForm("SubmitContactForm", "Contact", FormMethod.Post))
+{
+	<label asp-for="Email" class="form-label">Email</label>
+	<input asp-for="Email" class="form-control" required />
+    @Html.ValidationMessageFor(model => model.Email,"",new { @class = "text-danger" })
+
+    <label asp-for="Message" class="form-label">Message</label>
+    <input asp-for="Message" class="form-control" required />
+	@Html.ValidationMessageFor(model => model.Message,"",new { @class = "text-danger" })
+
+	<button type="submit">Send</button>
+}

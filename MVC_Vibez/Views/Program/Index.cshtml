@@ -49,17 +49,40 @@
 	<ul id="searchResults"></ul>
 </div>
 
-<script>
-    $(document).ready(function () {
-        var typingTimer;
-        var doneTypingInterval = 500; // milliseconds delay
+    <script>
+        $(document).ready(function () {
+            var typingTimer;
+            var doneTypingInterval = 300;
 
-        $("#txtSearch").keyup(function () {
-            clearTimeout(typingTimer);
-            typingTimer = setTimeout(performSearch, doneTypingInterval);
-        });
+            $("#txtSearch").keyup(function () {
+                clearTimeout(typingTimer);
+                typingTimer = setTimeout(performSearch, doneTypingInterval);
+            });
 
-        function performSearch() {
+            function performSearch() {
+                var searchText = $("#txtSearch").val();
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Autocomplete", "Program")",
+                    data: { searchText: searchText },
+                    success: function (response) {
+                        if (response.success) {
+                            var listArtistHtml = "";
+                            $.each(response.artists.slice(0, 5), function (index, artist) {
+                                listArtistHtml += '<a href="#" class="list-group-item list-group-item-action">';
+                                listArtistHtml += '<div class="artist-info">';
+                                listArtistHtml += '<img src="' + artist.image + '" class="img-fluid" />';
+                                listArtistHtml += '<p>' + artist.name + '</p>';
+                                listArtistHtml += '</div>';
+                                listArtistHtml += '</a>';
+                            });
+                            $("#searchResults").html(listArtistHtml);
+                        } else {
+                            console.error("An error occurred: " + response.error);
+                        }
+                    },
+                    error: function () {
+                        console.error("An error occurred while processing your request.");
             var searchText = $("#txtSearch").val();
             $.ajax({
                 type: "POST",
@@ -71,7 +94,23 @@
                         $.each(response.artists.slice(0, 5), function (index, artist) {
                             listArtistHtml += "<li>";
                             listArtistHtml += "<img src='" + artist.image + "' />";
-
+                            listArtistHtml += "<p>" + artist.name + "</p>";
+                            listArtistHtml += "</li>";
+                        });
+                        $("#searchResults").html(listArtistHtml);
+                    } else {
+                        console.error("An error occurred: " + response.error);
+            var searchText = $("#txtSearch").val();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("Autocomplete", "Program")",
+                data: { searchText: searchText },
+                success: function (response) {
+                    if (response.success) {
+                        var listArtistHtml = "";
+                        $.each(response.artists.slice(0, 5), function (index, artist) {
+                            listArtistHtml += "<li>";
+                            listArtistHtml += "<img src='" + artist.image + "' />";
                             listArtistHtml += "<p>" + artist.name + "</p>";
                             listArtistHtml += "</li>";
                         });
