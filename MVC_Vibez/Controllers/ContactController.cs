@@ -7,19 +7,25 @@ namespace MVC_Vibez.Controllers
 {
 	public class ContactController : Controller
 	{
+        private readonly EmailService _emailService;
+        public ContactController(EmailService emailService)
+        {
+            _emailService = emailService;
+        }
 
-		public IActionResult Index()
+        public IActionResult Index()
 		{
 			return View();
 		}
         [HttpPost]
-        public ActionResult SubmitContactForm(ContactFormSubmission model)
+        public async Task<IActionResult> SubmitContactForm(ContactFormSubmission submission)
         {
+            
             // Check if the model is valid
             if (ModelState.IsValid)
             {
                 // Save the form submission to a local file
-                SaveSubmissionToFile(model);
+                await _emailService.SendEmailAsync("vibezteamhelp@gmail.com","Contact submission" , $"{submission.Message}<br>{submission.Email}");
 
                 // Redirect to a confirmation view
                 return RedirectToAction("Confirmation");
@@ -27,19 +33,10 @@ namespace MVC_Vibez.Controllers
             else
             {
                 // Model is not valid, return to the form view with validation errors
-                return View("Index", model);
+                return View("Index");
             }
         }
 
-        private void SaveSubmissionToFile(ContactFormSubmission submission)
-        {
-            // Append the submission data to a text file
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string filePath = Path.Combine(baseDirectory, "ContactFormSubMission.txt");
-            string submissionText = $"Email: {submission.Email}, Message: {submission.Message}, Submitted At: {DateTime.Now}\n";
-
-            System.IO.File.AppendAllText(filePath, submissionText);
-        }
 
         public ActionResult Confirmation()
         {
