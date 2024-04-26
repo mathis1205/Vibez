@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System.Net.Mail;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using MimeKit;
 
 namespace MVC_Vibez.Models
 {
@@ -12,6 +14,15 @@ namespace MVC_Vibez.Models
         public EmailService(IOptions<EmailSettings> emailSettings)
         {
             _emailSettings = emailSettings;
+        }
+
+        public class EmailSettings
+        {
+            public string MailServer { get; set; }
+            public int MailPort { get; set; }
+            public string SenderName { get; set; }
+            public string SenderEmail { get; set; }
+            public string Password { get; set; }
         }
 
         public async Task SendEmailAsync(string email, string subject, string message)
