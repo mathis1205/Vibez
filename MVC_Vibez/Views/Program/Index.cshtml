@@ -61,7 +61,6 @@
                 clearTimeout(typingTimer);
                 typingTimer = setTimeout(performSearch, doneTypingInterval);
             });
-
             function performSearch() {
                 var searchText = $("#txtSearch").val();
                 $.ajax({
@@ -86,6 +85,24 @@
                     },
                     error: function () {
                         console.error("An error occurred while processing your request.");
+        function performSearch() {
+            var searchText = $("#txtSearch").val();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("Autocomplete", "Program")",
+                data: { searchText: searchText },
+                success: function (response) {
+                    if (response.success) {
+                        var listArtistHtml = "";
+                        $.each(response.artists.slice(0, 5), function (index, artist) {
+                            listArtistHtml += "<li>";
+                            listArtistHtml += "<img src='" + artist.image + "' />";
+                            listArtistHtml += "<p>" + artist.name + "</p>";
+                            listArtistHtml += "</li>";
+                        });
+                        $("#searchResults").html(listArtistHtml);
+                    } else {
+                        console.error("An error occurred: " + response.error);
                     }
                 });
             }
