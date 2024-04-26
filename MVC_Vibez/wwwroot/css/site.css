@@ -72,12 +72,3 @@ footer {
     padding: 20px;
 }
 
-.txtAbout {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 650px;
-    text-align: center;
-    font-size: 30px;
-}

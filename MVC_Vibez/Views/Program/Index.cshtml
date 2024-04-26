@@ -33,42 +33,54 @@
 <div class="text-center">
     <h1 class="display-4">Program data</h1>
 </div>
-}
-
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
 <div>
 	<input type="text" id="txtSearch" />
-	<button id="btnSearch">Search</button>
+	<ul id="searchResults"></ul>
 </div>
-
-<div id="searchResults"></div>
 
 <script>
     $(document).ready(function () {
-        $("#btnSearch").click(function () {
-            var searchText = $("#txtSearch").val();
+        var typingTimer;
+        var doneTypingInterval = 500; // milliseconds delay
 
+        $("#txtSearch").keyup(function () {
+            clearTimeout(typingTimer);
+            typingTimer = setTimeout(performSearch, doneTypingInterval);
+        });
+
+        function performSearch() {
+            var searchText = $("#txtSearch").val();
             $.ajax({
                 type: "POST",
-                url: "@Url.Action("Search", "Program")",
+                url: "@Url.Action("Autocomplete", "Program")",
                 data: { searchText: searchText },
                 success: function (response) {
                     if (response.success) {
                         var listArtistHtml = "";
-                        $.each(response.artists, function (index, artist) {
-                            listArtistHtml += "<div>";
-                            listArtistHtml += "<img src='" + artist.Image + "' />";
-                            listArtistHtml += "<p>" + artist.Name + "</p>";
-                            listArtistHtml += "</div>";
+                        $.each(response.artists.slice(0, 5), function (index, artist) {
+                            listArtistHtml += "<li>";
+                            //listArtistHtml += "<img src='" + artist + "' />";
+                            listArtistHtml += "<p>" + artist.name + "</p>";
+                            listArtistHtml += "</li>";
                         });
                         $("#searchResults").html(listArtistHtml);
                     } else {
-                        alert("An error occurred: " + response.error);
+                        console.error("An error occurred: " + response.error);
                     }
                 },
                 error: function () {
-                    alert("An error occurred while processing your request.");
+                    console.error("An error occurred while processing your request.");
                 }
             });
-        });
+        }
     });
 </script>
+</body>
+</html>
