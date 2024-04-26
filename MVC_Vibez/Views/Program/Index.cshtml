@@ -1,12 +1,10 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="css/Program.css"/>
-</head>
-<body>
+﻿@{
+    ViewData["Title"] = "Program Page";
+}
 
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="~/css/program.css.css" />
+}
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
@@ -36,23 +34,22 @@
         </div>
     </nav>
 </header>
-
-<div class="sidebar bg-light">
-    <div class="search-box">
-        <input type="text" id="txtSearch" class="form-control mb-3" placeholder="Search">
-    </div>
-    <div id="searchResults" class="search-results list-group">
-        <!-- Bootstrap list group items will be dynamically generated here -->
-    </div>
+<div class="text-center">
+    <h1 class="display-4">Program data</h1>
+</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<div>
+	<input type="text" id="txtSearch" />
+	<ul id="searchResults"></ul>
 </div>
 
-<div class="main-content">
-    <div class="text-center">
-        <h1 class="display-4">Program data</h1>
-    </div>
-</div>
-
-<script>
+    <script>
         $(document).ready(function () {
             var typingTimer;
             var doneTypingInterval = 300;
