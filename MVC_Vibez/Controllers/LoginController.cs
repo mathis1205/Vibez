@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -63,6 +64,8 @@ public class LoginController : Controller
 
         if (validUser != null && validUser.Password == user.Password)
         {
+            validUser.loggedin = true;
+            _dbContext.SaveChanges();
             var claims = new[] { new Claim(ClaimTypes.Name, validUser.Email) };
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);

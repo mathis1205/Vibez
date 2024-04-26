@@ -11,7 +11,7 @@ namespace MVC_Vibez.Core
         {
             var people = new List<User>
             {
-                new() { FirstName = "John", LastName = "Doe", Email = "a@a", Password = "a" }
+                new() { FirstName = "John", LastName = "Doe", Email = "a@a", Password = "a", loggedin = false}
             };
             Users.AddRange(people);
             SaveChanges();

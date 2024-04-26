@@ -1,4 +1,5 @@
-﻿@{
+﻿@model User
+@{
     ViewData["Title"] = "Profile Page";
 }
 
@@ -33,4 +34,7 @@
 </header>
 <div class="text-center">
     <h1 class="display-4">Profile data</h1>
+    <p>FirstName: @Model.FirstName</p>
+    <p>LastName: @Model.LastName</p>
+    <p>Email: @Model.Email</p>
 </div>
