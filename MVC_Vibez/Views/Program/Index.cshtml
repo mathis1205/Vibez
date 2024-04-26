@@ -1,6 +1,10 @@
 ﻿@{
     ViewData["Title"] = "Program Page";
 }
+
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="~/css/program.css.css" />
+}
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
@@ -66,7 +70,8 @@
                         var listArtistHtml = "";
                         $.each(response.artists.slice(0, 5), function (index, artist) {
                             listArtistHtml += "<li>";
-                            //listArtistHtml += "<img src='" + artist + "' />";
+                            listArtistHtml += "<img src='" + artist.image + "' />";
+
                             listArtistHtml += "<p>" + artist.name + "</p>";
                             listArtistHtml += "</li>";
                         });
