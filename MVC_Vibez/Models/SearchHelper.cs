@@ -32,12 +32,12 @@ namespace MVC_Vibez.Models
             return _token;
 	    }
 
-	    public static async Task<SpotifySearch.SpotifyResult> SearchArtistOrSong(string searchWord)
+	    public static async Task<SpotifySearch.SpotifyResult> SearchAll(string searchWord)
 	    {
 		    var token = await GetTokenAsync();
 		    var client = new RestClient("https://api.spotify.com/v1/search");
 		    client.AddDefaultHeader("Authorization", $"Bearer {token.access_token}");
-		    var request = new RestRequest($"?q={searchWord}&type=artist", Method.Get);
+		    var request = new RestRequest($"?q={searchWord}&type=artist,album,playlist,track,show,episode,audiobook", Method.Get);
 		    var response = await client.ExecuteAsync(request);
 
 		    if (response.IsSuccessful) return JsonConvert.DeserializeObject<SpotifySearch.SpotifyResult>(response.Content);
