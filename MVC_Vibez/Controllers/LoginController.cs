@@ -12,11 +12,13 @@ public class LoginController : Controller
 {
     private readonly VibezDbContext _dbContext;
     private readonly ILogger<LoginController> _logger;
+    private readonly EmailService _emailService;
 
-    public LoginController(ILogger<LoginController> logger, VibezDbContext dbContext)
+    public LoginController(ILogger<LoginController> logger, VibezDbContext dbContext, EmailService emailService)
     {
         _dbContext = dbContext;
         _logger = logger;
+        _emailService = emailService;
     }
     public async Task<IActionResult> Index()
     {
@@ -30,12 +32,26 @@ public class LoginController : Controller
         return View();
     }
 
+    private IActionResult ViewWithUser(User? user)
+    {
+        ViewBag.User = _dbContext.Users.ToList();
+        return View(user);
+    }
+
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(User user)
+    public async Task<IActionResult> Create(User user)
     {
+        if (Enumerable.Any(_dbContext.Users, _user => _user.Email.Equals(user.Email)))
+        {
+            ModelState.AddModelError("alreadyExist", "User already exist!");
+            return ViewWithUser(user);
+        }
+
         _dbContext.Users.Add(user);
         _dbContext.SaveChanges();
+        await _emailService.SendEmailAsync(user.Email, "Dear user,","You have succesfully created a Vibez account!");
+
 
         return RedirectToAction("Index", "Home");
     }
