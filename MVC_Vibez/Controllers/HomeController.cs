@@ -6,8 +6,9 @@ namespace MVC_Vibez.Controllers
 {
     public class HomeController : Controller
     {
+        //create instance of the logger
         private readonly ILogger<HomeController> _logger;
-
+        //Initialize the instance of logger
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -15,10 +16,11 @@ namespace MVC_Vibez.Controllers
 
         public IActionResult Index()
         {
+            //returns the view of the action
             return View();
         }
 
-
+        //create a result if the code would error
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
