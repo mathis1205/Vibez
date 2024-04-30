@@ -7,7 +7,9 @@ namespace MVC_Vibez.Controllers
 {
 	public class ContactController : Controller
 	{
+        //create an instance of the emailservice
         private readonly EmailService _emailService;
+        //initialize the emailservice
         public ContactController(EmailService emailService)
         {
             _emailService = emailService;
@@ -15,7 +17,8 @@ namespace MVC_Vibez.Controllers
 
         public IActionResult Index()
 		{
-			return View();
+            //returns the view of the action
+            return View();
 		}
         [HttpPost]
         public async Task<IActionResult> SubmitContactForm(ContactFormSubmission submission)
@@ -24,7 +27,7 @@ namespace MVC_Vibez.Controllers
             // Check if the model is valid
             if (ModelState.IsValid)
             {
-                // Save the form submission to a local file
+                //send an email to the supportemailaddress with the variables of the contact form
                 await _emailService.SendEmailAsync("vibezteamhelp@gmail.com","Contact submission" , $"{submission.Message}<br>{submission.Email}");
 
                 // Redirect to a confirmation view
@@ -36,10 +39,9 @@ namespace MVC_Vibez.Controllers
                 return View("Index");
             }
         }
-
-
         public ActionResult Confirmation()
         {
+            //returns the view of the action
             return View();
         }
 
