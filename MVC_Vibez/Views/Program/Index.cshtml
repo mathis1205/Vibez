@@ -1,53 +1,60 @@
 ﻿@{
-    ViewData["Title"] = "Program Page";
+    ViewData["Title"] = "Program";
 }
 
-@section Styles {
-    <link rel="stylesheet" type="text/css" href="~/css/program.css.css" />
-}
-<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Program" asp-action="Index">
-                <img src="~/images/logo.png" alt="Logo" style="height: auto; max-height: 50px; width: auto;">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Library" asp-action="Index">Library</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Contact" asp-action="Index">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="About" asp-action="Index">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Index">Profile</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
-<div class="text-center">
-    <h1 class="display-4">Program data</h1>
-</div>
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/Program.css" />
 </head>
 <body>
-<div>
-	<input type="text" id="txtSearch" />
-	<ul id="searchResults"></ul>
-</div>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Program" asp-action="Index">
+                    <img src="~/images/logo.png" alt="Logo" style="height: auto; max-height: 50px; width: auto;">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Library" asp-action="Index">Library</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Contact" asp-action="Index">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="About" asp-action="Index">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Index">Profile</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="sidebar bg-light">
+        <div class="search-box">
+            <input type="text" id="txtSearch" class="form-control mb-3" placeholder="Search">
+        </div>
+        <div id="searchResults" class="search-results list-group">
+            <!-- Bootstrap list group items will be dynamically generated here -->
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="text-center">
+            <h1 class="display-4">Program data</h1>
+        </div>
+    </div>
 
     <script>
         $(document).ready(function () {
@@ -88,5 +95,6 @@
             }
         });
     </script>
+
 </body>
 </html>
