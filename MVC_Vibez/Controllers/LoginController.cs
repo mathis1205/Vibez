@@ -60,7 +60,9 @@ public class LoginController : Controller
         _loginService.Create(user);
 
         // Send confirmation email
-        await _emailService.SendEmailAsync(user.Email, "Dear user,", "You have successfully created a Vibez account!");
+        string emailBody = "Welcome to Vibez! </br> Registration complete, follow this <a href='https://localhost:7286/Login'>link</a> to login into your account. </br> If you have any questions or issues please contact : vibezteamhelp@gmail.com </br> Have fun and vibe on!";
+        await _emailService.SendEmailAsync(user.Email, "Dear user,", emailBody);
+
 
         // Redirect to home page after successful creation
         return RedirectToAction("Index", "Home");
