@@ -16,7 +16,6 @@ public class LoginController : Controller
     private readonly ILogger<LoginController> _logger;
     private readonly LoginService _loginService;
 
-    // Constructor to initialize the instances
     public LoginController(ILogger<LoginController> logger, VibezDbContext dbContext, EmailService emailService,
         LoginService loginService)
     {
@@ -26,98 +25,108 @@ public class LoginController : Controller
         _loginService = loginService;
     }
 
-    // Action to display the login page
     public async Task<IActionResult> Index()
     {
-        // Sign out any existing user
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        // Return the login view
         return View();
     }
 
-    // Action to display the user creation form
     [HttpGet]
     public IActionResult Create()
     {
-        // Return the create view
         return View();
     }
 
-    // Action to handle user creation form submission
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(User user)
     {
-        // Check if user already exists
-        if (Enumerable.Any(_dbContext.Users, _user => _user.Email.Equals(user.Email)))
+        if (_dbContext.Users.Any(_user => _user.Email.Equals(user.Email)))
         {
-            // If user already exists, add error and return the create view
             ModelState.AddModelError("alreadyExist", "User already exists!");
-            return ViewWithUser(user);
+            return View(user);
         }
 
-        // Add user to the database
+        user.ValidationToken = Guid.NewGuid().ToString();
         _loginService.Create(user);
 
-        // Send confirmation email
-        string emailBody = "Welcome to Vibez! </br> Registration complete, follow this <a href='https://localhost:7286/Login'>link</a> to login into your account. </br> If you have any questions or issues please contact : vibezteamhelp@gmail.com </br> Have fun and vibe on!";
+        string validationLink = $"https://localhost:7286/Login/Validate?token={user.ValidationToken}";
+        string emailBody = $"Welcome to Vibez! </br> Please click <a href='{validationLink}'>here</a> to validate your account and login. </br> If you have any questions or issues please contact : vibezteamhelp@gmail.com </br> Have fun and vibe on!";
         await _emailService.SendEmailAsync(user.Email, "Dear user,", emailBody);
 
-
-        // Redirect to home page after successful creation
-        return RedirectToAction("Index", "Home");
+        return RedirectToAction("Index", "Login");
     }
 
-    // Action to handle user login
     [HttpPost]
     public async Task<IActionResult> Login(User user)
     {
-        // Find user in the database
-        var validUser = _dbContext.Users.FirstOrDefault(u => u.Email == user.Email);
+        var validUser = _dbContext.Users.FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password);
 
-        // Check if user exists and password is correct
-        if (validUser != null && validUser.Password == user.Password)
+        if (validUser == null)
         {
-            // Mark user as logged in
-            validUser.loggedin = true;
-            _dbContext.SaveChanges();
-
-            // Create claims for authentication
-            var claims = new[] { new Claim(ClaimTypes.Name, validUser.Email) };
-            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var principal = new ClaimsPrincipal(identity);
-
-            // Sign in user and redirect to program index page
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-            return RedirectToAction("Index", "Program");
+            ModelState.AddModelError("", "Invalid email or password");
+            return View("Index", user);
         }
 
-        // If user not found or password incorrect, add error and return login view
-        ModelState.AddModelError("", "Invalid email or password");
-        return View("Index", user);
+        if (!validUser.IsValid)
+        {
+            ModelState.AddModelError("", "Please validate your account first by clicking on the link in the email we sent you.");
+            return View("Index", user);
+        }
+
+        validUser.loggedin = true;
+        _dbContext.SaveChanges();
+
+        var claims = new[] { new Claim(ClaimTypes.Name, validUser.Email) };
+        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        var principal = new ClaimsPrincipal(identity);
+
+        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+        return RedirectToAction("Index", "Program");
     }
 
-    // Action to handle user logout
+
+
     [HttpPost]
     public async Task<IActionResult> Logout()
     {
-        // Sign out user and redirect to home page
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         return RedirectToAction("Index", "Home");
     }
 
-    // Action to handle errors
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-        // Return error view with request ID
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 
-    // Helper method to pass users to the view
-    private IActionResult ViewWithUser(User? user)
+    [HttpGet]
+    public async Task<IActionResult> Validate(string token)
     {
-        ViewBag.User = _dbContext.Users.ToList();
-        return View(user);
+        try
+        {
+            var user = _dbContext.Users.FirstOrDefault(u => u.ValidationToken == token);
+
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Invalid validation token");
+                return View("Index");
+            }
+
+            user.IsValid = true;
+            _dbContext.SaveChanges();
+
+            var claims = new[] { new Claim(ClaimTypes.Name, user.Email) };
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+            return RedirectToAction("Index", "Program");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error during validation");
+            return View("Error");
+        }
     }
+
 }

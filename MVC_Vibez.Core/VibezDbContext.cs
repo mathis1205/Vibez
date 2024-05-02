@@ -5,16 +5,19 @@ namespace MVC_Vibez.Core
 {
     public class VibezDbContext(DbContextOptions<VibezDbContext> options) : DbContext(options)
     {
-        public DbSet<User> Users => Set<User>();
+        public DbSet<User> Users { get; set; }
 
         public void Seed()
         {
-            var people = new List<User>
+            if (!Users.Any())
             {
-                new() { FirstName = "John", LastName = "Doe", Email = "a@a", Password = "a", loggedin = false}
-            };
-            Users.AddRange(people);
-            SaveChanges();
+                var people = new List<User>
+                {
+                    new User { FirstName = "John", LastName = "Doe", Email = "a@a", Password = "a", loggedin = false, ValidationToken = Guid.NewGuid().ToString()}
+                };
+                Users.AddRange(people);
+                SaveChanges();
+            }
         }
     }
 }
