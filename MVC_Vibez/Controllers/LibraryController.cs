@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MVC_Vibez.Models;
 
 namespace MVC_Vibez.Controllers
 {
     public class LibraryController : Controller
     {
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            //returns the view of the action
-            return View();
+            var playlists = await SearchHelper.GetRandomPlaylistsAsync(24);
+            return View(playlists);
         }
     }
 }
