@@ -7,7 +7,7 @@ namespace MVC_Vibez.Controllers
         public IActionResult Index()
         {
             //returns the view of the action
-            return View("~/Views/Library/Index.cshtml");
+            return View();
         }
     }
 }
