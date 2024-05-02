@@ -1,6 +1,13 @@
-﻿@{
-	ViewData["Title"] = "Contact Page";
+﻿
+@{
+    ViewData["Title"] = "Contact Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="~/css/contact.css" />
+}
+
 
 
 
@@ -33,6 +40,7 @@
         </div>
     </nav>
 </header>
+<div class="container-contact-form">
 <div class="text-center">
 	<h1 class="display-4">Contact form</h1>
 </div>
@@ -44,8 +52,9 @@
     @Html.ValidationMessageFor(model => model.Email,"",new { @class = "text-danger" })
 
     <label asp-for="Message" class="form-label">Message</label>
-    <input asp-for="Message" class="form-control" required />
-	@Html.ValidationMessageFor(model => model.Message,"",new { @class = "text-danger" })
+    <textarea asp-for="Message" class="form-control" required rows="4"></textarea>
+        @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
 
-	<button type="submit">Send</button>
+        <button class="btn btnSend btn-primary" type="submit">Send</button>
 }
+</div>

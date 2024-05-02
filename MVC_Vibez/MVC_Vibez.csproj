@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\contact.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Mailkit" Version="4.5.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
