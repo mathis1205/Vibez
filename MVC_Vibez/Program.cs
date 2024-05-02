@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using MVC_Vibez.Core;
 using MVC_Vibez.Models;
+using MVC_Vibez.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +27,14 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 // Register EmailService and configure EmailSettings
 builder.Services.Configure<EmailService.EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddTransient<EmailService>();
+builder.Services.AddScoped<AboutService>();
+builder.Services.AddScoped<ContactService>();
+builder.Services.AddScoped<HomeService>();
+builder.Services.AddScoped<LibraryService>();
+builder.Services.AddScoped<LoginService>();
+builder.Services.AddScoped<ProfileService>();
+builder.Services.AddScoped<ProgramService>();
+
 
 var app = builder.Build();
 

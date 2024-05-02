@@ -1,0 +1,14 @@
+﻿using MVC_Vibez.Core;
+using MVC_Vibez.Models;
+
+namespace MVC_Vibez.Services;
+
+public class ProgramService
+{
+    private readonly VibezDbContext _context;
+
+    public ProgramService(VibezDbContext context)
+    {
+        _context = context;
+    }
+}
