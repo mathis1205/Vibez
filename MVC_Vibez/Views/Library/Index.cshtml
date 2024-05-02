@@ -1,9 +1,9 @@
-﻿@{
+﻿@model List<Playlist>
+@{
     ViewData["Title"] = "Library";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
+<link rel="stylesheet" href="~/css/Library.css" />
 
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -35,9 +35,20 @@
     </nav>
 </header>
 
-<div>
-    <p class="txtAbout">
-        library info comes here
-    </p>
+<body>
+<div class="container">
+    <div class="row">
+        @foreach (var playlist in Model)
+        {
+            <div class="col-md-2">
+                <div class="card playlist-card">
+                    <img src="@playlist.images?[0].url" class="card-img-top" alt="Playlist Image">
+                    <div class="card-body">
+                        <h5 class="card-title">@playlist.name</h5>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>
-
+</body>

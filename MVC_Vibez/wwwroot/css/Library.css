@@ -1,0 +1,12 @@
+﻿.playlist-card {
+    height: 100%;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-text {
+    margin-top: auto;
+}
