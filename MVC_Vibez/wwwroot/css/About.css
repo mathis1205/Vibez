@@ -1,0 +1,46 @@
+﻿.abContainment {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    margin-top: -20%;
+}
+
+.abText, .abTeam {
+    color: #BEDC6D;
+    text-align: center;
+}
+
+.abImageContainer {
+    margin-top: 20px;
+}
+
+.abImage {
+    height: auto;
+    max-width: 45%;
+    margin-top: -30%;
+    margin-left: 25%;
+}
+
+.abTeam {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.abHeader {
+    background-color: #F9D354;
+    border: solid;
+    border-color: #BEDC6D;
+    border-radius: 10px;
+    color: #52F6FB;
+    margin: 0 auto;
+    max-width: 400px;
+    padding: 10px;
+    text-align: center;
+}
+
+.center {
+    margin-bottom: 20px;
+}
+

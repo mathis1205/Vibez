@@ -2,7 +2,9 @@
     ViewData["Title"] = "About page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="~/css/About.css" />
+}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,48 +69,5 @@
 <img src="~/images/Temp.jpg" alt="Company Image" class="abImage">
 </body>
 </html>
-<style >
-    .abContainment {
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-        justify-content: center;
-    }
 
-    .abText, .abTeam {
-        color: #BEDC6D;
-        text-align: center;
-    }
 
-    .abImageContainer { margin-top: 20px; }
-
-    .abImage {
-        height: auto;
-        max-width: 45%;
-    }
-
-    .abTeam {
-        margin-left: 20px;
-        margin-top: 10px;
-    }
-
-    .abHeader {
-        background-color: #F9D354;
-        border: solid;
-        border-color: #BEDC6D;
-        border-radius: 10px;
-        color: #52F6FB;
-        margin: 0 auto;
-        max-width: 400px;
-        padding: 10px;
-        text-align: center;
-    }
-
-    .center { margin-bottom: 20px; }
-</style>
-
-@* to be changed:
-er moet nog een meet the team stuk komen onder de text
-een foto van ons alle 4 samen zou leuk zijn + onze bijnamen (swamp boss etc)
-*@
