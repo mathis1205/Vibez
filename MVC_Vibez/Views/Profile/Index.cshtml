@@ -1,22 +1,27 @@
 ﻿@model User
+@{
     ViewData["Title"] = "Profile Page";
-
+}
 @Html.Partial("_Navbar")
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="text-center">
-                <img src="@Model.ProfilePicture" alt="pfp" style="height: 20%; width: 20%; border-radius: 50%;" />
-                <p style="font-size:larger;">Welcome, @Model.FirstName  @Model.LastName </p>
+                <img src="@Model.ProfilePicture" alt="pfp" style="border-radius: 50%; height: 20%; width: 20%;"/>
+                <p style="font-size: larger;">Welcome, @Model.FirstName @Model.LastName </p>
             </div>
-            <a asp-action="#" class="btn btn-primary">Edit Profile</a>
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">User Information</h5>
                     <p class="card-text">First Name: @Model.FirstName</p>
                     <p class="card-text">Last Name: @Model.LastName</p>
                     <p class="card-text">Emai: @Model.Email</p>
-                    <p class="card-text">Password: <span id="password" style="cursor: pointer;" onclick="togglePassword()"><strong>click to reveal password</strong></span></p>
+                    <p class="card-text">
+                        Password:
+                        <span id="password" style="cursor: pointer;" onclick="togglePassword()">
+                            <strong>click to reveal password</strong>
+                        </span>
+                    </p>
                 </div>
             </div>
             <div class="card" style="margin-top: 20px;">
@@ -53,6 +58,3 @@
         }
     }
 </script>
-</div>
-    
-

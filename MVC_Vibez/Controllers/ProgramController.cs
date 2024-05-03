@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using MVC_Vibez.Model;
 using MVC_Vibez.Models;
 using MVC_Vibez.Services;
@@ -19,8 +18,9 @@ public class ProgramController : Controller
     {
         var playlists = await SearchHelper.GetRandomPlaylistsAsync(24);
         var user = _ProgramService.GetUserByEmail(User.Identity.Name);
-        if (user == null) return NotFound()
-            ;
+        if (user == null)
+            return NotFound()
+                ;
         var programPage = new ProgramPage
         {
             user = user,
@@ -53,14 +53,14 @@ public class ProgramController : Controller
                     : "https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png",
                 Name = item.Name
             }).ToList();
-            var songs  = result.Tracks.Items.Select(item => new Spotify
+            var songs = result.Tracks.Items.Select(item => new Spotify
             {
                 ID = item.Id,
                 Image = item.Album.Images.Any()
                     ? item.Album.Images[0].Url.ToString()
                     : "https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png",
                 Name = item.Name
-            }).ToList();   
+            }).ToList();
             var albums = result.Albums.Items.Select(item => new Spotify
             {
                 ID = item.Id,
@@ -78,7 +78,7 @@ public class ProgramController : Controller
                 Name = item.Name
             }).ToList();
             //if everything is succesfull then we send a json file with succes status and the list of options
-            return Json(new { success = true, artists,songs,albums,playlists });
+            return Json(new { success = true, artists, songs, albums, playlists });
         }
         catch (Exception ex)
         {
