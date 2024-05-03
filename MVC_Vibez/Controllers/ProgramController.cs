@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using MVC_Vibez.Model;
 using MVC_Vibez.Models;
 using MVC_Vibez.Services;
 
@@ -13,10 +15,18 @@ public class ProgramController : Controller
         _ProgramService = ProgramService;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        //returns the view of the action
-        return View();
+        var playlists = await SearchHelper.GetRandomPlaylistsAsync(24);
+        var user = _ProgramService.GetUserByEmail(User.Identity.Name);
+        if (user == null) return NotFound()
+            ;
+        var programPage = new ProgramPage
+        {
+            user = user,
+            playlists = playlists
+        };
+        return View(programPage);
     }
 
     //Create a task to give certain amount of possible options of the search

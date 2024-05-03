@@ -1,35 +1,45 @@
-﻿@{
+﻿@model MVC_Vibez.Model.ProgramPage
+@{
     ViewData["Title"] = "Program";
 }
-@Html.Partial("_Navbar")
+@Html.Partial("_Navbar", Model.user)
 
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="css/Program.css" />
+    <link rel="stylesheet" href="css/Program.css"/>
 </head>
 <body>
+<div class="sidebar bg-light">
+    <div class="search-box">
+        <input type="text" id="txtSearch" class="form-control mb-3" placeholder="Search">
+    </div>
+    <div id="searchResults" class="search-results list-group">
+        <!-- Bootstrap list group items will be dynamically generated here -->
+    </div>
+</div>
 
-   
-
-    <div class="sidebar bg-light">
-        <div class="search-box">
-            <input type="text" id="txtSearch" class="form-control mb-3" placeholder="Search">
-        </div>
-        <div id="searchResults" class="search-results list-group">
-            <!-- Bootstrap list group items will be dynamically generated here -->
+<div class="main-content">
+    <div class="container">
+        <div class="row">
+            @foreach (var playlist in Model.playlists)
+            {
+                <div class="col-md-2">
+                    <div class="card playlist-card">
+                        <img src="@playlist.Images?[0].Url" class="card-img-top" alt="Playlist Image">
+                        <div class="card-body">
+                            <h5 class="card-title">@playlist.Name</h5>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
+</div>
 
-    <div class="main-content">
-        <div class="text-center">
-            <h1 class="display-4">Program data</h1>
-        </div>
-    </div>
-
-    <script>
+<script>
         $(document).ready(function () {
             var typingTimer;
             var doneTypingInterval = 300;

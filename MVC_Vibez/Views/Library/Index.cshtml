@@ -1,26 +1,6 @@
-
-
-    ViewData["Title"] = "Library";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+@{
+ViewData["Title"] = "Library";
+Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Html.Partial("_Navbar", Model.User)
-
-<body>
-
-<div class="container">
-    <div class="row">
-        @foreach (var playlist in Model)
-        {
-            <div class="col-md-2">
-                <div class="card playlist-card">
-                    <img src="@playlist.Images?[0].Url" class="card-img-top" alt="Playlist Image">
-                    <div class="card-body">
-                        <h5 class="card-title">@playlist.Name</h5>
-
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
-</body>
+@Html.Partial("_Navbar")
