@@ -1,15 +1,8 @@
 ﻿@model User
 @{
     ViewData["Title"] = "Profile Page";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@section styles {
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-}
-@section scripts {
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-}
+
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
@@ -22,7 +15,7 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
-                   <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Library" asp-action="Index">Library</a>
                     </li>
                     <li class="nav-item">
@@ -47,29 +40,55 @@
         </div>
     </nav>
 </header>
-<div class="text-center">
-    <h1 class="display-4">Profile data</h1>
-    <p>welcome, @Model.FirstName  @Model.LastName</p>
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown button
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">test123</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="text-center">
+                <img src="@Model.ProfilePicture" alt="pfp" style="height: 20%; width: 20%; border-radius: 50%;" />
+                <p style="font-size:larger;">Welcome, @Model.FirstName  @Model.LastName </p>
+            </div>
+            <a asp-action="#" class="btn btn-primary">Edit Profile</a>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">User Information</h5>
+                    <p class="card-text">First Name: @Model.FirstName</p>
+                    <p class="card-text">Last Name: @Model.LastName</p>
+                    <p class="card-text">Emai: @Model.Email</p>
+                    <p class="card-text">Password: <span id="password" style="cursor: pointer;" onclick="togglePassword()"><strong>click to reveal password</strong></span></p>
+                </div>
+            </div>
+            <div class="card" style="margin-top: 20px;">
+                <div class="card-body">
+                    <h5 class="card-title">Song statistics</h5>
+                    <p class="card-text">Most listened to song: </p>
+                    <p class="card-text">Most listened to artist: </p>
+                    <p class="card-text">Most listened to genre: </p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<div class="text-center" id="profileDiv" style="display: none;">
-    <p>First name: @Model.FirstName</p>
-    <p>Last name: @Model.LastName</p>
-    <p>Email: @Model.Email</p>
+
+
+<div class="text-center">
     <form asp-action="UploadProfilePicture" asp-controller="Profile" method="post" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="profilePicture">Profile Picture</label>
+            <label for="profilePicture">Uploud a profile picture?</label>
+
             <input type="file" class="form-control-file" id="profilePicture" name="profilePicture">
         </div>
         <button type="submit" class="btn btn-primary">Upload</button>
     </form>
 </div>
+
+<script>
+    function togglePassword() {
+        var passwordField = document.getElementById("password");
+        var boldText = "<strong>click to reveal password</strong>";
+        if (passwordField.innerHTML === boldText) {
+            passwordField.innerHTML = "@Model.Password";
+        } else {
+            passwordField.innerHTML = boldText;
+        }
+    }
+</script>
