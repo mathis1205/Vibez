@@ -1,75 +1,42 @@
-﻿body {
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    background: linear-gradient(to bottom, gray, white);
-}
-
-.navbar {
-    margin-top: 15px;
-    margin-bottom: 20px;
-    border-radius: 35px;
-    background-color: transparent !important;
-    border: solid rgb(0, 0, 0, 0.2) 1px;
-}
-
 .abContainment {
     align-items: center;
     display: flex;
     flex-direction: column;
-    height: 100vh;
     justify-content: center;
-    margin-top: -25%;
+    margin-top: 5%;
 }
+
 .abText {
     text-align: center;
     background-color: #F9D354;
     border-radius: 10px;
-    border: solid;
-    border-color: #52F6FB;
-    padding-top: 20px;
-    padding-right: 10px;
-    padding-left: 10px;
-    padding-bottom: 10px;
+    border: 1px solid #52F6FB;
+    padding: 20px 10px;
 }
+
 .abText h2 {
     font-weight: bold;
 }
-
 
 .abImageContainer {
     margin-top: 20px;
 }
 
 .abImage {
-    height: auto;
-    max-width: 45%;
-    margin-top: -25%;
-    margin-left: 26%;
-    border: solid;
-    border-width: 1px;
-    border-color:black;
+    max-width: 100%;
+    border: 1px solid black;
+    margin: 0 auto; /* Center the image horizontally */
 }
-
 
 .abHeader {
     background-color: #F9D354;
-    border: solid;
-    border-color: #52F6FB;
+    border: 1px solid #52F6FB;
     border-radius: 10px;
-    margin: 0 auto;
     max-width: 400px;
     padding: 10px;
     text-align: center;
-    padding-bottom: 10px;
 }
-
-/*    .abHeader h1 {
-        font-weight: bold;
-    }*/
 
 .center {
     margin-bottom: 20px;
-    
 }
-
