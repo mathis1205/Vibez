@@ -39,5 +39,6 @@
 .loglogo {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    top: 20px; /* Pas de afstand vanaf de bovenkant van de pagina aan naar jouw wens */
+    left: 50%;
 }
