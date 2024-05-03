@@ -1,9 +1,10 @@
-﻿.abContainment {
+﻿
+.abContainment {
     align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 5%; 
+    margin-top: 5%;
 }
 
 .abText {
@@ -14,9 +15,9 @@
     padding: 20px 10px;
 }
 
-    .abText h2 {
-        font-weight: bold;
-    }
+.abText h2 {
+    font-weight: bold;
+}
 
 .abImageContainer {
     margin-top: 20px;
@@ -25,16 +26,18 @@
 .abImage {
     max-width: 100%;
     border: 1px solid black;
-    margin: 0 auto; 
+    margin: 0 auto; /* Center the image horizontally */
 }
+
 .abHeader {
-    background-color: #F9D354; 
+    background-color: #F9D354;
     border: 1px solid #52F6FB;
     border-radius: 10px;
     max-width: 400px;
     padding: 10px;
     text-align: center;
 }
+
 .center {
     margin-bottom: 20px;
 }
