@@ -1,54 +1,159 @@
-﻿namespace MVC_Vibez.Models;
-
-public class SpotifySearch
+﻿namespace SpotifySearch
 {
-    //Create a class tot be later used in the class
-    public class ExternalUrls { public string spotify { get; set; } }
 
-    //create a class with the variables for the followers
-    public class Followers { 
-        public object href { get; set; }        
-        public int total { get; set; }
-    }
-    //create a class with the variables for the images that you get out of the json file
-    public class ImageSP
+    public partial class Welcome
     {
-        public int width { get; set; }
-        public string url { get; set; }
-        public int height { get; set; }
+        public Tracks Tracks { get; set; }
+        public Artists Artists { get; set; }
+        public Albums Albums { get; set; }
+        public Playlists Playlists { get; set; }
     }
-    //create a class with the variables for an item that you get out of the json file
-    public class Item
-    {
-        public ExternalUrls external_urls { get; set; }
-        public Followers followers { get; set; }
-        public List<string> genres { get; set; }
-        public string href { get; set; }
-        public string id { get; set; }
-        public List<ImageSP> images { get; set; }
-        public string name { get; set; }
-        public int popularity { get; set; }
 
-        public string type { get; set; }
-        public string uri { get; set; }
-    }
-    //create a class with the variables for the artists that you get out of the json file
-    public class Artists
+    public partial class Albums
     {
-        public string id { get; set; }  
-        public string name { get; set; }
-        public string url { get; set; }
-        public string href { get; set; }
-        public List<Item> items { get; set; }
-        public int limit { get; set; }
-        public string next { get; set; }
-        public int offset { get; set; }
-        public object previous { get; set; }
-        public int total { get; set; }
+        public Uri Href { get; set; }
+        public long Limit { get; set; }
+        public Uri Next { get; set; }
+        public long Offset { get; set; }
+        public object Previous { get; set; }
+        public long Total { get; set; }
+        public List<AlbumElement> Items { get; set; }
     }
-    //create a class with the variables that u use to save a certain amount of artist
-    public class SpotifyResult
+
+    public partial class AlbumElement
     {
-        public Artists artists { get; set; }
+        public string AlbumType { get; set; }
+        public long TotalTracks { get; set; }
+        public List<string> AvailableMarkets { get; set; }
+        public ExternalUrls ExternalUrls { get; set; }
+        public Uri Href { get; set; }
+        public string Id { get; set; }
+        public List<Image> Images { get; set; }
+        public string Name { get; set; }
+        public DateTimeOffset ReleaseDate { get; set; }
+        public string ReleaseDatePrecision { get; set; }
+        public string Type { get; set; }
+        public string Uri { get; set; }
+        public List<Owner> Artists { get; set; }
+    }
+
+    public partial class Owner
+    {
+        public ExternalUrls ExternalUrls { get; set; }
+        public Uri Href { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Type { get; set; }
+        public string Uri { get; set; }
+        public string DisplayName { get; set; }
+    }
+
+    public partial class ExternalUrls
+    {
+        public Uri Spotify { get; set; }
+    }
+
+    public partial class Image
+    {
+        public Uri Url { get; set; }
+        public long? Height { get; set; }
+        public long? Width { get; set; }
+    }
+
+    public partial class Artists
+    {
+        public Uri Href { get; set; }
+        public long Limit { get; set; }
+        public Uri Next { get; set; }
+        public long Offset { get; set; }
+        public object Previous { get; set; }
+        public long Total { get; set; }
+        public List<ArtistsItem> Items { get; set; }
+    }
+
+    public partial class ArtistsItem
+    {
+        public ExternalUrls ExternalUrls { get; set; }
+        public Followers Followers { get; set; }
+        public List<string> Genres { get; set; }
+        public Uri Href { get; set; }
+        public string Id { get; set; }
+        public List<Image> Images { get; set; }
+        public string Name { get; set; }
+        public long Popularity { get; set; }
+        public string Type { get; set; }
+        public string Uri { get; set; }
+    }
+
+    public partial class Followers
+    {
+        public Uri Href { get; set; }
+        public long Total { get; set; }
+    }
+
+    public partial class Playlists
+    {
+        public Uri Href { get; set; }
+        public long Limit { get; set; }
+        public Uri Next { get; set; }
+        public long Offset { get; set; }
+        public object Previous { get; set; }
+        public long Total { get; set; }
+        public List<PlaylistsItem> Items { get; set; }
+    }
+
+    public partial class PlaylistsItem
+    {
+        public bool Collaborative { get; set; }
+        public string Description { get; set; }
+        public ExternalUrls ExternalUrls { get; set; }
+        public Uri Href { get; set; }
+        public string Id { get; set; }
+        public List<Image> Images { get; set; }
+        public string Name { get; set; }
+        public Owner Owner { get; set; }
+        public object Public { get; set; }
+        public string SnapshotId { get; set; }
+        public Followers Tracks { get; set; }
+        public string Type { get; set; }
+        public string Uri { get; set; }
+        public object PrimaryColor { get; set; }
+    }
+
+    public partial class Tracks
+    {
+        public Uri Href { get; set; }
+        public long Limit { get; set; }
+        public Uri Next { get; set; }
+        public long Offset { get; set; }
+        public object Previous { get; set; }
+        public long Total { get; set; }
+        public List<TracksItem> Items { get; set; }
+    }
+
+    public partial class TracksItem
+    {
+        public AlbumElement Album { get; set; }
+        public List<Owner> Artists { get; set; }
+        public List<string> AvailableMarkets { get; set; }
+        public long DiscNumber { get; set; }
+        public long DurationMs { get; set; }
+        public bool Explicit { get; set; }
+        public ExternalIds ExternalIds { get; set; }
+        public ExternalUrls ExternalUrls { get; set; }
+        public Uri Href { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public long Popularity { get; set; }
+        public object PreviewUrl { get; set; }
+        public long TrackNumber { get; set; }
+        public string Type { get; set; }
+        public string Uri { get; set; }
+        public bool IsLocal { get; set; }
+    }
+
+    public partial class ExternalIds
+    {
+        public string Isrc { get; set; }
     }
 }
