@@ -1,12 +1,4 @@
-﻿*::before,
-*::after {
-    box-sizing: border-box;
-    /* Standard syntax */
-    -webkit-box-sizing: border-box;
-    /* For Safari 5.1 to 6.0 */
-    -moz-box-sizing: border-box;
-    /* For Firefox 3.6 to 15 */
-}
+﻿
 
 body {
     justify-content: center;

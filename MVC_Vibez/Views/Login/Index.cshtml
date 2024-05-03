@@ -8,9 +8,14 @@
     <link rel="stylesheet" type="text/css" href="~/css/login.css" />
 }
 
-<div class="loglogo">
-    <img src="~/images/logo.png" class="mb-3" alt="Logo" style="height: auto; max-height: 50px; width: auto;">
+<div class="loglogo-wrapper">
+    <div class="loglogo">
+        <img src="~/images/logo.png" class="mb-3" alt="Logo" style="height: auto; max-height: 50px; width: auto;">
+    </div>
 </div>
+
+<div class="container">
+
 <div class="row justify-content-center">
     <div class="col-md-4">
         <form method="post">
@@ -40,4 +45,5 @@
             <p>Don't have an account? <a asp-area="" asp-controller="Login" asp-action="Create" style="color: #52F6FB;">Register</a></p>
         </div>
     </div>
+</div>
 </div>
