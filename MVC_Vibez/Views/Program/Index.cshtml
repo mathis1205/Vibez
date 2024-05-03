@@ -47,12 +47,21 @@
                     data: { searchText: searchText },
                     success: function (response) {
                         if (response.success) {
-                            var listArtistHtml = "";
+                            var listArtistHtml = "Artists";
                             $.each(response.artists.slice(0, 5), function (index, artist) {
                                 listArtistHtml += '<a href="#" class="list-group-item list-group-item-action">';
                                 listArtistHtml += '<div class="artist-info">';
                                 listArtistHtml += '<img src="' + artist.image + '" class="img-fluid" />';
                                 listArtistHtml += '<p>' + artist.name + '</p>';
+                                listArtistHtml += '</div>';
+                                listArtistHtml += '</a>';
+                            });
+                            listArtistHtml += "Songs";
+                            $.each(response.songs.slice(0, 10), function (index, song) {
+                                listArtistHtml += '<a href="#" class="list-group-item list-group-item-action">';
+                                listArtistHtml += '<div class="artist-info">';
+                                listArtistHtml += '<img src="' + song.image + '" class="img-fluid" />';
+                                listArtistHtml += '<p>' + song.name + '</p>';
                                 listArtistHtml += '</div>';
                                 listArtistHtml += '</a>';
                             });

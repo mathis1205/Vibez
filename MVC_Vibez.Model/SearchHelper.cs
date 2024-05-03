@@ -29,7 +29,7 @@ public class SearchHelper
         return _token;
     }
 
-    public static async Task<SpotifySearch.SpotifyResult> SearchAll(string searchWord)
+    public static async Task<SpotifySearch.Welcome> SearchAll(string searchWord)
     {
         var token = await GetTokenAsync();
         var client = new RestClient("https://api.spotify.com/v1/search");
@@ -37,7 +37,7 @@ public class SearchHelper
         var request = new RestRequest($"?q={searchWord}&type=artist,album,playlist,track,show,episode,audiobook");
         var response = await client.ExecuteAsync(request);
 
-        if (response.IsSuccessful) return JsonConvert.DeserializeObject<SpotifySearch.SpotifyResult>(response.Content);
+        if (response.IsSuccessful) return JsonConvert.DeserializeObject<SpotifySearch.Welcome>(response.Content);
 
         throw new Exception($"Failed to search for '{searchWord}'. Status code: {response.StatusCode}, Error: {response.ErrorMessage}");
     }
