@@ -1,17 +1,4 @@
-﻿@{
-    ViewData["Title"] = "About page";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-@Html.Partial("_Navbar")
-
-@section Styles {
-    <link rel="stylesheet" type="text/css" href="~/css/About.css" />
-}
-
-
-
-<header>
+﻿<header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
             <a class="navbar-brand" asp-area="" asp-controller="Program" asp-action="Index">
@@ -32,42 +19,19 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="About" asp-action="Index">About</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Index">Profile</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div style="background-color: white; border-radius: 50%; width: 40px; height: 40px;">
+                                <img src="@((Model != null && Model.ProfilePicture != null) ? Model.ProfilePicture : "images/defaultuser.jpg")" alt="Profile Picture" style="height: 100%; width: 100%; border-radius: 50%;">
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" asp-area="" asp-controller="Profile" asp-action="Index">Profile</a></li>
+                            @* <li><a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li> *@
+                        </ul>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 </header>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
-</head>
-<body>
-<header class="abHeader">
-    <h1>Welcome to Vibez</h1>
-</header>
-<div class="abContainment">
-    <div class="abText">
-        <h2 class="center">Who We Are</h2>
-        <p>
-                Vibez is a music streaming platform powered by the Spotify API, made by people who love music just as much as you do! 
-                It is Vibez's mission to allow all artists, 
-                new and experienced, to promote their music and reach new audiences.
-        </p>
-        <h2>Meet the Team</h2>
-        <p>
-                Pictured below are the team that made Vibez possible including:
-                the one and only swamp boss,
-                the code donkeys,
-                the web development donkeys,
-                and the all-around donkey.
-        </p>
-    </div>
-</div>
-<img src="~/images/Temp.jpg" alt="Company Image" class="abImage">
-</body>
-
-
