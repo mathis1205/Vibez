@@ -14,4 +14,6 @@ public class User
     public LoginToken LoginToken { get; set; }
     public string ValidationToken { get; set; }
     public bool IsValid { get; set; } = false;
+
+    public string? ProfilePicture { get; set; }
 }

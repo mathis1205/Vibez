@@ -13,7 +13,7 @@ namespace MVC_Vibez.Core
             {
                 var people = new List<User>
                 {
-                    new User { FirstName = "John", LastName = "Doe", Email = "a@a", Password = "a", loggedin = false, ValidationToken = Guid.NewGuid().ToString(),IsValid = true}
+                    new User { FirstName = "John", LastName = "Doe", Email = "a@a", Password = "a", IsValid = true,loggedin = false, ValidationToken = Guid.NewGuid().ToString()}
                 };
                 Users.AddRange(people);
                 SaveChanges();
