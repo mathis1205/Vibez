@@ -1,5 +1,4 @@
-﻿@model List<Playlist>
-@{
+﻿@{
     ViewData["Title"] = "Library";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -42,9 +41,9 @@
         {
             <div class="col-md-2">
                 <div class="card playlist-card">
-                    <img src="@playlist.images?[0].url" class="card-img-top" alt="Playlist Image">
+                    <img src="@playlist.Images?[0].Url" class="card-img-top" alt="Playlist Image">
                     <div class="card-body">
-                        <h5 class="card-title">@playlist.name</h5>
+                        <h5 class="card-title">@playlist.Name</h5>
                     </div>
                 </div>
             </div>
