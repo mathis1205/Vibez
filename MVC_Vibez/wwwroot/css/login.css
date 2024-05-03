@@ -49,10 +49,10 @@
     justify-content: center;
 }
 
-@media (min-width: 768px) and (max-width: 1000px) {
+@media (min-width: 480px) and (max-width: 768px) {
     .col-md-4 {
-        width: 80%; 
-        max-width: none; 
+        width: 50%; /* Maak de container 90% breedte op schermen tussen 480px en 768px */
+        max-width: none; /* Optioneel: verwijder eventuele beperkingen op de maximale breedte */
     }
 }
 
