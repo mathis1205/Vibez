@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Newtonsoft.Json;
 using RestSharp;
+using SpotifySearch;
 
 namespace MVC_Vibez.Models;
 
@@ -42,7 +43,7 @@ public class SearchHelper
         throw new Exception($"Failed to search for '{searchWord}'. Status code: {response.StatusCode}, Error: {response.ErrorMessage}");
     }
 
-    public static async Task<List<Playlist>> GetRandomPlaylistsAsync(int count)
+    public static async Task<List<SpotifySearch.PlaylistsItem>> GetRandomPlaylistsAsync(int count)
     {
         var token = await GetTokenAsync();
         var client = new RestClient("https://api.spotify.com/v1/browse/featured-playlists");
@@ -53,59 +54,9 @@ public class SearchHelper
         if (response.IsSuccessful)
         {
             var result = JsonConvert.DeserializeObject<FeaturedPlaylistsResponse>(response.Content);
-            return result.playlists.items;
+            return result.playlists.Items;
         }
 
         throw new Exception($"Failed to get the playlists. Status code: {response.StatusCode}, Error: {response.ErrorMessage}");
     }
-}
-
-public class Playlist
-{
-    public string id { get; set; }
-    public string name { get; set; }
-    public List<Image> images { get; set; }
-    public Owner owner { get; set; }
-    public Tracks tracks { get; set; }
-}
-
-public class Owner
-{
-    public string display_name { get; set; }
-}
-
-public class Tracks
-{
-    public List<PlaylistItem> items { get; set; }
-}
-
-public class PlaylistItem
-{
-    public Track track { get; set; }
-}
-
-public class Track
-{
-    public string name { get; set; }
-    public List<Artist> artists { get; set; }
-}
-
-public class Artist
-{
-    public string name { get; set; }
-}
-
-public class Image
-{
-    public string url { get; set; }
-}
-
-public class FeaturedPlaylistsResponse
-{
-    public Playlists playlists { get; set; }
-}
-
-public class Playlists
-{
-    public List<Playlist> items { get; set; }
 }

@@ -50,9 +50,25 @@ public class ProgramController : Controller
                     ? item.Album.Images[0].Url.ToString()
                     : "https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png",
                 Name = item.Name
-            }).ToList();    
+            }).ToList();   
+            var albums = result.Albums.Items.Select(item => new Spotify
+            {
+                ID = item.Id,
+                Image = item.Images.Any()
+                    ? item.Images[0].Url.ToString()
+                    : "https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png",
+                Name = item.Name
+            }).ToList();
+            var playlists = result.Playlists.Items.Select(item => new Spotify
+            {
+                ID = item.Id,
+                Image = item.Images.Any()
+                    ? item.Images[0].Url.ToString()
+                    : "https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png",
+                Name = item.Name
+            }).ToList();
             //if everything is succesfull then we send a json file with succes status and the list of options
-            return Json(new { success = true, artists,songs });
+            return Json(new { success = true, artists,songs,albums,playlists });
         }
         catch (Exception ex)
         {
