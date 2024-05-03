@@ -24,8 +24,16 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="About" asp-action="Index">About</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Index">Profile</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div style="background-color: white; border-radius: 50%; width: 40px; height: 40px;">
+                                <img src="@Model.ProfilePicture" alt="Profile Picture" style="height: 100%; width: 100%; border-radius: 50%;">
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" asp-area="" asp-controller="Profile" asp-action="Index">Profile</a></li>
+                            @* <li><a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li> *@
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -37,4 +45,11 @@
     <p>FirstName: @Model.FirstName</p>
     <p>LastName: @Model.LastName</p>
     <p>Email: @Model.Email</p>
+    <form asp-action="UploadProfilePicture" asp-controller="Profile" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="profilePicture">Profile Picture</label>
+            <input type="file" class="form-control-file" id="profilePicture" name="profilePicture">
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
 </div>
