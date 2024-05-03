@@ -1,26 +1,25 @@
-﻿
+﻿@model (User User, IEnumerable<Playlist> Playlists)
 @{
     ViewData["Title"] = "Library";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link rel="stylesheet" href="~/css/Library.css" />
 
-@Html.Partial("_Navbar")
+@Html.Partial("_Navbar", Model.User)
 
 <body>
-<div class="container">
-    <div class="row">
-        @foreach (var playlist in Model)
-        {
-            <div class="col-md-2">
-                <div class="card playlist-card">
-                    <img src="@playlist.images?[0].url" class="card-img-top" alt="Playlist Image">
-                    <div class="card-body">
-                        <h5 class="card-title">@playlist.name</h5>
+    <div class="container">
+        <div class="row">
+            @foreach (var playlist in Model.Playlists)
+            {
+                <div class="col-md-2">
+                    <div class="card playlist-card">
+                        <img src="@playlist.images?[0].url" class="card-img-top" alt="Playlist Image">
+                        <div class="card-body">
+                            <h5 class="card-title">@playlist.name</h5>
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </div>
-</div>
 </body>
