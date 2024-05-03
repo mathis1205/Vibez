@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using MVC_Vibez.Model;
 using MVC_Vibez.Models;
 using MVC_Vibez.Services;
 
@@ -13,10 +15,18 @@ public class ProgramController : Controller
         _ProgramService = ProgramService;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        //returns the view of the action
-        return View();
+        var playlists = await SearchHelper.GetRandomPlaylistsAsync(24);
+        var user = _ProgramService.GetUserByEmail(User.Identity.Name);
+        if (user == null) return NotFound()
+            ;
+        var programPage = new ProgramPage
+        {
+            user = user,
+            playlists = playlists
+        };
+        return View(programPage);
     }
 
     //Create a task to give certain amount of possible options of the search
@@ -34,17 +44,41 @@ public class ProgramController : Controller
                 return Json(new { success = false });
 
             //create a list to save the different possible options to autocomplete
-            var artists = result.artists.items.Select(item => new SpotifyArtist
+            var artists = result.Artists.Items.Select(item => new Spotify
             {
                 //fill in all the variables with the right information
-                ID = item.id,
-                Image = item.images.Any()
-                    ? item.images[0].url
+                ID = item.Id,
+                Image = item.Images.Any()
+                    ? item.Images[0].Url.ToString()
                     : "https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png",
-                Name = item.name
+                Name = item.Name
+            }).ToList();
+            var songs  = result.Tracks.Items.Select(item => new Spotify
+            {
+                ID = item.Id,
+                Image = item.Album.Images.Any()
+                    ? item.Album.Images[0].Url.ToString()
+                    : "https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png",
+                Name = item.Name
+            }).ToList();   
+            var albums = result.Albums.Items.Select(item => new Spotify
+            {
+                ID = item.Id,
+                Image = item.Images.Any()
+                    ? item.Images[0].Url.ToString()
+                    : "https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png",
+                Name = item.Name
+            }).ToList();
+            var playlists = result.Playlists.Items.Select(item => new Spotify
+            {
+                ID = item.Id,
+                Image = item.Images.Any()
+                    ? item.Images[0].Url.ToString()
+                    : "https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png",
+                Name = item.Name
             }).ToList();
             //if everything is succesfull then we send a json file with succes status and the list of options
-            return Json(new { success = true, artists });
+            return Json(new { success = true, artists,songs,albums,playlists });
         }
         catch (Exception ex)
         {

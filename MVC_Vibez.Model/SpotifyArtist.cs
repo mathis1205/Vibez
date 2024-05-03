@@ -1,6 +1,6 @@
 ﻿namespace MVC_Vibez.Models
 {
-    public class SpotifyArtist
+    public class Spotify
     {
         //create the variables for the artists
         public string ID { get; set; }

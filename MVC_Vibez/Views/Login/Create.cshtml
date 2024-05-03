@@ -8,8 +8,10 @@
 @section Styles {
     <link rel="stylesheet" type="text/css" href="~/css/login.css" />
 }
-<div class="loglogo">
-    <img src="~/images/logo.png" class="mb-3" alt="Logo" style="height: auto; max-height: 50px; width: auto;">
+<div class="loglogo-wrapper">
+    <div class="loglogo">
+        <img src="~/images/logo.png" class="mb-3" alt="Logo" style="height: auto; max-height: 50px; width: auto;">
+    </div>
 </div>
 
 @if (ViewData.ModelState.ContainsKey("alreadyExist"))
