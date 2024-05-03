@@ -1,8 +1,15 @@
 ﻿@model User
 @{
     ViewData["Title"] = "Profile Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@section styles {
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+}
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+}
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
@@ -34,7 +41,29 @@
 </header>
 <div class="text-center">
     <h1 class="display-4">Profile data</h1>
-    <p>FirstName: @Model.FirstName</p>
-    <p>LastName: @Model.LastName</p>
-    <p>Email: @Model.Email</p>
+    <p>welcome, @Model.FirstName  @Model.LastName</p>
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown button
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">test123</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+    </div>
 </div>
+<div class="text-center" id="profileDiv" style="display: none;">
+    <p>First name: @Model.FirstName</p>
+    <p>Last name: @Model.LastName</p>
+    <p>Email: @Model.Email</p>
+    <td>
+        <a class="btn btn-secondary" asp-action="Edit">Edit profile</a>
+    </td>
+</div>
+<div id="songstats" style="display:none;">
+
+    <p>Goe gedaan et werkt </p>
+</div>
+
+
