@@ -74,8 +74,17 @@
                     data: { searchText: searchText },
                     success: function (response) {
                         if (response.success) {
-                            var listArtistHtml = "Artists";
-                            $.each(response.artists.slice(0, 5), function (index, artist) {
+                            var listArtistHtml = "Songs";
+                            $.each(response.songs.slice(0, 6), function (index, song) {
+                                listArtistHtml += '<a href="#" class="list-group-item list-group-item-action">';
+                                listArtistHtml += '<div class="artist-info">';
+                                listArtistHtml += '<img src="' + song.image + '" class="img-fluid" />';
+                                listArtistHtml += '<p>' + song.name + '</p>';
+                                listArtistHtml += '</div>';
+                                listArtistHtml += '</a>';
+                            });
+                            listArtistHtml += "Artists";
+                            $.each(response.artists.slice(0, 6), function (index, artist) {
                                 listArtistHtml += '<a href="#" class="list-group-item list-group-item-action">';
                                 listArtistHtml += '<div class="artist-info">';
                                 listArtistHtml += '<img src="' + artist.image + '" class="img-fluid" />';
@@ -83,12 +92,22 @@
                                 listArtistHtml += '</div>';
                                 listArtistHtml += '</a>';
                             });
-                            listArtistHtml += "Songs";
-                            $.each(response.songs.slice(0, 10), function (index, song) {
+                            
+                            listArtistHtml += "Albums";
+                            $.each(response.albums.slice(0, 6), function (index, albums) {
                                 listArtistHtml += '<a href="#" class="list-group-item list-group-item-action">';
                                 listArtistHtml += '<div class="artist-info">';
-                                listArtistHtml += '<img src="' + song.image + '" class="img-fluid" />';
-                                listArtistHtml += '<p>' + song.name + '</p>';
+                                listArtistHtml += '<img src="' + albums.image + '" class="img-fluid" />';
+                                listArtistHtml += '<p>' + albums.name + '</p>';
+                                listArtistHtml += '</div>';
+                                listArtistHtml += '</a>';
+                            });
+                            listArtistHtml += "Playlists";
+                            $.each(response.playlists.slice(0, 6), function (index, playlists) {
+                                listArtistHtml += '<a href="#" class="list-group-item list-group-item-action">';
+                                listArtistHtml += '<div class="artist-info">';
+                                listArtistHtml += '<img src="' + playlists.image + '" class="img-fluid" />';
+                                listArtistHtml += '<p>' + playlists.name + '</p>';
                                 listArtistHtml += '</div>';
                                 listArtistHtml += '</a>';
                             });
