@@ -1,7 +1,7 @@
 ﻿body {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; 
     height: 100vh;
     margin: 0;
     background: linear-gradient(to bottom, gray, white);
@@ -14,6 +14,7 @@
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
     border: #BEDC6D solid 5px;
     text-align: center;
+    margin-top: 50px;
 }
 
 .btn-primary {
@@ -22,7 +23,7 @@
 }
 
     .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
-        background-color: #52F6FB; 
+        background-color: #52F6FB;
         border-color: #52F6FB;
     }
 
@@ -36,8 +37,28 @@
         border-color: #52F6FB;
     }
 
+.loglogo-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    margin-top: 20px; 
+}
+
 .loglogo {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+}
+
+@media (min-width: 480px) and (max-width: 768px) {
+    .col-md-4 {
+        width: 50%; /* Maak de container 90% breedte op schermen tussen 480px en 768px */
+        max-width: none; /* Optioneel: verwijder eventuele beperkingen op de maximale breedte */
+    }
+}
+
+@media (max-width: 480px) {
+    .col-md-4 {
+        width: 80%; 
+        max-width: none; 
+    }
 }
