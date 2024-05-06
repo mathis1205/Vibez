@@ -1,13 +1,15 @@
-﻿@{
+﻿@model MVC_Vibez.Model.User
+@{
     ViewData["Title"] = "About page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Html.Partial("_Navbar")
+@Html.Partial("_Navbar", Model)
 
 @section Styles {
-    <link rel="stylesheet" type="text/css" href="~/css/About.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/About.css"/>
 }
+
 <section class="abHeader border rounded mb-3 mx-auto">
     <h1 class="p-3">Welcome to Vibez</h1>
 </section>
@@ -27,7 +29,6 @@
 <section class="abImageContainer container">
     <div class="row justify-content-center">
         <div class="col text-center">
-            <!-- Center the column content -->
             <img src="~/images/Temp.jpg" alt="Company Image" class="abImage img-fluid">
         </div>
     </div>

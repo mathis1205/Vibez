@@ -1,9 +1,9 @@
 ﻿using System.Text;
+using MVC_Vibez.Models;
 using Newtonsoft.Json;
 using RestSharp;
-using SpotifySearch;
 
-namespace MVC_Vibez.Models;
+namespace MVC_Vibez.Model;
 
 public class SearchHelper
 {
@@ -12,7 +12,7 @@ public class SearchHelper
     private static Token _token;
     private static DateTime _tokenExpirationTime;
 
-    public static async Task<Token> GetTokenAsync()
+    private static async Task<Token> GetTokenAsync()
     {
         if (_token != null && DateTime.Now < _tokenExpirationTime) return _token;
 
@@ -30,7 +30,7 @@ public class SearchHelper
         return _token;
     }
 
-    public static async Task<SpotifySearch.Welcome> SearchAll(string searchWord)
+    public static async Task<Welcome> SearchAll(string searchWord)
     {
         var token = await GetTokenAsync();
         var client = new RestClient("https://api.spotify.com/v1/search");
@@ -38,12 +38,12 @@ public class SearchHelper
         var request = new RestRequest($"?q={searchWord}&type=artist,album,playlist,track,show,episode,audiobook");
         var response = await client.ExecuteAsync(request);
 
-        if (response.IsSuccessful) return JsonConvert.DeserializeObject<SpotifySearch.Welcome>(response.Content);
+        if (response.IsSuccessful) return JsonConvert.DeserializeObject<Welcome>(response.Content);
 
         throw new Exception($"Failed to search for '{searchWord}'. Status code: {response.StatusCode}, Error: {response.ErrorMessage}");
     }
 
-    public static async Task<List<SpotifySearch.PlaylistsItem>> GetRandomPlaylistsAsync(int count)
+    public static async Task<List<PlaylistsItem>> GetRandomPlaylistsAsync(int count)
     {
         var token = await GetTokenAsync();
         var client = new RestClient("https://api.spotify.com/v1/browse/featured-playlists");
@@ -53,10 +53,11 @@ public class SearchHelper
 
         if (response.IsSuccessful)
         {
-            var result = JsonConvert.DeserializeObject<FeaturedPlaylistsResponse>(response.Content);
-            return result.playlists.Items;
+            var result = JsonConvert.DeserializeObject<FeaturedPlaylistsResponse>(response.Content!);
+            return result!.playlists.Items;
         }
 
-        throw new Exception($"Failed to get the playlists. Status code: {response.StatusCode}, Error: {response.ErrorMessage}");
+        throw new Exception(
+            $"Failed to get the playlists. Status code: {response.StatusCode}, Error: {response.ErrorMessage}");
     }
 }

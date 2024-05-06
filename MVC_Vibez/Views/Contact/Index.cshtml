@@ -1,9 +1,10 @@
-﻿@{
-    ViewData["Title"] = "Contact Page";
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model MVC_Vibez.Model.ProgramPage
+@{
+    ViewBag.Title = "Contact Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-@Html.Partial("_Navbar")
+@await Html.PartialAsync("_Navbar", Model.user)
 
 @section Styles {
     <link rel="stylesheet" type="text/css" href="~/css/contact.css" />
@@ -13,16 +14,15 @@
     <div class="text-center">
         <h1 class="display-4">Contact form</h1>
     </div>
-    @model ContactFormSubmission
     @using (Html.BeginForm("SubmitContactForm", "Contact", FormMethod.Post))
     {
-        <label asp-for="Email" class="form-label">Email</label>
-        <input asp-for="Email" class="form-control" required />
-        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        <label asp-for="contactForm.Email" class="form-label">Email</label>
+        <input asp-for="contactForm.Email" class="form-control" required />
+        @Html.ValidationMessageFor(model => model.contactForm.Email, "", new { @class = "text-danger" })
 
-        <label asp-for="Message" class="form-label">Message</label>
-        <textarea asp-for="Message" class="form-control" required rows="4"></textarea>
-        @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+        <label asp-for="contactForm.Message" class="form-label">Message</label>
+        <textarea asp-for="contactForm.Message" class="form-control" required rows="4"></textarea>
+        @Html.ValidationMessageFor(model => model.contactForm.Message, "", new { @class = "text-danger" })
 
         <button class="btn btnSend btn-primary" type="submit">Send</button>
     }

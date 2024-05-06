@@ -3,9 +3,6 @@
     ViewData["Title"] = "Program";
 }
 @Html.Partial("_Navbar", Model.user)
-
-<!DOCTYPE html>
-<html>
 <head>
     <meta name="viewport" content="width=device-width"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -42,7 +39,7 @@
 <script>
         $(document).ready(function () {
             var typingTimer;
-            var doneTypingInterval = 300;
+            var doneTypingInterval = 100;
 
             $("#txtSearch").keyup(function () {
                 clearTimeout(typingTimer);
@@ -51,6 +48,10 @@
 
             function performSearch() {
                 var searchText = $("#txtSearch").val();
+                if (searchText.trim() === '') {
+                    $("#searchResults").empty();
+                    return;
+                }
                 $.ajax({
                     type: "POST",
                     url: "@Url.Action("Autocomplete", "Program")",
@@ -106,6 +107,4 @@
             }
         });
     </script>
-
 </body>
-</html>

@@ -15,6 +15,7 @@
 
 .sidebar {
     height: calc(100vh - 70px);
+    max-width: 350px;
     position: fixed;
     top: 130px;
     left: 0;
@@ -48,4 +49,20 @@
     margin-right: 10px;
     max-width: 50px;
     height: auto;
+}
+
+.playlist-card {
+    height: 100%;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-text {
+    margin-top: auto;
+}
+.col-md-2 {
+    margin-bottom: 20px;
 }

@@ -1,13 +1,14 @@
-﻿@model User
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model MVC_Vibez.Model.User
 @{
     ViewData["Title"] = "Profile Page";
 }
-@Html.Partial("_Navbar")
+@Html.Partial("_Navbar", Model)
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="text-center">
-                <img src="@Model.ProfilePicture" alt="pfp" style="border-radius: 50%; height: 20%; width: 20%;"/>
+                <img src="@Model.ProfilePicture" alt="pfp" style="border-radius: 50%; height: 20%; width: 20%;" />
                 <p style="font-size: larger;">Welcome, @Model.FirstName @Model.LastName </p>
             </div>
             <div class="card">
@@ -15,7 +16,7 @@
                     <h5 class="card-title">User Information</h5>
                     <p class="card-text">First Name: @Model.FirstName</p>
                     <p class="card-text">Last Name: @Model.LastName</p>
-                    <p class="card-text">Emai: @Model.Email</p>
+                    <p class="card-text">Email: @Model.Email</p>
                     <p class="card-text">
                         Password:
                         <span id="password" style="cursor: pointer;" onclick="togglePassword()">
@@ -36,25 +37,28 @@
     </div>
 </div>
 <div class="text-center">
+    <!-- Display validation errors -->
+    @if (ViewData.ModelState.IsValid == false)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewData.ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault()?.ErrorMessage
+        </div>
+    }
+
     <form asp-action="UploadProfilePicture" asp-controller="Profile" method="post" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="profilePicture">Uploud a profile picture?</label>
-
+            <label for="profilePicture">Upload a profile picture?</label>
             <input type="file" class="form-control-file" id="profilePicture" name="profilePicture">
         </div>
         <button type="submit" class="btn btn-primary">Upload</button>
     </form>
-
 </div>
 
 <script>
     function togglePassword() {
         var passwordField = document.getElementById("password");
         var boldText = "<strong>click to reveal password</strong>";
-        if (passwordField.innerHTML === boldText) {
-            passwordField.innerHTML = "@Model.Password";
-        } else {
-            passwordField.innerHTML = boldText;
-        }
+        if (passwordField.innerHTML === boldText) passwordField.innerHTML = "@Model.Password";
+        else passwordField.innerHTML = boldText;
     }
 </script>
