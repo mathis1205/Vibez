@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC_Vibez.Core;
-using MVC_Vibez.Model;
 
 namespace MVC_Vibez.Controllers;
 
@@ -37,11 +36,7 @@ public class ProfileController : Controller
 
             return RedirectToAction("Index");
         }
-
-        user.ProfilePicture = "images/defaultuser.jpg";
-        _dbContext.Users.Update(user);
-        await _dbContext.SaveChangesAsync();
-        ModelState.AddModelError("profilePicture", "Please select an image to upload.");
-        return View("Index",user);
+        TempData["ErrorMessage"] = "Please select an image to upload.";
+        return RedirectToAction("Index");
     }
 }

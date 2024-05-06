@@ -3,7 +3,8 @@
 @{
     ViewData["Title"] = "Profile Page";
 }
-@Html.Partial("_Navbar", Model)
+
+@await Html.PartialAsync("_Navbar", Model)
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -37,14 +38,12 @@
     </div>
 </div>
 <div class="text-center">
-    <!-- Display validation errors -->
-    @if (ViewData.ModelState.IsValid == false)
+    @if (TempData["ErrorMessage"] != null)
     {
         <div class="alert alert-danger" role="alert">
-            @ViewData.ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault()?.ErrorMessage
+            @TempData["ErrorMessage"]
         </div>
     }
-
     <form asp-action="UploadProfilePicture" asp-controller="Profile" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="profilePicture">Upload a profile picture?</label>
