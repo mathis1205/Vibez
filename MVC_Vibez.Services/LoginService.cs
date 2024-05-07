@@ -12,6 +12,7 @@ public class LoginService
     public User? Create(User user)
     {
         user.ProfilePicture = "images/defaultuser.jpg";
+        user.Password = HashingHelper.HashPassword(user.Password);
         _context.Users.Add(user);
         _context.SaveChanges();
         return user;
