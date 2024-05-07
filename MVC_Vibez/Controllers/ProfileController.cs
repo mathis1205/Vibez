@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC_Vibez.Core;
+using MVC_Vibez.Model;
 
 namespace MVC_Vibez.Controllers;
 

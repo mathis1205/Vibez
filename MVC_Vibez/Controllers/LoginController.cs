@@ -17,8 +17,7 @@ public class LoginController : Controller
     private readonly ILogger<LoginController> _logger;
     private readonly LoginService _loginService;
 
-    public LoginController(ILogger<LoginController> logger, VibezDbContext dbContext, EmailService emailService,
-        LoginService loginService)
+    public LoginController(ILogger<LoginController> logger, VibezDbContext dbContext, EmailService emailService, LoginService loginService)
     {
         _dbContext = dbContext;
         _logger = logger;
@@ -51,25 +50,31 @@ public class LoginController : Controller
     [HttpPost]
     public async Task<IActionResult> Login(User user)
     {
-        var validUser = _dbContext.Users.FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password);
+        var storedUser = _dbContext.Users.FirstOrDefault(u => u.Email == user.Email);
 
-        if (validUser == null)
+        if (storedUser == null)
         {
             ModelState.AddModelError("", "Invalid email or password");
             return View("Index", user);
         }
 
-        if (!validUser.IsValid)
+        var hashedEnteredPassword = HashingHelper.HashPassword(user.Password);
+        if (storedUser.Password != hashedEnteredPassword)
         {
-            ModelState.AddModelError("",
-                "Please validate your account first by clicking on the link in the email we sent you.");
+            ModelState.AddModelError("", "Invalid email or password");
             return View("Index", user);
         }
 
-        validUser.Loggedin = true;
+        if (!storedUser.IsValid)
+        {
+            ModelState.AddModelError("", "Please validate your account first by clicking on the link in the email we sent you.");
+            return View("Index", user);
+        }
+
+        storedUser.Loggedin = true;
         await _dbContext.SaveChangesAsync();
 
-        var claims = new[] { new Claim(ClaimTypes.Name, validUser.Email) };
+        var claims = new[] { new Claim(ClaimTypes.Name, storedUser.Email) };
         var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
         var principal = new ClaimsPrincipal(identity);
 
@@ -80,10 +85,7 @@ public class LoginController : Controller
     public IActionResult Logout() => RedirectToAction("Index", "Login");
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
+    public IActionResult Error() => View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 
     [HttpGet]
     public async Task<IActionResult> Validate(string token)

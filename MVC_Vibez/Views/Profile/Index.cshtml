@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
-@model MVC_Vibez.Model.User
+﻿@model MVC_Vibez.Model.User
 @{
     ViewData["Title"] = "Profile Page";
 }
@@ -18,12 +17,6 @@
                     <p class="card-text">First Name: @Model.FirstName</p>
                     <p class="card-text">Last Name: @Model.LastName</p>
                     <p class="card-text">Email: @Model.Email</p>
-                    <p class="card-text">
-                        Password:
-                        <span id="password" style="cursor: pointer;" onclick="togglePassword()">
-                            <strong>click to reveal password</strong>
-                        </span>
-                    </p>
                 </div>
             </div>
             <div class="card" style="margin-top: 20px;">
@@ -52,12 +45,3 @@
         <button type="submit" class="btn btn-primary">Upload</button>
     </form>
 </div>
-
-<script>
-    function togglePassword() {
-        var passwordField = document.getElementById("password");
-        var boldText = "<strong>click to reveal password</strong>";
-        if (passwordField.innerHTML === boldText) passwordField.innerHTML = "@Model.Password";
-        else passwordField.innerHTML = boldText;
-    }
-</script>
