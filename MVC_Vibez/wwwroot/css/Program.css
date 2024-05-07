@@ -12,6 +12,24 @@
     background-color: transparent !important;
     border: solid rgb(0, 0, 0, 0.2) 1px;
 }
+.playlist-container {
+    position:fixed;
+    right:0;
+    max-height: 650px; 
+    width:86%;
+    overflow-y: auto;
+}
+
+.playlist-items {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center;
+}
+
+.playlist-item {
+    width: calc(16.666% - 20px); 
+    margin: 10px;
+}
 
 .sidebar {
     height: calc(100vh - 70px);
@@ -50,6 +68,7 @@
     max-width: 50px;
     height: auto;
 }
+<<<<<<< Updated upstream
 
 .playlist-card {
     height: 100%;
@@ -65,4 +84,29 @@
 }
 .col-md-2 {
     margin-bottom: 20px;
+=======
+#mediaPlayer {
+    position: fixed;
+    bottom: 20px;
+    right : 0;
+    width: 86%;
+    background-color: transparent;
+    padding: 10px;
+    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+}
+.mediaPlayerControls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#currentSong {
+    text-align: center;
+}
+
+#songImage {
+    max-width: 100%;
+    max-height: 100px;
+>>>>>>> Stashed changes
 }

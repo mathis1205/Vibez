@@ -3,9 +3,20 @@
     ViewData["Title"] = "Program";
 }
 
+<<<<<<< Updated upstream
 @await Html.PartialAsync("_Navbar", Model.user)
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="css/Program.css"/>
+=======
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/Program.css"/>
+</head>
+>>>>>>> Stashed changes
 <body>
 <div class="sidebar bg-light">
     <div class="search-box">
@@ -17,21 +28,29 @@
 </div>
 
 <div class="main-content">
-    <div class="container">
-        <div class="row">
-            @foreach (var playlist in Model.playlists)
-            {
-                <div class="col-md-2">
-                    <div class="card playlist-card">
-                        <img src="@playlist.Images?[0].Url" class="card-img-top" alt="Playlist Image">
-                        <div class="card-body">
-                            <h5 class="card-title">@playlist.Name</h5>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<!-- Playlist Container -->
+				<div class="playlist-container">
+					<!-- Playlists -->
+					<div class="playlist-items">
+						@foreach (var playlist in Model.playlists)
+						{
+							<div class="playlist-item">
+								<div class="card playlist-card">
+									<img src="@playlist.Images?[0].Url" class="card-img-top" alt="Playlist Image">
+									<div class="card-body">
+										<h5 class="card-title">@playlist.Name</h5>
+									</div>
+								</div>
+							</div>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <script>
@@ -105,4 +124,19 @@
             }
         });
     </script>
+<<<<<<< Updated upstream
 </body>
+=======
+<div id="mediaPlayer">
+	<div class="mediaPlayerControls">
+		<button id="backwardBtn"><i class="material-icons">skip_previous</i></button>
+		<button id="playPauseBtn"><i class="material-icons">play_arrow</i></button>
+		<button id="forwardBtn"><i class="material-icons">skip_next</i></button>
+	</div>
+	<div id="currentSong">
+		<img id="songImage" src="" alt="Song Image">
+	</div>
+</div>
+</body>
+</html>
+>>>>>>> Stashed changes
