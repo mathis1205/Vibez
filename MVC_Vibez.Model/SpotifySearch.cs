@@ -1,4 +1,4 @@
-﻿namespace SpotifySearch;
+﻿namespace MVC_Vibez.Model;
 
 public class Welcome
 {
@@ -118,10 +118,12 @@ public class PlaylistsItem
     public string Uri { get; set; }
     public object PrimaryColor { get; set; }
 }
+
 public class FeaturedPlaylistsResponse
 {
     public Playlists playlists { get; set; }
 }
+
 public class Tracks
 {
     public Uri Href { get; set; }

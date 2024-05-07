@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using MVC_Vibez.Core;
+using MVC_Vibez.Model;
 using MVC_Vibez.Models;
 using MVC_Vibez.Services;
 
@@ -25,20 +26,10 @@ public class LoginController : Controller
         _loginService = loginService;
     }
 
-    public async Task<IActionResult> Index()
-    {
-        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        return View();
-    }
+    public IActionResult Index() => View();
+    [HttpGet] public IActionResult Create() => View();
 
-    [HttpGet]
-    public IActionResult Create()
-    {
-        return View();
-    }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
+    [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(User user)
     {
         if (_dbContext.Users.Any(_user => _user.Email.Equals(user.Email)))
@@ -50,8 +41,8 @@ public class LoginController : Controller
         user.ValidationToken = Guid.NewGuid().ToString();
         _loginService.Create(user);
 
-        string validationLink = $"https://localhost:7286/Login/Validate?token={user.ValidationToken}";
-        string emailBody = $"Welcome to Vibez! </br> Please click <a href='{validationLink}'>here</a> to validate your account and login. </br> If you have any questions or issues please contact : vibezteamhelp@gmail.com </br> Have fun and vibe on!";
+        var validationLink = $"https://localhost:7286/Login/Validate?token={user.ValidationToken}";
+        var emailBody = $"Welcome to Vibez! </br> Please click <a href='{validationLink}'>here</a> to validate your account and login. </br> If you have any questions or issues please contact : vibezteamhelp@gmail.com </br> Have fun and vibe on!";
         await _emailService.SendEmailAsync(user.Email, "Dear user,", emailBody);
 
         return RedirectToAction("Index", "Login");
@@ -70,12 +61,13 @@ public class LoginController : Controller
 
         if (!validUser.IsValid)
         {
-            ModelState.AddModelError("", "Please validate your account first by clicking on the link in the email we sent you.");
+            ModelState.AddModelError("",
+                "Please validate your account first by clicking on the link in the email we sent you.");
             return View("Index", user);
         }
 
-        validUser.loggedin = true;
-        _dbContext.SaveChanges();
+        validUser.Loggedin = true;
+        await _dbContext.SaveChangesAsync();
 
         var claims = new[] { new Claim(ClaimTypes.Name, validUser.Email) };
         var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -85,14 +77,7 @@ public class LoginController : Controller
         return RedirectToAction("Index", "Program");
     }
 
-
-
-    [HttpPost]
-    public async Task<IActionResult> Logout()
-    {
-        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        return RedirectToAction("Index", "Home");
-    }
+    public IActionResult Logout() => RedirectToAction("Index", "Login");
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
@@ -114,7 +99,7 @@ public class LoginController : Controller
             }
 
             user.IsValid = true;
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
 
             var claims = new[] { new Claim(ClaimTypes.Name, user.Email) };
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -128,5 +113,4 @@ public class LoginController : Controller
             return View("Error");
         }
     }
-
 }

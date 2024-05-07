@@ -1,39 +1,37 @@
-﻿
-
-body {
-    justify-content: center;
+﻿body {
     align-items: center;
-    margin: 0;
     background: linear-gradient(to bottom, gray, white);
+    justify-content: center;
+    margin: 0;
 }
 
 .navbar {
-    margin-top: 15px;
-    margin-bottom: 20px;
-    border-radius: 35px;
     background-color: transparent !important;
     border: solid rgb(0, 0, 0, 0.2) 1px;
+    border-radius: 35px;
+    margin-bottom: 20px;
+    margin-top: 15px;
 }
 
 
 .container-contact-form {
-    width: 50%;
-    position: relative;
     background-color: rgba(0, 0, 0, 0.2);
-    padding: 25px;
-    border-radius: 25px;
     border: 2px solid #BEDC6D;
-    margin-top: 100px;
+    border-radius: 25px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 100px;
+    padding: 25px;
+    position: relative;
+    width: 50%;
 }
 
 
 .btnSend {
-    margin-top: 40px;
     left: 50%;
-    transform: translateX(-50%);
+    margin-top: 40px;
     position: absolute;
+    transform: translateX(-50%);
 }
 
 .btn-primary {
@@ -41,7 +39,7 @@ body {
     border-color: #BEDC6D;
 }
 
-    .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
-        background-color: #52F6FB;
-        border-color: #52F6FB;
-    }
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+    background-color: #52F6FB;
+    border-color: #52F6FB;
+}

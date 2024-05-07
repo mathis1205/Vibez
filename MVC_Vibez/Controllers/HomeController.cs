@@ -9,16 +9,9 @@ namespace MVC_Vibez.Controllers
         //create instance of the logger
         private readonly ILogger<HomeController> _logger;
         //Initialize the instance of logger
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        public HomeController(ILogger<HomeController> logger) => _logger = logger;
 
-        public IActionResult Index()
-        {
-            //returns the view of the action
-            return View();
-        }
+        public IActionResult Index() => View();
 
         //create a result if the code would error
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

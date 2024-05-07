@@ -1,10 +1,9 @@
-﻿namespace MVC_Vibez.Models
+﻿namespace MVC_Vibez.Model;
+
+public class Spotify
 {
-    public class Spotify
-    {
-        //create the variables for the artists
-        public string ID { get; set; }
-        public string Name { get; set; }
-        public string Image { get; set; }
-    }
+    //create the variables for the artists
+    public string ID { get; set; }
+    public string Name { get; set; }
+    public string Image { get; set; }
 }

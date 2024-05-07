@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace MVC_Vibez.Models;
+namespace MVC_Vibez.Model;
 
 public class User
 {
@@ -10,10 +10,10 @@ public class User
     public string LastName { get; set; }
     [EmailAddress] public string Email { get; set; }
     [PasswordPropertyText] public string Password { get; set; }
-    public bool loggedin { get; set; } = false;
+    public bool Loggedin { get; set; }
     public LoginToken LoginToken { get; set; }
     public string ValidationToken { get; set; }
-    public bool IsValid { get; set; } = false;
+    public bool IsValid { get; set; }
 
     public string? ProfilePicture { get; set; }
 }
