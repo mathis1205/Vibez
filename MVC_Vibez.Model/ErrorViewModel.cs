@@ -4,7 +4,6 @@ namespace MVC_Vibez.Models
     {
         //create the variables for if it errors
         public string? RequestId { get; set; }
-
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
     }
 }

@@ -1,4 +1,5 @@
-﻿@model User
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model MVC_Vibez.Model.User
 
 @{
     ViewBag.Title = "Register";
@@ -6,8 +7,9 @@
 }
 
 @section Styles {
-    <link rel="stylesheet" type="text/css" href="~/css/login.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/login.css"/>
 }
+
 <div class="loglogo-wrapper">
     <div class="loglogo">
         <img src="~/images/logo.png" class="mb-3" alt="Logo" style="height: auto; max-height: 50px; width: auto;">

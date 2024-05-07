@@ -1,4 +1,4 @@
-﻿namespace MVC_Vibez.Models;
+﻿namespace MVC_Vibez.Model;
 public class LoginToken
 {
     public int Id { get; set; }
