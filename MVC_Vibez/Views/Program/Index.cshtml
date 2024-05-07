@@ -1,30 +1,27 @@
 ﻿@model MVC_Vibez.Model.ProgramPage
 @{
-    ViewData["Title"] = "Program";
+	ViewData["Title"] = "Program";
 }
 
-<<<<<<< Updated upstream
 @await Html.PartialAsync("_Navbar", Model.user)
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="css/Program.css"/>
-=======
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="css/Program.css"/>
+	<meta name="viewport" content="width=device-width"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	<link rel="stylesheet" href="css/Program.css"/>
 </head>
->>>>>>> Stashed changes
 <body>
 <div class="sidebar bg-light">
-    <div class="search-box">
-        <input type="text" id="txtSearch" class="form-control mb-3" placeholder="Search">
-    </div>
-    <div id="searchResults" class="search-results list-group">
-        <!-- Bootstrap list group items will be dynamically generated here -->
-    </div>
+	<div class="search-box">
+		<input type="text" id="txtSearch" class="form-control mb-3" placeholder="Search">
+	</div>
+	<div id="searchResults" class="search-results list-group">
+		<!-- Bootstrap list group items will be dynamically generated here -->
+	</div>
 </div>
 
 <div class="main-content">
@@ -124,19 +121,20 @@
             }
         });
     </script>
-<<<<<<< Updated upstream
-</body>
-=======
 <div id="mediaPlayer">
 	<div class="mediaPlayerControls">
-		<button id="backwardBtn"><i class="material-icons">skip_previous</i></button>
-		<button id="playPauseBtn"><i class="material-icons">play_arrow</i></button>
-		<button id="forwardBtn"><i class="material-icons">skip_next</i></button>
-	</div>
-	<div id="currentSong">
-		<img id="songImage" src="" alt="Song Image">
+		<input type="range" name="range" id="myProgressBar" min="0" max="100">
+		<div class="icons">
+			<!-- fontawesome icons -->
+			<i class="fas fa-fast-backward"></i>
+			<i class="fas fa-play"></i>
+			<i class="fas fa-fast-forward"></i>
+               
+		</div>
+		<div class="songInfo">
+			<img src="playing.gif" width="42px" alt="">
+		</div>
 	</div>
 </div>
 </body>
 </html>
->>>>>>> Stashed changes

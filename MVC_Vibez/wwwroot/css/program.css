@@ -1,57 +1,55 @@
 ﻿body {
-    justify-content: center;
     align-items: center;
-    margin: 0;
     background: linear-gradient(to bottom, gray, white);
+    justify-content: center;
+    margin: 0;
 }
 
 .navbar {
-    margin-top: 15px;
-    margin-bottom: 20px;
-    border-radius: 35px;
     background-color: transparent !important;
     border: solid rgb(0, 0, 0, 0.2) 1px;
+    border-radius: 35px;
+    margin-bottom: 20px;
+    margin-top: 15px;
 }
+
 .playlist-container {
-    position:fixed;
-    right:0;
-    max-height: 650px; 
-    width:86%;
+    top: 130px;
+    max-height: 680px;
     overflow-y: auto;
+    position: fixed;
+    right: 0;
+    width: 86%;
 }
 
 .playlist-items {
     display: flex;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     justify-content: center;
 }
 
 .playlist-item {
-    width: calc(16.666% - 20px); 
     margin: 10px;
+    width: calc(16.666% - 20px);
 }
 
 .sidebar {
-    height: calc(100vh - 70px);
-    max-width: 350px;
-    position: fixed;
-    top: 130px;
-    left: 0;
-    z-index: 1;
-    overflow-x: hidden;
-    padding-top: 20px;
-    transition: all 0.3s;
     border: solid black 1px;
     border-top-right-radius: 10px;
+    height: calc(100vh - 70px);
+    left: 0;
+    max-width: 350px;
+    overflow-x: hidden;
+    padding-top: 20px;
+    position: fixed;
+    top: 130px;
+    transition: all 0.3s;
+    z-index: 1;
 }
 
-.sidebar .search-box {
-    padding: 20px;
-}
+.sidebar .search-box { padding: 20px; }
 
-.sidebar .search-results {
-    padding: 20px;
-}
+.sidebar .search-results { padding: 20px; }
 
 .main-content {
     margin-left: 250px;
@@ -59,54 +57,54 @@
 }
 
 .artist-info {
-    display: flex;
     align-items: center;
+    display: flex;
 }
 
 .artist-info img {
+    height: auto;
     margin-right: 10px;
     max-width: 50px;
-    height: auto;
 }
-<<<<<<< Updated upstream
 
-.playlist-card {
-    height: 100%;
-}
+.playlist-card { height: 100%; }
 
 .card-body {
     display: flex;
     flex-direction: column;
 }
 
-.card-text {
-    margin-top: auto;
-}
-.col-md-2 {
-    margin-bottom: 20px;
-=======
+.card-text { margin-top: auto; }
+
+.col-md-2 { margin-bottom: 20px; }
+
 #mediaPlayer {
-    position: fixed;
-    bottom: 20px;
-    right : 0;
-    width: 86%;
     background-color: transparent;
-    padding: 10px;
+    bottom: 20px;
     box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 999;
+    padding: 10px;
+    position: fixed;
+    right: 0;
+    width: 86%;
+    z-index: 1;
 }
+.mediaPlayerControls button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    margin:10px; 
+}
+
 .mediaPlayerControls {
+    align-items: center;
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
-#currentSong {
-    text-align: center;
-}
+#currentSong { text-align: center; }
 
 #songImage {
-    max-width: 100%;
     max-height: 100px;
->>>>>>> Stashed changes
+    max-width: 100%;
 }
