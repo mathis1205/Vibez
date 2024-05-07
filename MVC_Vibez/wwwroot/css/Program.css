@@ -80,7 +80,7 @@
 
 #mediaPlayer {
     background-color: transparent;
-    bottom: 20px;
+    bottom: 0;
     box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
     padding: 10px;
     position: fixed;
