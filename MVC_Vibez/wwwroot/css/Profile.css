@@ -1,0 +1,36 @@
+﻿body {
+    align-items: center;
+    background: linear-gradient(to bottom, gray, white);
+    justify-content: center;
+    margin: 0;
+}
+
+.navbar {
+    background-color: transparent !important;
+    border: solid rgb(0, 0, 0, 0.2) 1px;
+    border-radius: 35px;
+    margin-bottom: 20px;
+    margin-top: 15px;
+}
+.Profile_card {
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 2px solid #BEDC6D;
+    border-radius: 25px;
+    margin-top: 20px;
+    padding: 25px;
+    position: relative;
+}
+.btnUpload {
+    left: 50%;
+    margin-top: 40px;
+    position: absolute;
+    transform: translateX(-50%);
+}
+.btn-primary {
+    background-color: #BEDC6D;
+    border-color: #BEDC6D;
+}
+    .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+        background-color: #52F6FB;
+        border-color: #52F6FB;
+    }
