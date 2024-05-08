@@ -1,8 +1,20 @@
 @model MVC_Vibez.Model.User
 @{
-ViewData["Title"] = "Library";
-Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Library";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 @await Html.PartialAsync("_Navbar", Model)
+
+<h2>@Model.FirstName's Favorite Spotify Items</h2>
+
+<ul>
+    @foreach (var item in Model.FavoriteSpotifyItems)
+    {
+        <li>
+            <img src="@item.Image" alt="@item.Name" />
+            <h3>@item.Name</h3>
+            <a href="@Url.Action("RemoveFromFavorites", "Library", new { itemId = item.ID })">Remove from favorites</a>
+        </li>
+    }
+</ul>
