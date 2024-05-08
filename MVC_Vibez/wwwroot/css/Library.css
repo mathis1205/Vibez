@@ -1,15 +1,14 @@
 ﻿body {
-    justify-content: center;
     align-items: center;
+    background: linear-gradient(to bottom, white, gray);
+    justify-content: center;
     margin: 0;
-    background: linear-gradient(to bottom, gray, white);
-    height: auto;
 }
 
 .navbar {
-    margin-top: 15px;
-    margin-bottom: 20px;
-    border-radius: 35px;
     background-color: transparent !important;
-    border: solid rgb(0, 0, 0, 0.2) 1px;
+    border: solid rgb(0, 0, 0, 0.2) 3px;
+    border-radius: 35px;
+    margin-bottom: 20px;
+    margin-top: 15px;
 }
