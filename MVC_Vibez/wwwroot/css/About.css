@@ -1,3 +1,16 @@
+body {
+    align-items: center;
+    background: linear-gradient(to bottom, gray, white);
+    justify-content: center;
+    margin: 0;
+}
+.navbar {
+    background-color: transparent !important;
+    border: solid rgb(0, 0, 0, 0.2) 1px;
+    border-radius: 35px;
+    margin-bottom: 20px;
+    margin-top: 15px;
+}
 .abContainment {
     align-items: center;
     display: flex;
@@ -7,11 +20,13 @@
 }
 
 .abText {
-    text-align: center;
-    background-color: #F9D354;
-    border-radius: 10px;
-    border: 1px solid #52F6FB;
-    padding: 20px 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 2px solid #BEDC6D;
+    border-radius: 25px;
+    margin-top: 20px;
+    padding: 25px;
+    position: relative;
+    text-align:center;
 }
 
 .abText h2 {
@@ -29,9 +44,9 @@
 }
 
 .abHeader {
-    background-color: #F9D354;
-    border: 1px solid #52F6FB;
-    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 2px solid #BEDC6D !important;
+    border-radius: 25px;
     max-width: 400px;
     padding: 10px;
     text-align: center;
