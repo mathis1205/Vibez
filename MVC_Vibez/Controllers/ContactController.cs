@@ -18,20 +18,20 @@ public class ContactController : Controller
 
     public IActionResult Index()
     {
-        var user = _ProgramService.GetUserByEmail(User.Identity.Name);
-        var contactForm = new ContactFormSubmission();
+        var currentUser = _ProgramService.GetUserByEmail(User.Identity.Name);
+        var newContactFormSubmission = new ContactFormSubmission();
 
-        if (user == null) return NotFound();
+        if (currentUser == null) return NotFound();
 
-        return View(new ProgramPage { user = user, contactForm = contactForm});
+        return View(new ProgramPage { user = currentUser, contactForm = newContactFormSubmission });
     }
 
     [HttpPost]
-    public async Task<IActionResult> SubmitContactForm(ContactFormSubmission submission)
+    public async Task<IActionResult> SubmitContactForm(ContactFormSubmission contactForm)
     {
         // Check if the model is valid
         if (!ModelState.IsValid) return View("Index");
-        _contactService.Submit(submission.Message, submission.Email);
+        _contactService.Submit(contactForm.Message, contactForm.Email);
         // Redirect to a confirmation view
         return RedirectToAction("Confirmation");
     }
