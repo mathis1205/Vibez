@@ -20,12 +20,10 @@
         <div class="col-md-4">
             <h1 style="color: #52F6FB;">@ViewBag.Title</h1>
             <form method="post" asp-action="Recovery">
-                @if (!ViewData.ModelState.IsValid)
+                @if (ViewData["MailSentTo"] != null)
                 {
-                    <div class="form-group">
-                        <div class="alert alert-danger" role="alert">
-                            @Html.ValidationMessageFor(model => model.Email, "No acount found with this Email", new { @class = "text-danger" })
-                        </div>
+                    <div class="alert alert-info" role="alert">
+                        Mail sent to <strong>@ViewData["MailSentTo"]</strong>
                     </div>
                 }
                 <div class="mb-3">
@@ -35,7 +33,6 @@
                 <button type="submit" class="btn btn-primary">Recover password</button>
                 <a class="btn btn-secondary" asp-controller="Login" asp-action="Index">Back to login</a>
             </form>
-
         </div>
     </div>
 </div>

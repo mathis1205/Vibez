@@ -124,6 +124,11 @@ public class LoginController : Controller
     [HttpPost]
     public async Task<IActionResult> Recovery(User user)
     {
+        if (!string.IsNullOrEmpty(user.Email))
+        {
+            ViewData["MailSentTo"] = user.Email;
+        }
+
         var existingUser = _dbContext.Users.FirstOrDefault(_user => _user.Email.Equals(user.Email));
         if (existingUser == null)
         {
@@ -139,7 +144,7 @@ public class LoginController : Controller
             var emailBody = $"Dear user, </br> Please click <a href='{recoveryLink}'>here</a> to reset your password. </br> If you did not request a password reset, please ignore this email.";
             await _emailService.SendEmailAsync(existingUser.Email, "Password Recovery", emailBody);
 
-            return RedirectToAction("Index", "Login");
+            return View(user);
         }
         catch (Exception ex)
         {
@@ -147,7 +152,6 @@ public class LoginController : Controller
             return View(user);
         }
     }
-
 
     public IActionResult ResetPassword(string token)
     {
