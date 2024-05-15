@@ -32,9 +32,8 @@ public class ContactController : Controller
         // Check if the model is valid
         if (!ModelState.IsValid) return View("Index");
         _contactService.Submit(contactForm.Message, contactForm.Email);
-        // Redirect to a confirmation view
-        return RedirectToAction("Confirmation");
+		// Redirect to a confirmation view
+		TempData["SuccessMessage"] = "Thanks for the contacting us, we will answer as fast as possible.";
+		return RedirectToAction("Index");
     }
-
-    public ActionResult Confirmation() => View();
 }
