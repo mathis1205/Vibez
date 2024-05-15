@@ -1,6 +1,6 @@
 ﻿@model MVC_Vibez.Model.ProgramPage
 @{
-	ViewData["Title"] = "Program";
+    ViewData["Title"] = "Program";
 }
 
 @await Html.PartialAsync("_Navbar", Model.user)
@@ -9,45 +9,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="viewport" content="width=device-width"/>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-	<link rel="stylesheet" href="css/Program.css"/>
+    <meta name="viewport" content="width=device-width"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/Program.css"/>
 </head>
 <body>
 <div class="sidebar bg-light">
-	<div class="search-box">
-		<input type="text" id="txtSearch" class="form-control mb-3" placeholder="Search">
-	</div>
-	<div id="searchResults" class="search-results list-group">
-		<!-- Bootstrap list group items will be dynamically generated here -->
-	</div>
+    <div class="search-box">
+        <input type="text" id="txtSearch" class="form-control mb-3" placeholder="Search">
+    </div>
+    <div id="searchResults" class="search-results list-group">
+    </div>
 </div>
 
 <div class="main-content">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<!-- Playlist Container -->
-				<div class="playlist-container">
-					<!-- Playlists -->
-					<div class="playlist-items">
-						@foreach (var playlist in Model.playlists)
-						{
-							<div class="playlist-item">
-								<div class="card playlist-card">
-									<img src="@playlist.Images?[0].Url" class="card-img-top" alt="Playlist Image">
-									<div class="card-body">
-										<h5 class="card-title">@playlist.Name</h5>
-									</div>
-								</div>
-							</div>
-						}
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="playlist-container">
+                    <div class="playlist-items">
+                        @foreach (var playlist in Model.playlists)
+                        {
+                            <div class="playlist-item">
+                                <div class="card playlist-card">
+                                    <img src="@playlist.Images?[0].Url" class="card-img-top" alt="Playlist Image">
+                                    <div class="card-body">
+                                        <h5 class="card-title">@playlist.Name</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -74,13 +71,15 @@
                         if (response.success) {
                             var listArtistHtml = "Songs";
                             $.each(response.songs.slice(0, 6), function (index, song) {
-                                listArtistHtml += '<a href="#" class="list-group-item list-group-item-action">';
+                                listArtistHtml += '<div class="list-group-item list-group-item-action">';
                                 listArtistHtml += '<div class="artist-info">';
                                 listArtistHtml += '<img src="' + song.image + '" class="img-fluid" />';
                                 listArtistHtml += '<p>' + song.name + '</p>';
+                                listArtistHtml += '<img src="/images/Favoritebtn.png" alt="plus icon" class="favorite-btn" data-song=\'' + JSON.stringify(song) + '\' style="max-height: 30px; vertical-align: middle; margin-left:auto;">';
                                 listArtistHtml += '</div>';
-                                listArtistHtml += '</a>';
+                                listArtistHtml += '</div>';
                             });
+
                             listArtistHtml += "Artists";
                             $.each(response.artists.slice(0, 6), function (index, artist) {
                                 listArtistHtml += '<a href="#" class="list-group-item list-group-item-action">';
@@ -120,21 +119,41 @@
                 });
             }
         });
+        $(document).ready(function () {
+            // Event listener for clicking on the Favoritebtn
+            $(document).on('click', '.favorite-btn', function () {
+                var song = $(this).data('song');
+                addToFavorites(song);
+            });
+
+            function addToFavorites(song) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("AddToFavorite", "Program")",
+                    data: { song: song },
+                    success: function (data) {
+                        // Optionally, update UI to reflect the song being added to favorites
+                        alert("Song added to favorites!");
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("An error occurred while adding the song to favorites: " + error);
+                    }
+                });
+            }
+        });
     </script>
 <div id="mediaPlayer">
-	<div class="mediaPlayerControls">
-		<input type="range" name="range" id="myProgressBar" min="0" max="100">
-		<div class="icons">
-			<!-- fontawesome icons -->
-			<button class="fas fa-fast-backward"></button>
-			<button class="fas fa-play"></button>
-			<button class="fas fa-fast-forward"></button>
-               
-		</div>
-		<div class="songInfo">
-			<img src="playing.gif" width="42px" alt="">
-		</div>
-	</div>
+    <div class="mediaPlayerControls">
+        <input type="range" name="range" id="myProgressBar" min="0" max="100">
+        <div class="icons">
+            <button class="fas fa-fast-backward"></button>
+            <button class="fas fa-play"></button>
+            <button class="fas fa-fast-forward"></button>
+        </div>
+        <div class="songInfo">
+            <img src="playing.gif" width="42px" alt="">
+        </div>
+    </div>
 </div>
 </body>
 </html>

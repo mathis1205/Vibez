@@ -8,15 +8,15 @@ public class ProgramController : Controller
 {
     private readonly ProgramService _ProgramService;
 
-    public ProgramController(ProgramService ProgramService) => _ProgramService = ProgramService;
+    public ProgramController(ProgramService ProgramService)
+    {
+        _ProgramService = ProgramService;
+    }
 
     public async Task<IActionResult> Index()
     {
-        var playlists = await SearchHelper.GetRandomPlaylistsAsync(36);
         var user = _ProgramService.GetUserByEmail(User.Identity.Name);
-
-        if (user == null) return NotFound();
-
+        var playlists = await SearchHelper.GetRandomPlaylistsAsync(36);
         return View(new ProgramPage { user = user, playlists = playlists });
     }
 
@@ -25,8 +25,8 @@ public class ProgramController : Controller
     {
         try
         {
-            if (string.IsNullOrWhiteSpace(searchText)) return Json(new { success = false});
-            
+            if (string.IsNullOrWhiteSpace(searchText)) return Json(new { success = false });
+
             var result = await SearchHelper.SearchAll(searchText);
             if (result == null) return Json(new { success = false });
 
@@ -64,6 +64,20 @@ public class ProgramController : Controller
             }).ToList();
             return Json(new { success = true, artists, songs, albums, playlists });
         }
-        catch (Exception ex) { return Json(new { success = false, message = ex.Message }); }
+        catch (Exception ex)
+        {
+            return Json(new { success = false, message = ex.Message });
+        }
+    }
+
+    public IActionResult AddToFavorite(Spotify song)
+    {
+        var user = _ProgramService.GetUserByEmail(User.Identity.Name);
+
+        var existingSong = user.FavoriteSpotifyItems.FirstOrDefault(s => s.ID == song.ID);
+        if (existingSong != null) return BadRequest("Song is already in favorites.");
+
+        user.FavoriteSpotifyItems.Add(song);
+        return RedirectToAction("Index");
     }
 }
