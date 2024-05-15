@@ -44,25 +44,7 @@
         }
 
 
-.playlist-container {
-    top: 130px;
-    max-height: 680px;
-    overflow-y: auto;
-    position: fixed;
-    right: 0;
-    width: 86%;
-}
 
-.playlist-items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.playlist-item {
-    margin: 10px;
-    width: calc(16.666% - 20px);
-}
 
 .sidebar {
     border: solid black 1px;
