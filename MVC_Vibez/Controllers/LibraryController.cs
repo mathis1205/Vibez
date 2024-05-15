@@ -6,9 +6,19 @@ namespace MVC_Vibez.Controllers;
 
 public class LibraryController : Controller
 {
-    private readonly ProgramService _ProgramService;
-    public LibraryController(ProgramService programService) => _ProgramService = programService;
-    public IActionResult Index() => View(_ProgramService.GetUserByEmail(User.Identity.Name));
+      private readonly ProgramService _ProgramService;
+
+    public LibraryController(ProgramService ProgramService)
+    {
+        _ProgramService = ProgramService;
+    }
+
+    public async Task<IActionResult> Index()
+    {
+        var user = _ProgramService.GetUserByEmail(User.Identity.Name);
+        var playlists = await SearchHelper.GetRandomPlaylistsAsync(36);
+        return View(new ProgramPage() { user = user, playlists = playlists });
+    }
 
     public IActionResult AddToFavorites(Spotify item)
     {
