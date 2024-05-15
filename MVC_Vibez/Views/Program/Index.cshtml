@@ -23,29 +23,7 @@
     </div>
 </div>
 
-<div class="main-content">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="playlist-container">
-                    <div class="playlist-items">
-                        @foreach (var playlist in Model.playlists)
-                        {
-                            <div class="playlist-item">
-                                <div class="card playlist-card">
-                                    <img src="@playlist.Images?[0].Url" class="card-img-top" alt="Playlist Image">
-                                    <div class="card-body">
-                                        <h5 class="card-title">@playlist.Name</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <script>
         $(document).ready(function () {

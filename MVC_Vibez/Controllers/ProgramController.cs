@@ -13,12 +13,12 @@ public class ProgramController : Controller
         _ProgramService = ProgramService;
     }
 
-    public async Task<IActionResult> Index()
+    public IActionResult Index()
     {
         var user = _ProgramService.GetUserByEmail(User.Identity.Name);
-        var playlists = await SearchHelper.GetRandomPlaylistsAsync(36);
-        return View(new ProgramPage { user = user, playlists = playlists });
+        return View(new ProgramPage { user = user });
     }
+
 
     [HttpPost]
     public async Task<ActionResult> Autocomplete(string searchText)

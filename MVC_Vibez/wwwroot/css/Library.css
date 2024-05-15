@@ -42,3 +42,70 @@
         .navbar-nav .nav-item .nav-link:not(.dropdown-toggle):hover {
             background-color: rgba(239, 209, 9, 0.6);
         }
+
+.playlist-container {
+    top: 130px;
+    max-height: 680px;
+    overflow-y: auto;
+    position: fixed;
+    right: 0;
+    width: 86%;
+}
+
+.playlist-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.playlist-item {
+    margin: 10px;
+    width: calc(16.666% - 20px);
+}
+
+.sidebar {
+    border: solid black 1px;
+    border-top-right-radius: 10px;
+    height: calc(100vh - 70px);
+    left: 0;
+    max-width: 350px;
+    overflow-x: hidden;
+    padding-top: 20px;
+    position: fixed;
+    top: 130px;
+    transition: all 0.3s;
+    z-index: 1;
+}
+
+.main-content {
+    margin-left: 250px;
+    padding-top: 70px;
+}
+
+.artist-info {
+    align-items: center;
+    display: flex;
+}
+
+.artist-info img {
+    height: auto;
+    margin-right: 10px;
+    max-width: 50px;
+}
+
+.playlist-card {
+    height: 100%;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-text {
+    margin-top: auto;
+}
+
+.col-md-2 {
+    margin-bottom: 20px;
+}
