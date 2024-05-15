@@ -5,6 +5,7 @@
 
 @await Html.PartialAsync("_Navbar", Model.user)
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
 <link rel="stylesheet" href="css/Program.css"/>
 <!DOCTYPE html>
 <html>
@@ -78,6 +79,7 @@
                                 listArtistHtml += '<div class="artist-info">';
                                 listArtistHtml += '<img src="' + song.image + '" class="img-fluid" />';
                                 listArtistHtml += '<p>' + song.name + '</p>';
+                                listArtistHtml += '<btn></btn>'
                                 listArtistHtml += '</div>';
                                 listArtistHtml += '</a>';
                             });
@@ -123,17 +125,7 @@
     </script>
 <div id="mediaPlayer">
 	<div class="mediaPlayerControls">
-		<input type="range" name="range" id="myProgressBar" min="0" max="100">
-		<div class="icons">
-			<!-- fontawesome icons -->
-			<button class="fas fa-fast-backward"></button>
-			<button class="fas fa-play"></button>
-			<button class="fas fa-fast-forward"></button>
-               
-		</div>
-		<div class="songInfo">
-			<img src="playing.gif" width="42px" alt="">
-		</div>
+		<iframe src="https://open.spotify.com/embed/track/' + song.id + '" width=86% height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>;
 	</div>
 </div>
 </body>

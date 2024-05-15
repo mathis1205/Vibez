@@ -119,23 +119,3 @@
     width: 86%;
     z-index: 1;
 }
-.mediaPlayerControls button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 24px;
-    margin:10px; 
-}
-
-.mediaPlayerControls {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-}
-
-#currentSong { text-align: center; }
-
-#songImage {
-    max-height: 100px;
-    max-width: 100%;
-}
