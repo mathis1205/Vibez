@@ -1,0 +1,63 @@
+﻿.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100vh;
+}
+
+body {
+    margin-bottom: 0px;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex; /* Maak de body een flex container */
+    justify-content: center; /* Horizontaal gecentreerd */
+    align-items: center; /* Verticaal gecentreerd */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.mk-logo {
+    width: 200px;
+    height: auto;
+}
+
+.btnContinue {
+    text-align: center;
+    margin-top: 30px; /* Ruimte boven de .btnContinue */
+    margin-bottom: 80px;
+}
+
+    .btnContinue a {
+        display: inline-block;
+        padding: 25px 25px;
+        border: 1px solid #fff transparent;
+        transition: background-color 1.2s ease, border-radius 1.2s ease;
+    }
+
+        .btnContinue a:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 80px;
+        }
+
+.txtContainer {
+    max-width: 650px;
+    width: 90%;
+    text-align: center;
+    color: rgba(82, 246, 251, 0.6);
+    background-color: rgba(0, 0, 0, 0.65);
+    border-radius: 25px;
+    padding: 20px;
+    margin: 0 auto;
+}
