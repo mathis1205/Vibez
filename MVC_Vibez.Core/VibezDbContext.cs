@@ -15,7 +15,7 @@ public class VibezDbContext(DbContextOptions<VibezDbContext> options) : DbContex
         {
             new()
             {
-                FirstName = "John", LastName = "Doe", Email = "brechtvdk05@gmail.com", Password = "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb", IsValid = true, Loggedin = false, ValidationToken = Guid.NewGuid().ToString(), ProfilePicture ="images/defaultuser.jpg"
+                FirstName = "John", LastName = "Doe", Email = "a@a", Password = "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb", IsValid = true, Loggedin = false, ValidationToken = Guid.NewGuid().ToString(), ProfilePicture ="images/defaultuser.jpg"
             },
             new()
             {
