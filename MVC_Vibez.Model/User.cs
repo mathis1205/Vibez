@@ -16,10 +16,7 @@ public class User
     public bool IsValid { get; set; }
     public string? ProfilePicture { get; set; }
     public List<Spotify> FavoriteSpotifyItems { get; set; }
-    public User(List<Spotify> songs)
-    {
-        FavoriteSpotifyItems = songs;
-    }
+
     public User()
     {
         FavoriteSpotifyItems = new List<Spotify>();

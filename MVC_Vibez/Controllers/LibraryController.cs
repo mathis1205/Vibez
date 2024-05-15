@@ -17,7 +17,8 @@ public class LibraryController : Controller
     {
         var user = _ProgramService.GetUserByEmail(User.Identity.Name);
         var playlists = await SearchHelper.GetRandomPlaylistsAsync(36);
-        return View(new ProgramPage() { user = user, playlists = playlists });
+        var favoriteSongs = user.FavoriteSpotifyItems; 
+        return View(new ProgramPage() { user = user, playlists = playlists, favoriteSongs = favoriteSongs });
     }
 
     public IActionResult AddToFavorites(Spotify item)

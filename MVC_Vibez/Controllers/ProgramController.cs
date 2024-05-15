@@ -44,7 +44,8 @@ public class ProgramController : Controller
                 Image = item.Album.Images.Any()
                     ? item.Album.Images[0].Url.ToString()
                     : "https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png",
-                Name = item.Name
+                Name = item.Name,
+                Artist = item.Artists[0].Name // Voeg de naam van de artiest toe
             }).ToList();
             var albums = result.Albums.Items.Select(item => new Spotify
             {
@@ -78,6 +79,9 @@ public class ProgramController : Controller
         if (existingSong != null) return BadRequest("Song is already in favorites.");
 
         user.FavoriteSpotifyItems.Add(song);
+        _ProgramService.UpdateUser(user); // Sla de bijgewerkte gebruiker op in de database
+
         return RedirectToAction("Index");
     }
+
 }
