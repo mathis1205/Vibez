@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model MVC_Vibez.Model.User
+
+@{
+    ViewBag.Title = "Recovery";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="~/css/login.css" />
+}
+
+<div class="loglogo-wrapper">
+    <div class="loglogo">
+        <img src="~/images/logo.png" class="mb-3" alt="Logo" style="height: auto; max-height: 50px; width: auto;">
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <h1 style="color: #52F6FB;">@ViewBag.Title</h1>
+            <form method="post" asp-action="Recovery">
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">Email address</label>
+                    <input asp-for="Email" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Recover password</button>
+                <a class="btn btn-secondary" asp-controller="Login" asp-action="Index">Back to login</a>
+            </form>
+
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        @if (ViewData.ModelState.ContainsKey("notFound") || ViewData.ModelState.ContainsKey("mailError"))
+        {
+            <text>
+                alert('@ViewData.ModelState["notFound"]?.Errors.FirstOrDefault()?.ErrorMessage ?? @ViewData.ModelState["mailError"]?.Errors.FirstOrDefault()?.ErrorMessage');
+            </text>
+        }
+    </script>
+}
+

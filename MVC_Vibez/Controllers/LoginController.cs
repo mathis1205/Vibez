@@ -2,7 +2,9 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MVC_Vibez.Core;
 using MVC_Vibez.Model;
 using MVC_Vibez.Models;
@@ -19,6 +21,7 @@ public class LoginController : Controller
 
     public LoginController(ILogger<LoginController> logger, VibezDbContext dbContext, EmailService emailService, LoginService loginService)
     {
+      
         _dbContext = dbContext;
         _logger = logger;
         _emailService = emailService;
@@ -27,6 +30,8 @@ public class LoginController : Controller
 
     public IActionResult Index() => View();
     [HttpGet] public IActionResult Create() => View();
+    [HttpGet] public IActionResult Recovery() => View();
+    [HttpPost] public IActionResult ResetPassword() => View();
 
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(User user)
@@ -114,5 +119,56 @@ public class LoginController : Controller
             _logger.LogError(ex, "Error during validation");
             return View("Error");
         }
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Recovery(User user)
+    {
+        var existingUser = _dbContext.Users.FirstOrDefault(_user => _user.Email.Equals(user.Email));
+        if (existingUser == null)
+        {
+            ModelState.AddModelError("notFound", "Email not found!");
+            return View(user);
+        }
+        try
+        {
+            existingUser.ValidationToken = Guid.NewGuid().ToString();
+            _dbContext.SaveChanges();
+
+            var recoveryLink = Url.Action("ResetPassword", "Login", new { token = existingUser.ValidationToken }, Request.Scheme); 
+            var emailBody = $"Dear user, </br> Please click <a href='{recoveryLink}'>here</a> to reset your password. </br> If you did not request a password reset, please ignore this email.";
+            await _emailService.SendEmailAsync(existingUser.Email, "Password Recovery", emailBody);
+
+            return RedirectToAction("Index", "Login");
+        }
+        catch (Exception ex)
+        {
+            ModelState.AddModelError("mailError", "Failed to send email. Please check provided email.");
+            return View(user);
+        }
+    }
+
+
+    public IActionResult ResetPassword(string token)
+    {
+        return View(new ResetPasswordModel { Token = token }); 
+    }
+
+    [HttpPost]
+    public IActionResult SetNewPassword(ResetPasswordModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            var user = _dbContext.Users.FirstOrDefault(u => u.ValidationToken == model.Token);
+            if (user != null)
+            {
+                user.Password = HashingHelper.HashPassword(model.NewPassword); 
+                _dbContext.SaveChanges();
+                return RedirectToAction("Index", "Home"); 
+            }
+            ModelState.AddModelError("InvalidToken", "Invalid or expired token.");
+
+        }
+        return View("ResetPassword", model);
     }
 }
