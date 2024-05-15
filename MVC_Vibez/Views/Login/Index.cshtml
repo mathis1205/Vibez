@@ -38,6 +38,7 @@
                 <label asp-for="Password" class="form-label">Password</label>
                 <input asp-for="Password" class="form-control" type="password" required>
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    <p>Forgot your <a asp-area="" asp-controller="Login" asp-action="Recovery" style="color: #52F6FB;">Password</a></p>
             </div>
             <br />
             <button asp-action="Login" type="submit" class="btn btn-primary">Login</button>
@@ -48,4 +49,3 @@
     </div>
 </div>
 </div>
-visua
