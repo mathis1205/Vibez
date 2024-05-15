@@ -20,6 +20,14 @@
         <div class="col-md-4">
             <h1 style="color: #52F6FB;">@ViewBag.Title</h1>
             <form method="post" asp-action="Recovery">
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="form-group">
+                        <div class="alert alert-danger" role="alert">
+                            @Html.ValidationMessageFor(model => model.Email, "No acount found with this Email", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
                 <div class="mb-3">
                     <label asp-for="Email" class="form-label">Email address</label>
                     <input asp-for="Email" class="form-control" required>
@@ -31,14 +39,3 @@
         </div>
     </div>
 </div>
-@section Scripts {
-    <script>
-        @if (ViewData.ModelState.ContainsKey("notFound") || ViewData.ModelState.ContainsKey("mailError"))
-        {
-            <text>
-                alert('@ViewData.ModelState["notFound"]?.Errors.FirstOrDefault()?.ErrorMessage ?? @ViewData.ModelState["mailError"]?.Errors.FirstOrDefault()?.ErrorMessage');
-            </text>
-        }
-    </script>
-}
-

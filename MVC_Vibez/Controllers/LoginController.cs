@@ -21,7 +21,7 @@ public class LoginController : Controller
 
     public LoginController(ILogger<LoginController> logger, VibezDbContext dbContext, EmailService emailService, LoginService loginService)
     {
-      
+
         _dbContext = dbContext;
         _logger = logger;
         _emailService = emailService;
@@ -135,7 +135,7 @@ public class LoginController : Controller
             existingUser.ValidationToken = Guid.NewGuid().ToString();
             _dbContext.SaveChanges();
 
-            var recoveryLink = Url.Action("ResetPassword", "Login", new { token = existingUser.ValidationToken }, Request.Scheme); 
+            var recoveryLink = Url.Action("ResetPassword", "Login", new { token = existingUser.ValidationToken }, Request.Scheme);
             var emailBody = $"Dear user, </br> Please click <a href='{recoveryLink}'>here</a> to reset your password. </br> If you did not request a password reset, please ignore this email.";
             await _emailService.SendEmailAsync(existingUser.Email, "Password Recovery", emailBody);
 
@@ -151,7 +151,7 @@ public class LoginController : Controller
 
     public IActionResult ResetPassword(string token)
     {
-        return View(new ResetPasswordModel { Token = token }); 
+        return View(new ResetPasswordModel { Token = token });
     }
 
     [HttpPost]
@@ -162,12 +162,17 @@ public class LoginController : Controller
             var user = _dbContext.Users.FirstOrDefault(u => u.ValidationToken == model.Token);
             if (user != null)
             {
-                user.Password = HashingHelper.HashPassword(model.NewPassword); 
+                if (user.Password == HashingHelper.HashPassword(model.NewPassword))
+                {
+                    ModelState.AddModelError("SamePassword", "New password must be different from the old one.");
+                    return View("ResetPassword", model);
+                }
+
+                user.Password = HashingHelper.HashPassword(model.NewPassword);
                 _dbContext.SaveChanges();
-                return RedirectToAction("Index", "Home"); 
+                return RedirectToAction("Index", "Home");
             }
             ModelState.AddModelError("InvalidToken", "Invalid or expired token.");
-
         }
         return View("ResetPassword", model);
     }
