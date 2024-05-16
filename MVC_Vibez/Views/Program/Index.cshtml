@@ -7,14 +7,21 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
 <link rel="stylesheet" href="css/Program.css"/>
+
 <body>
 <div class="sidebar bg-light">
     <div class="search-box">
         <input type="text" id="txtSearch" class="form-control mb-3" placeholder="Search">
     </div>
-    <div id="searchResults" class="search-results list-group">
+    <div id="searchResults" class="search-results list-group"></div>
+</div>
+
+<div class="main-content">
+    <div id="mediaPlayer">
+        <iframe allow="encrypted-media"></iframe>
     </div>
 </div>
+
 <script>
         $(document).ready(function () {
             var typingTimer;
@@ -44,7 +51,7 @@
                                 listArtistHtml += '<img src="' + song.image + '" class="img-fluid" />';
                                 listArtistHtml += '<p>' + song.name + '</p>';
                                 listArtistHtml += '<img src="/images/Favoritebtn.png" alt="plus icon" class="favorite-btn" data-song=\'' + JSON.stringify(song) + '\' style="max-height: 30px; vertical-align: middle; margin-left:auto;">';
-                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-song-id="'+song.id+'" style="max-height: 30px; vertical-align: middle; margin-left:auto;">';
+                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-song-id="' + song.id + '" style="max-height: 30px; vertical-align: middle; margin-left:auto;">';
                                 listArtistHtml += '</div>';
                                 listArtistHtml += '</div>';
                             });
@@ -59,7 +66,7 @@
                                 listArtistHtml += '</div>';
                                 listArtistHtml += '</a>';
                             });
-                            
+
                             listArtistHtml += "Albums";
                             $.each(response.albums.slice(0, 6), function (index, albums) {
                                 listArtistHtml += '<a href="#" class="list-group-item list-group-item-action">';
@@ -70,6 +77,7 @@
                                 listArtistHtml += '</div>';
                                 listArtistHtml += '</a>';
                             });
+
                             listArtistHtml += "Playlists";
                             $.each(response.playlists.slice(0, 6), function (index, playlists) {
                                 listArtistHtml += '<a href="#" class="list-group-item list-group-item-action">';
@@ -80,6 +88,7 @@
                                 listArtistHtml += '</div>';
                                 listArtistHtml += '</a>';
                             });
+
                             $("#searchResults").html(listArtistHtml);
                         } else {
                             console.error("An error occurred: " + response.error);
@@ -90,28 +99,24 @@
                     }
                 });
             }
-        });
-        $(document).ready(function () {
-            // Event listener for clicking on the Favoritebtn
+
             $(document).on('click', '.favorite-btn', function () {
                 var song = $(this).data('song');
-                addToFavorites(song);
-            });
-
-            function addToFavorites(song) {
                 $.ajax({
                     type: "POST",
                     url: "@Url.Action("AddToFavorite", "Program")",
-                    data: { song: song },
+                    data: JSON.stringify(song),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
                     success: function (data) {
-                        // Optionally, update UI to reflect the song being added to favorites
                         alert("Song added to favorites!");
                     },
                     error: function (xhr, status, error) {
                         console.error("An error occurred while adding the song to favorites: " + error);
                     }
                 });
-            }
+            });
+
             $(document).on('click', '.play-btn', function () {
                 var songId = $(this).data('song-id');
                 var artistId = $(this).data('artist-id');
@@ -133,10 +138,4 @@
             });
         });
     </script>
-<div id="mediaPlayer">
-	<div class="mediaPlayerControls">
-		<iframe  frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-	</div>
-</div>
 </body>
-</>
