@@ -106,9 +106,7 @@
                 $.ajax({
                     type: "POST",
                     url: "@Url.Action("AddToFavorite", "Program")",
-                    data: JSON.stringify(song),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
+                    data: { song: song },
                     success: function (data) {
                         // Update UI to reflect the song being added to favorites
                         $('#message').text("Song added to favorites!").show().delay(5000).fadeOut();
