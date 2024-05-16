@@ -15,7 +15,7 @@
     width: 80%;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 1000; /* Ensure the navbar is on top of other content */
+    z-index: 1000;
 }
 
 .navbar-nav {
@@ -55,8 +55,8 @@
     position: fixed;
     right: 0;
     width: auto;
-    margin-left: 5%; /* reduced from 10% */
-    margin-right: 5%; /* reduced from 10% */
+    margin-left: 5%; 
+    margin-right: 5%; 
 }
 
 .playlist-items {
