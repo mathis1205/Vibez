@@ -1,18 +1,20 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.EntityFrameworkCore;
 using MVC_Vibez.Core;
-using MVC_Vibez.Models;
 using MVC_Vibez.Services;
 
+#if !DEBUG
+using (var context = new VibezDbContext())
+{
+    // Migrate the database
+    context.Database.Migrate();
+}
+#endif
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<VibezDbContext>(options =>
-{
-    options.UseInMemoryDatabase(nameof(VibezDbContext));
-});
+builder.Services.AddDbContext<VibezDbContext>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
