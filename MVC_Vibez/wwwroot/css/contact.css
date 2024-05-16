@@ -6,12 +6,12 @@
 }
 
 .navbar {
-    background-color: transparent !important;
+    background-color: whitesmoke !important;
     border: solid rgb(0, 0, 0, 0.2) 3px;
     border-radius: 35px;
     margin-bottom: 20px;
     margin-top: 15px;
-    position: fixed;
+    max-width: 1000px;
     width: 80%;
     left: 50%;
     transform: translateX(-50%);
