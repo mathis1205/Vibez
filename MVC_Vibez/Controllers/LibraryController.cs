@@ -6,7 +6,7 @@ namespace MVC_Vibez.Controllers;
 
 public class LibraryController : Controller
 {
-      private readonly ProgramService _ProgramService;
+    private readonly ProgramService _ProgramService;
 
     public LibraryController(ProgramService ProgramService)
     {
@@ -17,19 +17,17 @@ public class LibraryController : Controller
     {
         var user = _ProgramService.GetUserByEmail(User.Identity.Name);
         var playlists = await SearchHelper.GetRandomPlaylistsAsync(36);
-        var favoriteSongs = user.FavoriteSpotifyItems; 
-        return View(new ProgramPage() { user = user, playlists = playlists, favoriteSongs = favoriteSongs });
+        var favoriteSongs = user.FavoriteSpotifyItems;
+        return View(new ProgramPage { user = user, playlists = playlists, favoriteSongs = favoriteSongs });
     }
 
     public IActionResult AddToFavorites(Spotify item)
     {
         var user = _ProgramService.GetUserByEmail(User.Identity.Name);
 
-        if (user != null && item != null)
-        {
-            user.FavoriteSpotifyItems.Add(item);
-            _ProgramService.UpdateUser(user);
-        }
+        if (user == null || item == null) return RedirectToAction("Index");
+        user.FavoriteSpotifyItems.Add(item);
+        _ProgramService.UpdateUser(user);
 
         return RedirectToAction("Index");
     }
@@ -39,11 +37,9 @@ public class LibraryController : Controller
         var user = _ProgramService.GetUserByEmail(User.Identity.Name);
         var item = user?.FavoriteSpotifyItems.FirstOrDefault(i => i.ID == itemId);
 
-        if (user != null && item != null)
-        {
-            user.FavoriteSpotifyItems.Remove(item);
-            _ProgramService.UpdateUser(user);
-        }
+        if (user == null || item == null) return RedirectToAction("Index");
+        user.FavoriteSpotifyItems.Remove(item);
+        _ProgramService.UpdateUser(user);
 
         return RedirectToAction("Index");
     }
