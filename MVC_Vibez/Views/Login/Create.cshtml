@@ -16,10 +16,28 @@
     </div>
 </div>
 
-@if (ViewData.ModelState.ContainsKey("alreadyExist"))
+@if (ViewData.ModelState.ContainsKey("alreadyExist") )
 {
     <div class="alert alert-danger" role="alert">
         @Html.ValidationMessage("alreadyExist")
+    </div>
+}
+@if (ViewData.ModelState.ContainsKey("special character"))
+{
+    <div class="alert alert-danger" role="alert">
+        @Html.ValidationMessage("special character")
+    </div>
+}
+@if (ViewData.ModelState.ContainsKey("capitalized letter"))
+{
+    <div class="alert alert-danger" role="alert">
+        @Html.ValidationMessage("capitalized letter")
+    </div>
+}
+@if (ViewData.ModelState.ContainsKey("Number"))
+{
+    <div class="alert alert-danger" role="alert">
+        @Html.ValidationMessage("Number")
     </div>
 }
 
