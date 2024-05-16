@@ -11,15 +11,12 @@ public class User
     [EmailAddress] public string Email { get; set; }
     [PasswordPropertyText] public string Password { get; set; }
     public bool Loggedin { get; set; }
-    public LoginToken LoginToken { get; set; }
+    public LoginToken? LoginToken { get; set; }
     public string ValidationToken { get; set; }
     public bool IsValid { get; set; }
     public string? ProfilePicture { get; set; }
     public List<Spotify> FavoriteSpotifyItems { get; set; }
-    public User(List<Spotify> songs)
-    {
-        FavoriteSpotifyItems = songs;
-    }
+
     public User()
     {
         FavoriteSpotifyItems = new List<Spotify>();

@@ -4,13 +4,24 @@
 }
 
 @await Html.PartialAsync("_Navbar", Model.user)
-
+<link rel="stylesheet" href="css/Library.css" />
 <div class="main-content">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="playlist-container">
                     <div class="playlist-items">
+                        @if (Model.favoriteSongs.Any())
+                        {
+                            <div class="playlist-item">
+                                <div class="card playlist-card">
+                                    <img src="@Model.favoriteSongs.First().Image" class="card-img-top" alt="Favorite Songs Image">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Favorites</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                         @foreach (var playlist in Model.playlists)
                         {
                             <div class="playlist-item">
@@ -28,5 +39,6 @@
         </div>
     </div>
 </div>
+
 
 
