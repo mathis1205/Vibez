@@ -4,6 +4,7 @@
 }
 
 @await Html.PartialAsync("_Navbar", Model.user)
+<div id="message" class="alert" style="margin-top: 20px;"></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
 <link rel="stylesheet" href="css/Program.css"/>
@@ -104,8 +105,8 @@
                     url: "@Url.Action("AddToFavorite", "Program")",
                     data: { song: song },
                     success: function (data) {
-                        // Optionally, update UI to reflect the song being added to favorites
-                        alert("Song added to favorites!");
+                        // Update UI to reflect the song being added to favorites
+                        $('#message').text("Song added to favorites!").show().delay(5000).fadeOut();
                     },
                     error: function (xhr, status, error) {
                         console.error("An error occurred while adding the song to favorites: " + error);

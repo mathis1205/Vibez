@@ -45,13 +45,13 @@
 
 .playlist-container {
     top: 130px;
-    max-height: 680px;
+    max-height: 800px;
     overflow-y: auto;
     position: fixed;
     right: 0;
     width: auto;
-    margin-left: 10%;
-    margin-right: 10%
+    margin-left: 5%; /* reduced from 10% */
+    margin-right: 5%; /* reduced from 10% */
 }
 
 .playlist-items {
