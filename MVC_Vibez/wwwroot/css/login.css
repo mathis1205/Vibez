@@ -49,8 +49,7 @@
 .loglogo {
     display: flex;
     justify-content: center;
-    height: auto;
-    max-height: 80px;
+    height: 80px;
     width: auto;
 }
 
