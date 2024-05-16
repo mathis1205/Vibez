@@ -208,6 +208,6 @@ public class LoginController : Controller
             }
             ModelState.AddModelError("InvalidToken", "Invalid or expired token.");
         }
-        return View("ResetPassword", model);
+        return View("Index", model);
     }
 }
