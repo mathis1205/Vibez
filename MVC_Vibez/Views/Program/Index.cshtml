@@ -7,14 +7,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
 <link rel="stylesheet" href="css/Program.css"/>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="css/Program.css"/>
-</head>
 <body>
 <div class="sidebar bg-light">
     <div class="search-box">
@@ -23,9 +15,6 @@
     <div id="searchResults" class="search-results list-group">
     </div>
 </div>
-
-
-
 <script>
         $(document).ready(function () {
             var typingTimer;
@@ -55,6 +44,7 @@
                                 listArtistHtml += '<img src="' + song.image + '" class="img-fluid" />';
                                 listArtistHtml += '<p>' + song.name + '</p>';
                                 listArtistHtml += '<img src="/images/Favoritebtn.png" alt="plus icon" class="favorite-btn" data-song=\'' + JSON.stringify(song) + '\' style="max-height: 30px; vertical-align: middle; margin-left:auto;">';
+                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-song-id="'+song.id+'" style="max-height: 30px; vertical-align: middle; margin-left:auto;">';
                                 listArtistHtml += '</div>';
                                 listArtistHtml += '</div>';
                             });
@@ -65,6 +55,7 @@
                                 listArtistHtml += '<div class="artist-info">';
                                 listArtistHtml += '<img src="' + artist.image + '" class="img-fluid" />';
                                 listArtistHtml += '<p>' + artist.name + '</p>';
+                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-artist-id="' + artist.id + '" style="max-height: 30px; vertical-align: middle; margin-left:auto;">';
                                 listArtistHtml += '</div>';
                                 listArtistHtml += '</a>';
                             });
@@ -75,6 +66,7 @@
                                 listArtistHtml += '<div class="artist-info">';
                                 listArtistHtml += '<img src="' + albums.image + '" class="img-fluid" />';
                                 listArtistHtml += '<p>' + albums.name + '</p>';
+                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-album-id="' + albums.id + '" style="max-height: 30px; vertical-align: middle; margin-left:auto;">';
                                 listArtistHtml += '</div>';
                                 listArtistHtml += '</a>';
                             });
@@ -84,6 +76,7 @@
                                 listArtistHtml += '<div class="artist-info">';
                                 listArtistHtml += '<img src="' + playlists.image + '" class="img-fluid" />';
                                 listArtistHtml += '<p>' + playlists.name + '</p>';
+                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-playlist-id="' + playlists.id + '" style="max-height: 30px; vertical-align: middle; margin-left:auto;">';
                                 listArtistHtml += '</div>';
                                 listArtistHtml += '</a>';
                             });
@@ -119,12 +112,31 @@
                     }
                 });
             }
+            $(document).on('click', '.play-btn', function () {
+                var songId = $(this).data('song-id');
+                var artistId = $(this).data('artist-id');
+                var albumId = $(this).data('album-id');
+                var playlistId = $(this).data('playlist-id');
+                var src = '';
+
+                if (songId) {
+                    src = `https://open.spotify.com/embed/track/${songId}`;
+                } else if (artistId) {
+                    src = `https://open.spotify.com/embed/artist/${artistId}`;
+                } else if (albumId) {
+                    src = `https://open.spotify.com/embed/album/${albumId}`;
+                } else if (playlistId) {
+                    src = `https://open.spotify.com/embed/playlist/${playlistId}`;
+                }
+
+                $('#mediaPlayer iframe').attr('src', src);
+            });
         });
     </script>
 <div id="mediaPlayer">
 	<div class="mediaPlayerControls">
-		<iframe src="https://open.spotify.com/embed/track/' + song.id + '" width=86% height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>;
+		<iframe  frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 	</div>
 </div>
 </body>
-</html>
+</>
