@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
@@ -41,7 +42,21 @@ public class LoginController : Controller
             ModelState.AddModelError("alreadyExist", "User already exists!");
             return View(user);
         }
-
+        if (!Regex.IsMatch(user.Password, "[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]"))
+        {
+            ModelState.AddModelError("special character", "Password must include at least one special character");
+            return View(user);
+        }
+        if (!Regex.IsMatch(user.Password, "[A-Z]"))
+        {
+            ModelState.AddModelError("capitalized letter", "Password must include at least one capitalized letter");
+            return View(user);
+        }
+        if (!Regex.IsMatch(user.Password, "[0-9]"))
+        {
+            ModelState.AddModelError("Number", "Password must include at least one Number");
+            return View(user);
+        }
         user.ValidationToken = Guid.NewGuid().ToString();
         _loginService.Create(user);
 
@@ -135,6 +150,7 @@ public class LoginController : Controller
             ModelState.AddModelError("notFound", "Email not found!");
             return View(user);
         }
+
         try
         {
             existingUser.ValidationToken = Guid.NewGuid().ToString();
@@ -171,7 +187,21 @@ public class LoginController : Controller
                     ModelState.AddModelError("SamePassword", "New password must be different from the old one.");
                     return View("ResetPassword", model);
                 }
-
+                if (!Regex.IsMatch(model.NewPassword, "[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]"))
+                {
+                    ModelState.AddModelError("special character", "Password must include at least one special character");
+                    return View("ResetPassword", model);
+                }
+                if (!Regex.IsMatch(model.NewPassword, "[A-Z]"))
+                {
+                    ModelState.AddModelError("capitalized letter", "Password must include at least one capitalized letter");
+                    return View("ResetPassword", model);
+                }
+                if (!Regex.IsMatch(model.NewPassword, "[0-9]"))
+                {
+                    ModelState.AddModelError("Number", "Password must include at least one Number");
+                    return View("ResetPassword", model);
+                }
                 user.Password = HashingHelper.HashPassword(model.NewPassword);
                 _dbContext.SaveChanges();
                 return RedirectToAction("Index", "Home");
