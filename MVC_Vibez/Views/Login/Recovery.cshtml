@@ -20,6 +20,12 @@
         <div class="col-md-4">
             <h1 style="color: #52F6FB;">@ViewBag.Title</h1>
             <form method="post" asp-action="Recovery">
+                @if (ViewData["MailSentTo"] != null)
+                {
+                    <div class="alert alert-info" role="alert">
+                        Mail sent to <strong>@ViewData["MailSentTo"]</strong>
+                    </div>
+                }
                 <div class="mb-3">
                     <label asp-for="Email" class="form-label">Email address</label>
                     <input asp-for="Email" class="form-control" required>
@@ -27,18 +33,6 @@
                 <button type="submit" class="btn btn-primary">Recover password</button>
                 <a class="btn btn-secondary" asp-controller="Login" asp-action="Index">Back to login</a>
             </form>
-
         </div>
     </div>
 </div>
-@section Scripts {
-    <script>
-        @if (ViewData.ModelState.ContainsKey("notFound") || ViewData.ModelState.ContainsKey("mailError"))
-        {
-            <text>
-                alert('@ViewData.ModelState["notFound"]?.Errors.FirstOrDefault()?.ErrorMessage ?? @ViewData.ModelState["mailError"]?.Errors.FirstOrDefault()?.ErrorMessage');
-            </text>
-        }
-    </script>
-}
-
