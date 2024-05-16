@@ -136,6 +136,15 @@
 
                 $('#mediaPlayer iframe').attr('src', src);
             });
+
+             if (!string.IsNullOrEmpty(window.location.href)) {
+                var url = new URL(document.url);
+                var playlistId = url.searchParams.get("playlistId");
+                if (!string.IsNullOrEmpty(playlistId)) {
+                    var src = `https://open.spotify.com/embed/playlist/${playlistId}`;
+                    $('#mediaPlayer iframe').attr('src', src);
+                }
+             }
         });
     </script>
 </body>
