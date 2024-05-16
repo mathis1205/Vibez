@@ -12,6 +12,10 @@ body {
     border-radius: 35px;
     margin-bottom: 20px;
     margin-top: 15px;
+    position: fixed;
+    width: 80%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .navbar-nav {
