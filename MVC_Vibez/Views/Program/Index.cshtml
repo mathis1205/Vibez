@@ -109,7 +109,9 @@
                     data: { song: song },
                     success: function (data) {
                         // Update UI to reflect the song being added to favorites
-                        $('#message').text("Song added to favorites!").show().delay(5000).fadeOut();
+                        $('#message').addClass('alert-visible').text("Song added to favorites!").show().delay(5000).fadeOut(function () {
+                            $(this).removeClass('alert-visible');
+                        });
                     },
                     error: function (xhr, status, error) {
                         console.error("An error occurred while adding the song to favorites: " + error);
