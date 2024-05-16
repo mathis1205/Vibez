@@ -114,6 +114,18 @@
 
 .col-md-2 { margin-bottom: 20px; }
 
+.alert {
+    text-align: center;
+    width: 50%; /* Stelt de breedte in op 50% van de parent */
+    margin: 20px auto; /* Centreert de div horizontaal */
+}
+
+.alert-visible {
+    border: 2px solid #BEDC6D;
+    background-color: rgba(239, 209, 9, 0.6);
+}
+
+
 #mediaPlayer {
     margin: 0 auto;
     width: 500px;
