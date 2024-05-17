@@ -127,10 +127,15 @@
 
 
 #mediaPlayer {
-    margin: -50px auto 0 auto;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 500px;
     text-align: center;
 }
+
+
 
 #mediaPlayer iframe {
     margin: 0 auto;
