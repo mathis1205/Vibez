@@ -116,3 +116,9 @@
 .col-md-2 {
     margin-bottom: 20px;
 }
+
+@media (max-width: 992px) {
+    .playlist-item {
+        width: calc(33.333% - 20px);
+    }
+}
