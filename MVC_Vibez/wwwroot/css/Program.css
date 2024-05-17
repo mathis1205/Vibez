@@ -15,7 +15,7 @@
     width: 80%;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 1000; /* Ensure the navbar is on top of other content */
+    z-index: 1000; 
 }
 
 .navbar-nav {
@@ -116,8 +116,8 @@
 
 .alert {
     text-align: center;
-    width: 50%; /* Stelt de breedte in op 50% van de parent */
-    margin: 20px auto; /* Centreert de div horizontaal */
+    width: 50%; 
+    margin: 20px auto; 
 }
 
 .alert-visible {
@@ -127,7 +127,7 @@
 
 
 #mediaPlayer {
-    margin: 0 auto;
+    margin: -50px auto 0 auto;
     width: 500px;
     text-align: center;
 }
@@ -138,3 +138,4 @@
     height: 500px;
     width: 100%;
 }
+
