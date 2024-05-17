@@ -23,11 +23,12 @@
     </div>
 </div>
 
-<script>
+    <script>
         $(document).ready(function () {
             var typingTimer;
             var doneTypingInterval = 100;
 
+            // Trigger search function after user stops typing
             $("#txtSearch").keyup(function () {
                 clearTimeout(typingTimer);
                 typingTimer = setTimeout(performSearch, doneTypingInterval);
@@ -45,7 +46,9 @@
                     data: { searchText: searchText },
                     success: function (response) {
                         if (response.success) {
-                            var listArtistHtml = "Songs";
+                            var listArtistHtml = "";
+
+                            listArtistHtml += "<h4>Songs</h4>";
                             $.each(response.songs.slice(0, 6), function (index, song) {
                                 listArtistHtml += '<div class="list-group-item list-group-item-action">';
                                 listArtistHtml += '<div class="artist-info">';
@@ -57,7 +60,7 @@
                                 listArtistHtml += '</div>';
                             });
 
-                            listArtistHtml += "Artists";
+                            listArtistHtml += "<h4>Artists</h4>";
                             $.each(response.artists.slice(0, 6), function (index, artist) {
                                 listArtistHtml += '<a href="#" class="list-group-item list-group-item-action">';
                                 listArtistHtml += '<div class="artist-info">';
@@ -68,7 +71,7 @@
                                 listArtistHtml += '</a>';
                             });
 
-                            listArtistHtml += "Albums";
+                            listArtistHtml += "<h4>Albums</h4>";
                             $.each(response.albums.slice(0, 6), function (index, albums) {
                                 listArtistHtml += '<a href="#" class="list-group-item list-group-item-action">';
                                 listArtistHtml += '<div class="artist-info">';
@@ -79,7 +82,7 @@
                                 listArtistHtml += '</a>';
                             });
 
-                            listArtistHtml += "Playlists";
+                            listArtistHtml += "<h4>Playlists</h4>";
                             $.each(response.playlists.slice(0, 6), function (index, playlists) {
                                 listArtistHtml += '<a href="#" class="list-group-item list-group-item-action">';
                                 listArtistHtml += '<div class="artist-info">';
@@ -101,6 +104,7 @@
                 });
             }
 
+            // Handle favorite button click
             $(document).on('click', '.favorite-btn', function () {
                 var song = $(this).data('song');
                 $.ajax({
@@ -119,6 +123,7 @@
                 });
             });
 
+            // Handle play button click
             $(document).on('click', '.play-btn', function () {
                 var songId = $(this).data('song-id');
                 var artistId = $(this).data('artist-id');
@@ -139,14 +144,16 @@
                 $('#mediaPlayer iframe').attr('src', src);
             });
 
-             if (!string.IsNullOrEmpty(window.location.href)) {
-                var url = new URL(document.url);
+            // Check URL for playlistId parameter and set iframe source
+            if (window.location.href) {
+                var url = new URL(window.location.href);
                 var playlistId = url.searchParams.get("playlistId");
-                if (!string.IsNullOrEmpty(playlistId)) {
+                if (playlistId) {
                     var src = `https://open.spotify.com/embed/playlist/${playlistId}`;
                     $('#mediaPlayer iframe').attr('src', src);
                 }
-             }
+            }
         });
     </script>
+
 </body>
