@@ -3,6 +3,7 @@
     background: linear-gradient(to bottom, white, gray);
     justify-content: center;
     margin: 0;
+    height: auto;
 }
 
 .navbar {
@@ -89,7 +90,7 @@
 
 .main-content {
     margin-left: 250px;
-    padding-top: 70px;
+    padding-top: 0; /* Verwijder de bovenvulling */
 }
 
 .artist-info {
@@ -128,14 +129,11 @@
 
 #mediaPlayer {
     position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin-top: 10px; /* Verhoog de marge vanaf de bovenkant */
+    margin-left: 200px; /* Halve breedte van het element */
     width: 500px;
     text-align: center;
 }
-
-
 
 #mediaPlayer iframe {
     margin: 0 auto;
