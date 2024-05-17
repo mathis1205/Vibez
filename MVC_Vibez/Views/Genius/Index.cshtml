@@ -1,5 +1,11 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model MVC_Vibez.Model.ProgramPage
 @{
+    ViewData["Title"] = "Genius";
 }
+
+@await Html.PartialAsync("_Navbar", Model.user)
+
+<form action="/Genius/Search" method="get">
+    <input type="text" name="searchTerm" placeholder="Enter a song or artist">
+    <input type="submit" value="Search">
+</form>

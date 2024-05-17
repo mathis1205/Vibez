@@ -5,6 +5,7 @@ using RestSharp;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Formatting;
+using Microsoft.Extensions.Options;
 
 
 namespace MVC_Vibez.Model
@@ -15,11 +16,11 @@ namespace MVC_Vibez.Model
         private readonly string clientSecret;
         private readonly string redirectUri;
 
-        public GeniusSearch(string clientId, string clientSecret, string redirectUri)
+        public GeniusSearch(IOptions<GeniusSearchOptions> options)
         {
-            this.clientId = clientId;
-            this.clientSecret = clientSecret;
-            this.redirectUri = redirectUri;
+            this.clientId = options.Value.ClientId;
+            this.clientSecret = options.Value.ClientSecret;
+            this.redirectUri = options.Value.RedirectUri;
         }
 
         public async Task<string> GetAccessToken(string code)
@@ -49,6 +50,29 @@ namespace MVC_Vibez.Model
                 else
                 {
                     throw new Exception("Failed to get access token");
+                }
+            }
+        }
+
+        public async Task<List<GeniusHit>> SearchSongs(string accessToken, string searchTerm)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://api.genius.com/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+                HttpResponseMessage response = await client.GetAsync($"search?q={Uri.EscapeDataString(searchTerm)}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var data = await response.Content.ReadAsAsync<GeniusSearchResult>();
+                    // Return the list of hits
+                    return data.response.hits;
+                }
+                else
+                {
+                    throw new Exception("Failed to search songs");
                 }
             }
         }
