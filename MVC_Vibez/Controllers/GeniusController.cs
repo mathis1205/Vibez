@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Mvc;
 using MVC_Vibez.Model;
 using MVC_Vibez.Services;
+using System.Net.Http.Headers;
 
 namespace MVC_Vibez.Controllers;
 
@@ -24,30 +26,21 @@ public class GeniusController : Controller
     public async Task<IActionResult> Search(string searchTerm)
     {
         var user = _programService.GetUserByEmail(User.Identity.Name);
-        var hits = await _geniusSearch.SearchSongs(user.AccessToken, searchTerm);
-        return View(new ProgramPage { user = user, Hits = hits });
+        var hits = await _geniusSearch.SearchSongs(searchTerm);
+        return View("Index", new ProgramPage { user = user, Hits = hits });
     }
 
-    public async Task<IActionResult> Authorize(string code)
+    public async Task<IActionResult> Lyrics(string path)
     {
-        // Haal het access token op
-        var accessToken = await _geniusSearch.GetAccessToken(code);
-
-        // Haal de huidige gebruiker op
         var user = _programService.GetUserByEmail(User.Identity.Name);
-
-        // Controleer of de gebruiker bestaat
-        if (user == null)
-            // Behandel de fout, bijvoorbeeld door een foutmelding te tonen
-            return View("Error");
-
-        // Wijs het access token toe aan de gebruiker
-        user.AccessToken = accessToken;
-
-        // Update de gebruiker in de database
-        _programService.UpdateUser(user);
-
-        // Ga verder met de rest van de actie
-        return RedirectToAction("Index");
+        var lyrics = await _geniusSearch.GetLyrics(path);
+        var hits = await _geniusSearch.SearchSongs(""); // Keep the previous search results
+        return View("Index", new ProgramPage { user = user, Hits = hits, Lyrics = lyrics });
     }
+
 }
+
+
+
+
+

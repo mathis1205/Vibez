@@ -1,11 +1,44 @@
 ﻿@model MVC_Vibez.Model.ProgramPage
 @{
-	ViewData["Title"] = "Genius";
+    ViewData["Title"] = "Genius";
 }
 
 @await Html.PartialAsync("_Navbar", Model.user)
 
-<form action="/Genius/Search" method="get">
-	<input type="text" name="searchTerm" placeholder="Enter a song or artist">
-	<input type="submit" value="Search">
-</form>
+<div class="row">
+    <div class="col-md-6">
+        <form action="/Genius/Search" method="get">
+            <input type="text" name="searchTerm" placeholder="Enter a song or artist">
+            <input type="submit" value="Search">
+        </form>
+
+        @if (Model.Hits != null && Model.Hits.Any())
+        {
+            <div class="results">
+                @foreach (var hit in Model.Hits)
+                {
+                    <div class="result">
+                        <a href="/Genius/Lyrics?path=@Uri.EscapeDataString(hit.result.path)">
+                            <h2>@hit.result.title</h2>
+                            <h3>@hit.result.primary_artist.name</h3>
+                        </a>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p>No results found</p>
+        }
+    </div>
+
+    <div class="col-md-6">
+        @if (!string.IsNullOrEmpty(Model.Lyrics))
+        {
+            <div class="lyrics">
+                <h1>Lyrics</h1>
+                <p>@Model.Lyrics</p>
+            </div>
+        }
+    </div>
+</div>

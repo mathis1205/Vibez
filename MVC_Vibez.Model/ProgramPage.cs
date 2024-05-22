@@ -9,5 +9,6 @@ public class ProgramPage
     public ContactFormSubmission contactForm { get; set; }
     public List<Spotify> favoriteSongs { get; set; }
     public List<GeniusHit> Hits { get; set; }
+    public string Lyrics { get; set; }
 
 }

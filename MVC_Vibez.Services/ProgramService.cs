@@ -26,7 +26,6 @@ public class ProgramService
         var dbUser = _context.Users.FirstOrDefault(u => u.Id == user.Id);
         if (dbUser == null) return;
         dbUser.FavoriteSpotifyItems = user.FavoriteSpotifyItems;
-        dbUser.AccessToken = user.AccessToken;
         _context.SaveChanges();
     }
 }
