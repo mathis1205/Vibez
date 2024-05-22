@@ -2,68 +2,68 @@
 @model MVC_Vibez.Model.User
 
 @{
-    ViewBag.Title = "Register";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Register";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section Styles {
-    <link rel="stylesheet" type="text/css" href="~/css/login.css"/>
+	<link rel="stylesheet" type="text/css" href="~/css/login.css"/>
 }
 
 <div class="loglogo-wrapper">
-    <img src="~/images/logo.png" class="loglogo" alt="Logo">
+	<img src="~/images/logo.png" class="loglogo" alt="Logo">
 </div>
 
-@if (ViewData.ModelState.ContainsKey("alreadyExist") )
+@if (ViewData.ModelState.ContainsKey("alreadyExist"))
 {
-    <div class="alert alert-danger" role="alert">
-        @Html.ValidationMessage("alreadyExist")
-    </div>
+	<div class="alert alert-danger" role="alert">
+		@Html.ValidationMessage("alreadyExist")
+	</div>
 }
 @if (ViewData.ModelState.ContainsKey("special character"))
 {
-    <div class="alert alert-danger" role="alert">
-        @Html.ValidationMessage("special character")
-    </div>
+	<div class="alert alert-danger" role="alert">
+		@Html.ValidationMessage("special character")
+	</div>
 }
 @if (ViewData.ModelState.ContainsKey("capitalized letter"))
 {
-    <div class="alert alert-danger" role="alert">
-        @Html.ValidationMessage("capitalized letter")
-    </div>
+	<div class="alert alert-danger" role="alert">
+		@Html.ValidationMessage("capitalized letter")
+	</div>
 }
 @if (ViewData.ModelState.ContainsKey("Number"))
 {
-    <div class="alert alert-danger" role="alert">
-        @Html.ValidationMessage("Number")
-    </div>
+	<div class="alert alert-danger" role="alert">
+		@Html.ValidationMessage("Number")
+	</div>
 }
 
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-4">
-            <h1 style="color: #52F6FB;">@ViewBag.Title</h1>
+	<div class="row justify-content-center">
+		<div class="col-md-4">
+			<h1 style="color: #52F6FB;">@ViewBag.Title</h1>
 
-            <form method="post">
-                <div class="mb-3">
-                    <label asp-for="FirstName" class="form-label">Firstname</label>
-                    <input asp-for="FirstName" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="LastName" class="form-label">Lastname</label>
-                    <input asp-for="LastName" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="Email" class="form-label">Email address</label>
-                    <input asp-for="Email" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="Password" class="form-label">Password</label>
-                    <input asp-for="Password" class="form-control" type="password" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Create</button>
-                <a class="btn btn-secondary" asp-controller="Login" asp-action="Index">Back to login</a>
-            </form>
-        </div>
-    </div>
+			<form method="post">
+				<div class="mb-3">
+					<label asp-for="FirstName" class="form-label">Firstname</label>
+					<input asp-for="FirstName" class="form-control" required>
+				</div>
+				<div class="mb-3">
+					<label asp-for="LastName" class="form-label">Lastname</label>
+					<input asp-for="LastName" class="form-control" required>
+				</div>
+				<div class="mb-3">
+					<label asp-for="Email" class="form-label">Email address</label>
+					<input asp-for="Email" class="form-control" required>
+				</div>
+				<div class="mb-3">
+					<label asp-for="Password" class="form-label">Password</label>
+					<input asp-for="Password" class="form-control" type="password" required>
+				</div>
+				<button type="submit" class="btn btn-primary">Create</button>
+				<a class="btn btn-secondary" asp-controller="Login" asp-action="Index">Back to login</a>
+			</form>
+		</div>
+	</div>
 </div>

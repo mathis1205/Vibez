@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC_Vibez.Core;
-using MVC_Vibez.Model;
 
 namespace MVC_Vibez.Controllers;
 
@@ -8,7 +7,10 @@ public class ProfileController : Controller
 {
     private readonly VibezDbContext _dbContext;
 
-    public ProfileController(VibezDbContext dbContext) => _dbContext = dbContext;
+    public ProfileController(VibezDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
 
     [HttpGet]
     public IActionResult Index()
@@ -29,7 +31,10 @@ public class ProfileController : Controller
             var fileName = Path.GetFileName(profilePicture.FileName);
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
 
-            await using (var stream = new FileStream(filePath, FileMode.Create)) await profilePicture.CopyToAsync(stream);
+            await using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await profilePicture.CopyToAsync(stream);
+            }
 
             user.ProfilePicture = "/images/" + fileName;
             _dbContext.Users.Update(user);
@@ -37,6 +42,7 @@ public class ProfileController : Controller
 
             return RedirectToAction("Index");
         }
+
         TempData["ErrorMessage"] = "Please select an image to upload.";
         return RedirectToAction("Index");
     }

@@ -1,36 +1,36 @@
 ﻿@model MVC_Vibez.Model.User
 @{
-    ViewData["Title"] = "About page";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "About page";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
 @await Html.PartialAsync("_Navbar", Model)
 
 @section Styles {
-    <link rel="stylesheet" type="text/css" href="~/css/About.css"/>
+	<link rel="stylesheet" type="text/css" href="~/css/About.css"/>
 }
 
 <section class="abHeader mb-3 mx-auto">
-    <h1 class="p-3">Welcome to Vibez</h1>
+	<h1 class="p-3">Welcome to Vibez</h1>
 </section>
 <section class="abContainment container">
-    <div class="row">
-        <div class="col">
-            <div class="abText">
-                <h2 class="center">Who We Are</h2>
-                <p>Vibez is a music streaming platform powered by the Spotify API, made by people who love music just as much as you do! It is Vibez's mission to allow all artists, new and experienced, to promote their music and reach new audiences.</p>
-                <h2>Meet the Team</h2>
-                <p>Pictured below are the team that made Vibez possible including: the one and only swamp boss, the code donkeys, the web development donkeys, and the all-around donkey.</p>
-            </div>
-        </div>
-    </div>
+	<div class="row">
+		<div class="col">
+			<div class="abText">
+				<h2 class="center">Who We Are</h2>
+				<p>Vibez is a music streaming platform powered by the Spotify API, made by people who love music just as much as you do! It is Vibez's mission to allow all artists, new and experienced, to promote their music and reach new audiences.</p>
+				<h2>Meet the Team</h2>
+				<p>Pictured below are the team that made Vibez possible including: the one and only swamp boss, the code donkeys, the web development donkeys, and the all-around donkey.</p>
+			</div>
+		</div>
+	</div>
 </section>
 
 <section class="abImageContainer container">
-    <div class="row justify-content-center">
-        <div class="col text-center">
-            <img src="~/images/Temp.jpg" alt="Company Image" class="abImage img-fluid">
-        </div>
-    </div>
+	<div class="row justify-content-center">
+		<div class="col text-center">
+			<img src="~/images/Temp.jpg" alt="Company Image" class="abImage img-fluid">
+		</div>
+	</div>
 </section>

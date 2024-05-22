@@ -1,35 +1,36 @@
 ﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model MVC_Vibez.Model.ProgramPage
 @{
-    ViewBag.Title = "Contact Page";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Contact Page";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @await Html.PartialAsync("_Navbar", Model.user)
 
 @section Styles {
-    <link rel="stylesheet" type="text/css" href="~/css/contact.css" />
+	<link rel="stylesheet" type="text/css" href="~/css/contact.css"/>
 }
+
 @if (TempData["SuccessMessage"] != null)
 {
-    <div class="alert alert-succes" role="alert" style="background-color: #d4edda; color: #155724; font-size: larger; position: fixed;top:25%; left: 50%; transform: translate(-50%, -50%);">
-        @TempData["SuccessMessage"]
+	<div class="alert alert-succes" role="alert" style="background-color: #d4edda; color: #155724; font-size: larger; left: 50%; position: fixed; top: 25%; transform: translate(-50%, -50%);">
+		@TempData["SuccessMessage"]
 	</div>
 }
 
 <div class="container-contact-form">
-    <div class="text-center">
-        <h1 class="display-4">Contact form</h1>
-    </div>
-    @using (Html.BeginForm("SubmitContactForm", "Contact", FormMethod.Post))
-    {
-        <label asp-for="contactForm.Email" class="form-label">Email</label>
-        <input asp-for="contactForm.Email" class="form-control" required />
-        @Html.ValidationMessageFor(model => model.contactForm.Email, "", new { @class = "text-danger" })
+	<div class="text-center">
+		<h1 class="display-4">Contact form</h1>
+	</div>
+	@using (Html.BeginForm("SubmitContactForm", "Contact", FormMethod.Post))
+	{
+		<label asp-for="contactForm.Email" class="form-label">Email</label>
+		<input asp-for="contactForm.Email" class="form-control" required/>
+		@Html.ValidationMessageFor(model => model.contactForm.Email, "", new { @class = "text-danger" })
 
-        <label asp-for="contactForm.Message" class="form-label">Message</label>
-        <textarea asp-for="contactForm.Message" class="form-control" required rows="4"></textarea>
-        @Html.ValidationMessageFor(model => model.contactForm.Message, "", new { @class = "text-danger" })
+		<label asp-for="contactForm.Message" class="form-label">Message</label>
+		<textarea asp-for="contactForm.Message" class="form-control" required rows="4"></textarea>
+		@Html.ValidationMessageFor(model => model.contactForm.Message, "", new { @class = "text-danger" })
 
-        <button class="btn btnSend btn-primary" type="submit">Send</button>
-    }
+		<button class="btn btnSend btn-primary" type="submit">Send</button>
+	}
 </div>

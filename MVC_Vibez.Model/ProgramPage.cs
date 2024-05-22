@@ -8,5 +8,6 @@ public class ProgramPage
     public List<PlaylistsItem> playlists { get; set; }
     public ContactFormSubmission contactForm { get; set; }
     public List<Spotify> favoriteSongs { get; set; }
+    public List<GeniusHit> Hits { get; set; }
 
 }

@@ -7,7 +7,10 @@ public class LoginService
 {
     private readonly VibezDbContext _context;
 
-    public LoginService(VibezDbContext context) => _context = context;
+    public LoginService(VibezDbContext context)
+    {
+        _context = context;
+    }
 
     public User? Create(User user)
     {

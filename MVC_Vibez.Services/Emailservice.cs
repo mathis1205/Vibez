@@ -12,7 +12,10 @@ public class EmailService
     private readonly IOptions<EmailSettings> _emailSettings;
 
     //Constructor to initialize the emailsettings 
-    public EmailService(IOptions<EmailSettings> emailSettings) => _emailSettings = emailSettings;
+    public EmailService(IOptions<EmailSettings> emailSettings)
+    {
+        _emailSettings = emailSettings;
+    }
 
     //Create a task that is used for sending an email to a specific emailadress , a subject and a message
     public async Task SendEmailAsync(string email, string subject, string message)
@@ -28,7 +31,8 @@ public class EmailService
 
         //Initialize using the smtp server to send the email
         using var client = new SmtpClient();
-        await client.ConnectAsync(_emailSettings.Value.MailServer, _emailSettings.Value.MailPort, SecureSocketOptions.StartTls);
+        await client.ConnectAsync(_emailSettings.Value.MailServer, _emailSettings.Value.MailPort,
+            SecureSocketOptions.StartTls);
         await client.AuthenticateAsync(_emailSettings.Value.SenderEmail, _emailSettings.Value.Password);
         await client.SendAsync(emailMessage);
 
