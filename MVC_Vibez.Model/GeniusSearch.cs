@@ -79,7 +79,8 @@ public class GeniusSearch
                 var pageDocument = new HtmlDocument();
                 pageDocument.LoadHtml(pageContent);
 
-                var lyricsDiv = pageDocument.DocumentNode.SelectSingleNode("//div[@class='lyrics']");
+                var lyricsDiv = pageDocument.DocumentNode.SelectSingleNode("//div[contains(@class, 'Lyrics__Container-sc-1ynbvzw-1') and contains(@class, 'kUgSbL')]");
+
                 return lyricsDiv?.InnerText.Trim() ?? "Lyrics not found";
             }
 
