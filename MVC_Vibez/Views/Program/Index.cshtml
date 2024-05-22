@@ -77,28 +77,28 @@
                             });
 
                             listArtistHtml += "<h4>Albums</h4>";
-                            $.each(response.albums.slice(0, 6), function (index, album) {
+                            $.each(response.albums.slice(0, 6), function (index, albums) {
                                 listArtistHtml += '<a href="#" class="list-group-item list-group-item-action">';
                                 listArtistHtml += '<div class="artist-info">';
-                                listArtistHtml += '<img src="' + album.image + '" class="img-fluid" />';
-                                listArtistHtml += '<p>' + album.name + '</p>';
+                                listArtistHtml += '<img src="' + albums.image + '" class="img-fluid" />';
+                                listArtistHtml += '<p>' + albums.name + '</p>';
                                 listArtistHtml += '<div class="favorite-play-container">';
-                                listArtistHtml += '<img src="/images/Favoritebtn.png" alt="Favorite icon" class="favorite-btn" data-album-id="' + album.id + '">';
-                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-album-id="' + album.id + '">';
+                                listArtistHtml += '<img src="/images/Favoritebtn.png" alt="Favorite icon" class="favorite-btn" data-album-id="' + albums.id + '">';
+                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-album-id="' + albums.id + '">';
                                 listArtistHtml += '</div>';
                                 listArtistHtml += '</div>';
                                 listArtistHtml += '</a>';
                             });
 
                             listArtistHtml += "<h4>Playlists</h4>";
-                            $.each(response.playlists.slice(0, 6), function (index, playlist) {
+                            $.each(response.playlists.slice(0, 6), function (index, playlists) {
                                 listArtistHtml += '<a href="#" class="list-group-item list-group-item-action">';
                                 listArtistHtml += '<div class="artist-info">';
-                                listArtistHtml += '<img src="' + playlist.image + '" class="img-fluid" />';
-                                listArtistHtml += '<p>' + playlist.name + '</p>';
+                                listArtistHtml += '<img src="' + playlists.image + '" class="img-fluid" />';
+                                listArtistHtml += '<p>' + playlists.name + '</p>';
                                 listArtistHtml += '<div class="favorite-play-container">';
-                                listArtistHtml += '<img src="/images/Favoritebtn.png" alt="Favorite icon" class="favorite-btn" data-playlist-id="' + playlist.id + '">';
-                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-playlist-id="' + playlist.id + '">';
+                                listArtistHtml += '<img src="/images/Favoritebtn.png" alt="Favorite icon" class="favorite-btn" data-playlist-id="' + playlists.id + '">';
+                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-playlist-id="' + playlists.id + '">';
                                 listArtistHtml += '</div>';
                                 listArtistHtml += '</div>';
                                 listArtistHtml += '</a>';
