@@ -3,9 +3,7 @@ using System.Security.Claims;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using MVC_Vibez.Core;
 using MVC_Vibez.Model;
 using MVC_Vibez.Models;
@@ -20,21 +18,40 @@ public class LoginController : Controller
     private readonly ILogger<LoginController> _logger;
     private readonly LoginService _loginService;
 
-    public LoginController(ILogger<LoginController> logger, VibezDbContext dbContext, EmailService emailService, LoginService loginService)
+    public LoginController(ILogger<LoginController> logger, VibezDbContext dbContext, EmailService emailService,
+        LoginService loginService)
     {
-
         _dbContext = dbContext;
         _logger = logger;
         _emailService = emailService;
         _loginService = loginService;
     }
 
-    public IActionResult Index() => View();
-    [HttpGet] public IActionResult Create() => View();
-    [HttpGet] public IActionResult Recovery() => View();
-    [HttpPost] public IActionResult ResetPassword() => View();
+    public IActionResult Index()
+    {
+        return View();
+    }
 
-    [HttpPost, ValidateAntiForgeryToken]
+    [HttpGet]
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpGet]
+    public IActionResult Recovery()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult ResetPassword()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(User user)
     {
         if (_dbContext.Users.Any(_user => _user.Email.Equals(user.Email)))
@@ -42,26 +59,31 @@ public class LoginController : Controller
             ModelState.AddModelError("alreadyExist", "User already exists!");
             return View(user);
         }
+
         if (!Regex.IsMatch(user.Password, "[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]"))
         {
             ModelState.AddModelError("special character", "Password must include at least one special character");
             return View(user);
         }
+
         if (!Regex.IsMatch(user.Password, "[A-Z]"))
         {
             ModelState.AddModelError("capitalized letter", "Password must include at least one capitalized letter");
             return View(user);
         }
+
         if (!Regex.IsMatch(user.Password, "[0-9]"))
         {
             ModelState.AddModelError("Number", "Password must include at least one Number");
             return View(user);
         }
+
         user.ValidationToken = Guid.NewGuid().ToString();
         _loginService.Create(user);
 
         var validationLink = $"https://localhost:7286/Login/Validate?token={user.ValidationToken}";
-        var emailBody = $"Welcome to Vibez! </br> Please click <a href='{validationLink}'>here</a> to validate your account and login. </br> If you have any questions or issues please contact : vibezteamhelp@gmail.com </br> Have fun and vibe on!";
+        var emailBody =
+            $"Welcome to Vibez! </br> Please click <a href='{validationLink}'>here</a> to validate your account and login. </br> If you have any questions or issues please contact : vibezteamhelp@gmail.com </br> Have fun and vibe on!";
         await _emailService.SendEmailAsync(user.Email, "Dear user,", emailBody);
 
         return RedirectToAction("Index", "Login");
@@ -87,7 +109,8 @@ public class LoginController : Controller
 
         if (!storedUser.IsValid)
         {
-            ModelState.AddModelError("", "Please validate your account first by clicking on the link in the email we sent you.");
+            ModelState.AddModelError("",
+                "Please validate your account first by clicking on the link in the email we sent you.");
             return View("Index", user);
         }
 
@@ -102,10 +125,16 @@ public class LoginController : Controller
         return RedirectToAction("Index", "Program");
     }
 
-    public IActionResult Logout() => RedirectToAction("Index", "Login");
+    public IActionResult Logout()
+    {
+        return RedirectToAction("Index", "Login");
+    }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error() => View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
 
     [HttpGet]
     public async Task<IActionResult> Validate(string token)
@@ -139,10 +168,7 @@ public class LoginController : Controller
     [HttpPost]
     public async Task<IActionResult> Recovery(User user)
     {
-        if (!string.IsNullOrEmpty(user.Email))
-        {
-            ViewData["MailSentTo"] = user.Email;
-        }
+        if (!string.IsNullOrEmpty(user.Email)) ViewData["MailSentTo"] = user.Email;
 
         var existingUser = _dbContext.Users.FirstOrDefault(_user => _user.Email.Equals(user.Email));
         if (existingUser == null)
@@ -156,8 +182,10 @@ public class LoginController : Controller
             existingUser.ValidationToken = Guid.NewGuid().ToString();
             _dbContext.SaveChanges();
 
-            var recoveryLink = Url.Action("ResetPassword", "Login", new { token = existingUser.ValidationToken }, Request.Scheme);
-            var emailBody = $"Dear user, </br> Please click <a href='{recoveryLink}'>here</a> to reset your password. </br> If you did not request a password reset, please ignore this email.";
+            var recoveryLink = Url.Action("ResetPassword", "Login", new { token = existingUser.ValidationToken },
+                Request.Scheme);
+            var emailBody =
+                $"Dear user, </br> Please click <a href='{recoveryLink}'>here</a> to reset your password. </br> If you did not request a password reset, please ignore this email.";
             await _emailService.SendEmailAsync(existingUser.Email, "Password Recovery", emailBody);
 
             return View(user);
@@ -187,27 +215,35 @@ public class LoginController : Controller
                     ModelState.AddModelError("SamePassword", "New password must be different from the old one.");
                     return View("ResetPassword", model);
                 }
+
                 if (!Regex.IsMatch(model.NewPassword, "[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]"))
                 {
-                    ModelState.AddModelError("special character", "Password must include at least one special character");
+                    ModelState.AddModelError("special character",
+                        "Password must include at least one special character");
                     return View("ResetPassword", model);
                 }
+
                 if (!Regex.IsMatch(model.NewPassword, "[A-Z]"))
                 {
-                    ModelState.AddModelError("capitalized letter", "Password must include at least one capitalized letter");
+                    ModelState.AddModelError("capitalized letter",
+                        "Password must include at least one capitalized letter");
                     return View("ResetPassword", model);
                 }
+
                 if (!Regex.IsMatch(model.NewPassword, "[0-9]"))
                 {
                     ModelState.AddModelError("Number", "Password must include at least one Number");
                     return View("ResetPassword", model);
                 }
+
                 user.Password = HashingHelper.HashPassword(model.NewPassword);
                 _dbContext.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
+
             ModelState.AddModelError("InvalidToken", "Invalid or expired token.");
         }
+
         return View("Index", model);
     }
 }

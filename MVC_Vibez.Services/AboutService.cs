@@ -6,5 +6,8 @@ public class AboutService
 {
     private readonly VibezDbContext _context;
 
-    public AboutService(VibezDbContext context) => _context = context;
+    public AboutService(VibezDbContext context)
+    {
+        _context = context;
+    }
 }
