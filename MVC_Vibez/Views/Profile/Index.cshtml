@@ -1,55 +1,57 @@
 ﻿@model MVC_Vibez.Model.User
 @{
-    ViewData["Title"] = "Profile Page";
+	ViewData["Title"] = "Profile Page";
 }
+
 @section Styles {
-    <link rel="stylesheet" type="text/css" href="~/css/Profile.css" />
+	<link rel="stylesheet" type="text/css" href="~/css/Profile.css"/>
 }
+
 @await Html.PartialAsync("_Navbar", Model)
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="text-center">
-                <img src="@Model.ProfilePicture" alt="pfp" style="border-radius: 50%; height: 20%; width: 20%;" />
-                <p style="font-size: larger;">Welcome, @Model.FirstName @Model.LastName </p>
-                <div>
-                    <button type="submit" class="btn  btn-primary">Edit Profile</button>
-                </div>
-            <div class="card Profile_card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">User Information</h5>
-                    <p class="card-text">First Name: @Model.FirstName</p>
-                    <p class="card-text">Last Name: @Model.LastName</p>
-                    <p class="card-text">Email: @Model.Email</p>
-                </div>
-            </div>
-            <div class="card Profile_card mb-3" style="margin-top: 20px;">
-                <div class="card-body">
-                    <h5 class="card-title">Song statistics</h5>
-                    <p class="card-text">Most listened to song: </p>
-                    <p class="card-text">Most listened to artist: </p>
-                    <p class="card-text">Most listened to genre: </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+	<div class="row justify-content-center">
+		<div class="col-md-6">
+			<div class="text-center">
+				<img src="@Model.ProfilePicture" alt="pfp" style="border-radius: 50%; height: 20%; width: 20%;"/>
+				<p style="font-size: larger;">Welcome, @Model.FirstName @Model.LastName </p>
+				<div>
+					<button type="submit" class="btn  btn-primary">Edit Profile</button>
+				</div>
+				<div class="card Profile_card mb-3">
+					<div class="card-body">
+						<h5 class="card-title">User Information</h5>
+						<p class="card-text">First Name: @Model.FirstName</p>
+						<p class="card-text">Last Name: @Model.LastName</p>
+						<p class="card-text">Email: @Model.Email</p>
+					</div>
+				</div>
+				<div class="card Profile_card mb-3" style="margin-top: 20px;">
+					<div class="card-body">
+						<h5 class="card-title">Song statistics</h5>
+						<p class="card-text">Most listened to song: </p>
+						<p class="card-text">Most listened to artist: </p>
+						<p class="card-text">Most listened to genre: </p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="text-center mt-3">
-    @if (TempData["ErrorMessage"] != null)
-    {
-        <div class="alert alert-danger" role="alert">
-            @TempData["ErrorMessage"]
-        </div>
-    }
-    <form asp-action="UploadProfilePicture" asp-controller="Profile" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="profilePicture">Upload a profile picture?</label>
-            <input type="file" class="form-control-file" id="profilePicture" name="profilePicture">
-        </div>
-        <div class="mt-2" style="margin-left: -18px;">
-            <button type="submit" class="btn  btn-primary">Upload</button>
-        </div>
+	@if (TempData["ErrorMessage"] != null)
+	{
+		<div class="alert alert-danger" role="alert">
+			@TempData["ErrorMessage"]
+		</div>
+	}
+	<form asp-action="UploadProfilePicture" asp-controller="Profile" method="post" enctype="multipart/form-data">
+		<div class="form-group">
+			<label for="profilePicture">Upload a profile picture?</label>
+			<input type="file" class="form-control-file" id="profilePicture" name="profilePicture">
+		</div>
+		<div class="mt-2" style="margin-left: -18px;">
+			<button type="submit" class="btn  btn-primary">Upload</button>
+		</div>
 
-    </form>
+	</form>
 </div>

@@ -11,13 +11,10 @@ namespace MVC_Vibez.Model
     {
         public string Token { get; set; }
 
-        [Required]
-        [DataType(DataType.Password)]
+        [Required,DataType(DataType.Password)]
         public string NewPassword { get; set; }
 
-        [Required]
-        [Compare("NewPassword")]
-        [DataType(DataType.Password)]
+        [Required, Compare("NewPassword"),DataType(DataType.Password)]
         public string ConfirmNewPassword { get; set; }
     }
 }

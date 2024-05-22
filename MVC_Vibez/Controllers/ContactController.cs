@@ -9,23 +9,18 @@ public class ContactController : Controller
 {
     private readonly ContactService _contactService;
     private readonly ProgramService _ProgramService;
-
     public ContactController(ContactService contact, ProgramService programService)
     { 
         _contactService = contact;
         _ProgramService = programService;
     }
-
     public IActionResult Index()
     {
         var currentUser = _ProgramService.GetUserByEmail(User.Identity.Name);
         var newContactFormSubmission = new ContactFormSubmission();
-
         if (currentUser == null) return NotFound();
-
         return View(new ProgramPage { user = currentUser, contactForm = newContactFormSubmission });
     }
-
     [HttpPost]
     public async Task<IActionResult> SubmitContactForm(ContactFormSubmission contactForm)
     {
