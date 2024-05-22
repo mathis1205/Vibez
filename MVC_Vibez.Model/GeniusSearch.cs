@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Headers;
+using System.Text;
 using Microsoft.Extensions.Options;
 using HtmlAgilityPack;
 
@@ -79,14 +80,27 @@ public class GeniusSearch
                 var pageDocument = new HtmlDocument();
                 pageDocument.LoadHtml(pageContent);
 
-                var lyricsDiv = pageDocument.DocumentNode.SelectSingleNode("//div[contains(@class, 'Lyrics__Container-sc-1ynbvzw-1') and contains(@class, 'kUgSbL')]");
+                var lyricsDivs = pageDocument.DocumentNode.SelectNodes("//div[contains(@class, 'Lyrics__Container-sc-1ynbvzw-1') and contains(@class, 'kUgSbL')]");
+                if (lyricsDivs == null || !lyricsDivs.Any())
+                {
+                    throw new Exception("Failed to get lyrics");
+                }
 
-                return lyricsDiv?.InnerText.Trim() ?? "Lyrics not found";
+                var lyrics = new StringBuilder();
+                foreach (var lyricsDiv in lyricsDivs)
+                {
+                    lyrics.AppendLine(lyricsDiv.InnerText.Trim());
+                }
+
+                var lyricsText = lyrics.ToString();
+                lyricsText = lyricsText.Replace("&#x27;", "'").Replace("[", " [").Replace(" & quot;", " ");
+                return lyricsText;
             }
 
             throw new Exception("Failed to get lyrics");
         }
     }
+
 
 
 }
