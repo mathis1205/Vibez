@@ -16,7 +16,7 @@
     width: 80%;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 1000; 
+    z-index: 1000;
 }
 
 .navbar-nav {
@@ -46,9 +46,8 @@
     }
 
         .navbar-nav .nav-item .nav-link:not(.dropdown-toggle):hover {
-            background-color: rgba(239, 209, 9, 0.6); 
+            background-color: rgba(239, 209, 9, 0.6);
         }
-
 
 .playlist-container {
     top: 130px;
@@ -84,9 +83,13 @@
     z-index: 1;
 }
 
-.sidebar .search-box { padding: 20px; }
+    .sidebar .search-box {
+        padding: 20px;
+    }
 
-.sidebar .search-results { padding: 20px; }
+    .sidebar .search-results {
+        padding: 20px;
+    }
 
 .main-content {
     margin-left: 250px;
@@ -96,29 +99,54 @@
 .artist-info {
     align-items: center;
     display: flex;
+    justify-content: space-between;
 }
 
-.artist-info img {
-    height: auto;
-    margin-right: 10px;
-    max-width: 50px;
+    .artist-info img.img-fluid {
+        height: auto;
+        margin-right: 10px;
+        max-width: 50px;
+    }
+
+.favorite-btn, .play-btn {
+    max-height: 30px;
 }
 
-.playlist-card { height: 100%; }
+.favorite-play-container {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.favorite-btn {
+    margin-right: 10px; /* Pas de marge tussen de knoppen aan indien nodig */
+}
+
+.playlist-card {
+    height: 100%;
+}
 
 .card-body {
     display: flex;
     flex-direction: column;
 }
 
-.card-text { margin-top: auto; }
+.card-text {
+    margin-top: auto;
+}
 
-.col-md-2 { margin-bottom: 20px; }
+.col-md-2 {
+    margin-bottom: 20px;
+}
 
 .alert {
     text-align: center;
-    width: 50%; 
-    margin: 20px auto; 
+    width: 50%;
+    position: fixed; /* Maak de alert positie vast */
+    top: 100px; /* Afstand vanaf de bovenkant van het venster */
+    left: 54%; /* Plaats het horizontaal in het midden */
+    transform: translateX(-50%); /* Centreer horizontaal */
+    z-index: 1001; /* Zorg ervoor dat de alert bovenop alles blijft */
 }
 
 .alert-visible {
@@ -129,16 +157,15 @@
 
 #mediaPlayer {
     position: absolute;
-    margin-top: 10px; /* Verhoog de marge vanaf de bovenkant */
+    margin-top: 100px; /* Verhoog de marge vanaf de bovenkant */
     margin-left: 200px; /* Halve breedte van het element */
     width: 500px;
     text-align: center;
 }
 
-#mediaPlayer iframe {
-    margin: 0 auto;
-    display: block;
-    height: 500px;
-    width: 100%;
-}
-
+    #mediaPlayer iframe {
+        margin: 0 auto;
+        display: block;
+        height: 500px;
+        width: 100%;
+    }

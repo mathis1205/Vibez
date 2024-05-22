@@ -10,18 +10,18 @@
 <link rel="stylesheet" href="css/Program.css"/>
 
 <body>
-<div class="sidebar bg-light">
-    <div class="search-box">
-        <input type="text" id="txtSearch" class="form-control mb-3" placeholder="Search">
+    <div class="sidebar bg-light">
+        <div class="search-box">
+            <input type="text" id="txtSearch" class="form-control mb-3" placeholder="Search">
+        </div>
+        <div id="searchResults" class="search-results list-group"></div>
     </div>
-    <div id="searchResults" class="search-results list-group"></div>
-</div>
 
-<div class="main-content">
-    <div id="mediaPlayer">
-        <iframe allow="encrypted-media"></iframe>
+    <div class="main-content">
+        <div id="mediaPlayer">
+            <iframe allow="encrypted-media"></iframe>
+        </div>
     </div>
-</div>
 
     <script>
         $(document).ready(function () {
@@ -54,8 +54,10 @@
                                 listArtistHtml += '<div class="artist-info">';
                                 listArtistHtml += '<img src="' + song.image + '" class="img-fluid" />';
                                 listArtistHtml += '<p>' + song.name + '</p>';
-                                listArtistHtml += '<img src="/images/Favoritebtn.png" alt="plus icon" class="favorite-btn" data-song=\'' + JSON.stringify(song) + '\' style="max-height: 30px; vertical-align: middle; margin-left:auto;">';
-                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-song-id="' + song.id + '" style="max-height: 30px; vertical-align: middle; margin-left:auto;">';
+                                listArtistHtml += '<div class="favorite-play-container">';
+                                listArtistHtml += '<img src="/images/Favoritebtn.png" alt="plus icon" class="favorite-btn" data-song=\'' + JSON.stringify(song) + '\'>';
+                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-song-id="' + song.id + '">';
+                                listArtistHtml += '</div>';
                                 listArtistHtml += '</div>';
                                 listArtistHtml += '</div>';
                             });
@@ -66,7 +68,9 @@
                                 listArtistHtml += '<div class="artist-info">';
                                 listArtistHtml += '<img src="' + artist.image + '" class="img-fluid" />';
                                 listArtistHtml += '<p>' + artist.name + '</p>';
-                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-artist-id="' + artist.id + '" style="max-height: 30px; vertical-align: middle; margin-left:auto;">';
+                                listArtistHtml += '<div class="favorite-play-container">';
+                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-artist-id="' + artist.id + '">';
+                                listArtistHtml += '</div>';
                                 listArtistHtml += '</div>';
                                 listArtistHtml += '</a>';
                             });
@@ -77,7 +81,9 @@
                                 listArtistHtml += '<div class="artist-info">';
                                 listArtistHtml += '<img src="' + albums.image + '" class="img-fluid" />';
                                 listArtistHtml += '<p>' + albums.name + '</p>';
-                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-album-id="' + albums.id + '" style="max-height: 30px; vertical-align: middle; margin-left:auto;">';
+                                listArtistHtml += '<div class="favorite-play-container">';
+                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-album-id="' + albums.id + '">';
+                                listArtistHtml += '</div>';
                                 listArtistHtml += '</div>';
                                 listArtistHtml += '</a>';
                             });
@@ -88,7 +94,9 @@
                                 listArtistHtml += '<div class="artist-info">';
                                 listArtistHtml += '<img src="' + playlists.image + '" class="img-fluid" />';
                                 listArtistHtml += '<p>' + playlists.name + '</p>';
-                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-playlist-id="' + playlists.id + '" style="max-height: 30px; vertical-align: middle; margin-left:auto;">';
+                                listArtistHtml += '<div class="favorite-play-container">';
+                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-playlist-id="' + playlists.id + '">';
+                                listArtistHtml += '</div>';
                                 listArtistHtml += '</div>';
                                 listArtistHtml += '</a>';
                             });
@@ -155,5 +163,4 @@
             }
         });
     </script>
-
 </body>
