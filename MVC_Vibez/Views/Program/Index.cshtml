@@ -54,8 +54,10 @@
                                 listArtistHtml += '<div class="artist-info">';
                                 listArtistHtml += '<img src="' + song.image + '" class="img-fluid" />';
                                 listArtistHtml += '<p>' + song.name + '</p>';
-                                listArtistHtml += '<img src="/images/Favoritebtn.png" alt="plus icon" class="favorite-btn" data-song=\'' + JSON.stringify(song) + '\' style="max-height: 30px; vertical-align: middle; margin-left:auto;">';
-                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-song-id="' + song.id + '" style="max-height: 30px; vertical-align: middle; margin-left:auto;">';
+                                listArtistHtml += '<div class="favorite-play-container">';
+                                listArtistHtml += '<img src="/images/Favoritebtn.png" alt="plus icon" class="favorite-btn" data-song=\'' + JSON.stringify(song) + '\'>';
+                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-song-id="' + song.id + '">';
+                                listArtistHtml += '</div>';
                                 listArtistHtml += '</div>';
                                 listArtistHtml += '</div>';
                             });
@@ -66,32 +68,42 @@
                                 listArtistHtml += '<div class="artist-info">';
                                 listArtistHtml += '<img src="' + artist.image + '" class="img-fluid" />';
                                 listArtistHtml += '<p>' + artist.name + '</p>';
-                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-artist-id="' + artist.id + '" style="max-height: 30px; vertical-align: middle; margin-left:auto;">';
+                                listArtistHtml += '<div class="favorite-play-container">';
+                                listArtistHtml += '<img src="/images/Favoritebtn.png" alt="Favorite icon" class="favorite-btn" data-artist-id="' + artist.id + '">';
+                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-artist-id="' + artist.id + '">';
+                                listArtistHtml += '</div>';
                                 listArtistHtml += '</div>';
                                 listArtistHtml += '</a>';
                             });
 
                             listArtistHtml += "<h4>Albums</h4>";
-                            $.each(response.albums.slice(0, 6), function (index, albums) {
+                            $.each(response.albums.slice(0, 6), function (index, album) {
                                 listArtistHtml += '<a href="#" class="list-group-item list-group-item-action">';
                                 listArtistHtml += '<div class="artist-info">';
-                                listArtistHtml += '<img src="' + albums.image + '" class="img-fluid" />';
-                                listArtistHtml += '<p>' + albums.name + '</p>';
-                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-album-id="' + albums.id + '" style="max-height: 30px; vertical-align: middle; margin-left:auto;">';
+                                listArtistHtml += '<img src="' + album.image + '" class="img-fluid" />';
+                                listArtistHtml += '<p>' + album.name + '</p>';
+                                listArtistHtml += '<div class="favorite-play-container">';
+                                listArtistHtml += '<img src="/images/Favoritebtn.png" alt="Favorite icon" class="favorite-btn" data-album-id="' + album.id + '">';
+                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-album-id="' + album.id + '">';
+                                listArtistHtml += '</div>';
                                 listArtistHtml += '</div>';
                                 listArtistHtml += '</a>';
                             });
 
                             listArtistHtml += "<h4>Playlists</h4>";
-                            $.each(response.playlists.slice(0, 6), function (index, playlists) {
+                            $.each(response.playlists.slice(0, 6), function (index, playlist) {
                                 listArtistHtml += '<a href="#" class="list-group-item list-group-item-action">';
                                 listArtistHtml += '<div class="artist-info">';
-                                listArtistHtml += '<img src="' + playlists.image + '" class="img-fluid" />';
-                                listArtistHtml += '<p>' + playlists.name + '</p>';
-                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-playlist-id="' + playlists.id + '" style="max-height: 30px; vertical-align: middle; margin-left:auto;">';
+                                listArtistHtml += '<img src="' + playlist.image + '" class="img-fluid" />';
+                                listArtistHtml += '<p>' + playlist.name + '</p>';
+                                listArtistHtml += '<div class="favorite-play-container">';
+                                listArtistHtml += '<img src="/images/Favoritebtn.png" alt="Favorite icon" class="favorite-btn" data-playlist-id="' + playlist.id + '">';
+                                listArtistHtml += '<img src="/images/playbutton.png" alt="Play icon" class="play-btn" data-playlist-id="' + playlist.id + '">';
+                                listArtistHtml += '</div>';
                                 listArtistHtml += '</div>';
                                 listArtistHtml += '</a>';
                             });
+
 
                             $("#searchResults").html(listArtistHtml);
                         } else {
