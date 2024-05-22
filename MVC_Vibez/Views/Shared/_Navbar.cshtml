@@ -11,28 +11,31 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Library" asp-action="Index">Library</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Contact" asp-action="Index">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="About" asp-action="Index">About</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <div style="background-color: white; border-radius: 50%; width: 40px; height: 40px;">
-                                <img src="@Model.ProfilePicture" style="height: 100%; width: 100%; border-radius: 50%;">
-                            </div>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" asp-area="" asp-controller="Profile" asp-action="Index">Profile</a></li>
-                            <li><a class="dropdown-item" asp-area="" asp-controller="Login" asp-action="Logout">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
+	            <ul class="navbar-nav">
+		            <li class="nav-item">
+			            <a class="nav-link text-dark" asp-area="" asp-controller="Youtube" asp-action="Index">Youtube</a>
+		            </li>
+		            <li class="nav-item">
+			            <a class="nav-link text-dark" asp-area="" asp-controller="Library" asp-action="Index">Library</a>
+		            </li>
+		            <li class="nav-item">
+			            <a class="nav-link text-dark" asp-area="" asp-controller="Contact" asp-action="Index">Contact</a>
+		            </li>
+		            <li class="nav-item">
+			            <a class="nav-link text-dark" asp-area="" asp-controller="About" asp-action="Index">About</a>
+		            </li>
+		            <li class="nav-item dropdown">
+			            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+				            <div style="background-color: white; border-radius: 50%; width: 40px; height: 40px;">
+					            <img src="@Model.ProfilePicture" style="height: 100%; width: 100%; border-radius: 50%;">
+				            </div>
+			            </a>
+			            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+				            <li><a class="dropdown-item" asp-area="" asp-controller="Profile" asp-action="Index">Profile</a></li>
+				            <li><a class="dropdown-item" asp-area="" asp-controller="Login" asp-action="Logout">Logout</a></li>
+			            </ul>
+		            </li>
+	            </ul>
             </div>
         </div>
     </nav>
