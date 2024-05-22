@@ -142,8 +142,11 @@
 .alert {
     text-align: center;
     width: 50%;
-    margin: 20px auto;
-    margin-left: 200px;
+    position: fixed; /* Maak de alert positie vast */
+    top: 100px; /* Afstand vanaf de bovenkant van het venster */
+    left: 54%; /* Plaats het horizontaal in het midden */
+    transform: translateX(-50%); /* Centreer horizontaal */
+    z-index: 1001; /* Zorg ervoor dat de alert bovenop alles blijft */
 }
 
 .alert-visible {
@@ -151,9 +154,10 @@
     background-color: rgba(239, 209, 9, 0.6);
 }
 
+
 #mediaPlayer {
     position: absolute;
-    margin-top: 10px; /* Verhoog de marge vanaf de bovenkant */
+    margin-top: 100px; /* Verhoog de marge vanaf de bovenkant */
     margin-left: 200px; /* Halve breedte van het element */
     width: 500px;
     text-align: center;
