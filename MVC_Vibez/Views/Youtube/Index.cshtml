@@ -1,22 +1,30 @@
 ﻿@model MVC_Vibez.Model.ProgramPage
 @{
-    ViewData["Title"] = "YoutubeApi";
+	ViewData["Title"] = "YoutubeApi";
 }
 @await Html.PartialAsync("_Navbar", Model.user)
+<link rel="stylesheet" href="css/Youtube.css"/>
 <body>
-    <h1>YouTube Video Search</h1>
-    <input type="text" id="searchQuery" placeholder="Search for videos">
-    <button onclick="searchVideos()">Search</button>
-    <div id="loading" style="display: none;">Loading...</div>
-    <div id="videos"></div>
+<div class="videos">
+	<input class="input" type="text" id="searchQuery" placeholder="Search for videos">
+	<button class="btn btnSend btn-primary" onclick="searchVideos()">Search</button>
+</div>
 
-    <script>
+<div class="videos">
+	<div id="loading" style="display: none;">Loading...</div>
+	<div id="videos"></div>
+</div>
+
+<script>
+
         async function searchVideos() {
+            
             const query = document.getElementById('searchQuery').value;
             const videosContainer = document.getElementById('videos');
             const loadingIndicator = document.getElementById('loading');
 
-            videosContainer.innerHTML = ''; // Clear previous results
+            videosContainer.innerHTML = '';
+            videosContainer.classList.add('border-active');
             loadingIndicator.style.display = 'block';
 
             try {
@@ -43,8 +51,6 @@
             videos.forEach(video => {
                 const videoId = video.videoId;
                 const iframe = document.createElement('iframe');
-                iframe.width = '560';
-                iframe.height = '315';
                 iframe.src = `https://www.youtube.com/embed/${videoId}`;
                 iframe.frameBorder = '0';
                 iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
@@ -54,4 +60,3 @@
         }
     </script>
 </body>
-</html>

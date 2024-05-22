@@ -46,7 +46,7 @@ namespace MVC_Vibez.Controllers
 
         private async Task<List<YoutubeVideo>> FetchVideosFromYouTube(string query)
         {
-            var apiUrl = $"https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q={query}&type=video&key={_apiKey}";
+            var apiUrl = $"https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=24&q={query}&type=video&key={_apiKey}";
             using (var httpClient = new HttpClient())
             {
                 var response = await httpClient.GetStringAsync(apiUrl);
