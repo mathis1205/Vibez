@@ -16,7 +16,6 @@ public class User
     public bool IsValid { get; set; }
     public string? ProfilePicture { get; set; }
     public List<Spotify> FavoriteSpotifyItems { get; set; }
-    public string AccessToken { get; set; }
 
     public User()
     {
