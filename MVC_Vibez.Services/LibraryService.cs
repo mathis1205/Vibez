@@ -6,5 +6,8 @@ public class LibraryService
 {
     private readonly VibezDbContext _context;
 
-    public LibraryService(VibezDbContext context) => _context = context;
+    public LibraryService(VibezDbContext context)
+    {
+        _context = context;
+    }
 }

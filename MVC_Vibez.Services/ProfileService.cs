@@ -6,5 +6,8 @@ public class ProfileService
 {
     private readonly VibezDbContext _context;
 
-    public ProfileService(VibezDbContext context) => _context = context;
+    public ProfileService(VibezDbContext context)
+    {
+        _context = context;
+    }
 }
