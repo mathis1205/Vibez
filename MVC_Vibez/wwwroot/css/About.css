@@ -57,6 +57,9 @@ body {
     flex-direction: column;
     justify-content: center;
     margin-top: 5%;
+    margin-top: -5px;
+    margin-bottom: 5%;
+    margin-bottom: -5px;
 }
 
 .abText {
@@ -74,13 +77,16 @@ body {
 }
 
 .abImageContainer {
-    margin-top: 20px;
+    margin-top: 50px;
+
 }
 
 .abImage {
     max-width: 100%;
     border: 1px solid black;
     margin: 0 auto;
+    border-radius: 25px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
 }
 
 .abHeader {
