@@ -15,13 +15,14 @@ public class GeniusHit
 
 public class GeniusResult
 {
+    public int id { get; set; } 
     public string title { get; set; }
     public GeniusArtist primary_artist { get; set; }
-    public string url { get; set; }
-    public int id { get; set; }
-    public string path { get; set; }
-    public string release_date { get; set; }
+    public string SongArtImageUrl { get; set; }
+    public string ReleaseDateForDisplay { get; set; }
+    public List<object> FeaturedArtists { get; set; }
     public string song_art_image_thumbnail_url { get; set; }
+    public string path { get; set; }
 }
 
 
@@ -46,4 +47,6 @@ public class GeniusSong
     public string title { get; set; }
     public GeniusArtist primary_artist { get; set; }
     public string release_date_for_display { get; set; }
+    public string song_art_image_url { get; set; } 
+    public List<object> featured_artists { get; set; } 
 }

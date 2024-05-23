@@ -84,3 +84,18 @@
     font-size: 1rem; /* Verklein de tekst */
     margin: 0; /* Verwijder de standaard marges */
 }
+
+.info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info .details {
+    flex: 1;
+}
+
+.info .lyrics {
+    flex: 2;
+}
+
+

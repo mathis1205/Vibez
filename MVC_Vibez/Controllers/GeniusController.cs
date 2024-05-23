@@ -30,14 +30,25 @@ public class GeniusController : Controller
         return View("Index", new ProgramPage { user = user, Hits = hits, SearchPerformed = true });
     }
 
-    public async Task<IActionResult> Lyrics(string path)
+    public async Task<IActionResult> Lyrics(string path, string title, string artist, int id)
     {
         var user = _programService.GetUserByEmail(User.Identity.Name);
         var lyrics = await _geniusSearch.GetLyrics(path);
-        var hits = await _geniusSearch.SearchSongs(""); // Keep the previous search results
-        return View("Index", new ProgramPage { user = user, Hits = hits, Lyrics = lyrics });
+        var songDetails = await _geniusSearch.GetSongDetails(id);
+        var selectedHit = new GeniusHit
+        {
+            result = new GeniusResult
+            {
+                title = title,
+                primary_artist = new GeniusArtist { name = artist },
+                SongArtImageUrl = songDetails.song_art_image_url,
+                ReleaseDateForDisplay = songDetails.release_date_for_display,
+                FeaturedArtists = songDetails.featured_artists
+            }
+        };
+        var model = new ProgramPage { user = user, Lyrics = lyrics, SelectedHit = selectedHit, SearchPerformed = false };
+        return View("Index", model);
     }
-
 }
 
 
