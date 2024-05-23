@@ -1,16 +1,16 @@
 ﻿using System.Net.Http.Headers;
 using System.Text;
-using Microsoft.Extensions.Options;
 using HtmlAgilityPack;
+using Microsoft.Extensions.Options;
 
 namespace MVC_Vibez.Model;
 
 public class GeniusSearch
 {
+    private const string AccessToken = "5zMOXvjfUgpx2H0zHmI01-xEkgWRRvS3rZGV09oV_hpJinMRVLj_q3k1Wm0jtxg3";
     private readonly string clientId;
     private readonly string clientSecret;
     private readonly string redirectUri;
-    private const string AccessToken = "5zMOXvjfUgpx2H0zHmI01-xEkgWRRvS3rZGV09oV_hpJinMRVLj_q3k1Wm0jtxg3";
 
 
     public GeniusSearch(IOptions<GeniusSearchOptions> options)
@@ -80,17 +80,12 @@ public class GeniusSearch
                 var pageDocument = new HtmlDocument();
                 pageDocument.LoadHtml(pageContent);
 
-                var lyricsDivs = pageDocument.DocumentNode.SelectNodes("//div[contains(@class, 'Lyrics__Container-sc-1ynbvzw-1') and contains(@class, 'kUgSbL')]");
-                if (lyricsDivs == null || !lyricsDivs.Any())
-                {
-                    throw new Exception("Failed to get lyrics");
-                }
+                var lyricsDivs = pageDocument.DocumentNode.SelectNodes(
+                    "//div[contains(@class, 'Lyrics__Container-sc-1ynbvzw-1') and contains(@class, 'kUgSbL')]");
+                if (lyricsDivs == null || !lyricsDivs.Any()) throw new Exception("Failed to get lyrics");
 
                 var lyrics = new StringBuilder();
-                foreach (var lyricsDiv in lyricsDivs)
-                {
-                    lyrics.AppendLine(lyricsDiv.InnerText.Trim());
-                }
+                foreach (var lyricsDiv in lyricsDivs) lyrics.AppendLine(lyricsDiv.InnerText.Trim());
 
                 var lyricsText = lyrics.ToString();
                 lyricsText = lyricsText.Replace("&#x27;", "'").Replace("[", " [").Replace(" & quot;", " ");
@@ -100,7 +95,4 @@ public class GeniusSearch
             throw new Exception("Failed to get lyrics");
         }
     }
-
-
-
 }
