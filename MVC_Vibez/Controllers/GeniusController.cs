@@ -26,8 +26,8 @@ public class GeniusController : Controller
     public async Task<IActionResult> Search(string searchTerm)
     {
         var user = _programService.GetUserByEmail(User.Identity.Name);
-        var hits = await _geniusSearch.SearchSongs(searchTerm);
-        return View("Index", new ProgramPage { user = user, Hits = hits });
+        var hits = await _geniusSearch.SearchSongs(searchTerm ?? string.Empty);
+        return View("Index", new ProgramPage { user = user, Hits = hits, SearchPerformed = true });
     }
 
     public async Task<IActionResult> Lyrics(string path)

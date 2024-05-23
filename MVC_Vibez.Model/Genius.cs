@@ -43,4 +43,7 @@ public class GeniusSongResponse
 public class GeniusSong
 {
     public string lyrics { get; set; }
+    public string title { get; set; }
+    public GeniusArtist primary_artist { get; set; }
+    public string release_date_for_display { get; set; }
 }
