@@ -9,7 +9,6 @@ body {
 @font-face {
     font-family: 'CustomFont';
     src: url('/Fonts/slabstruct-too.ttf') format('truetype');
-    /* You may need to adjust the path based on your folder structure */
 }
 
 .navbar {
@@ -69,17 +68,7 @@ body {
 }
 
 .abText {
-    /* background: linear-gradient(to right, #D4B03C, #A1C357);*/
-    /*        background: linear-gradient(to right, #FFD700, #8FD14F);*/
-    /*    background-color: rgba(0, 0, 0, 0.2);*/
-    /*    background: #8FD14F;*/
-    /*    background: #FFD700;*/
-    /*    background: #FFDAB9;*/
-    /*    background: #F5F5DC;*/
-    /*        background: linear-gradient(to right, #FFFFE0, #FFDAB9);*/
-    /*        background: linear-gradient(to right, #E0FFD1, #E0FFFF);*/
-    /*    background: linear-gradient(to right, #F5F5DC, #FFDAB9);*/
-    /*    background: linear-gradient(to right,#52F6FB, #BEDC6D);*/
+
     background: linear-gradient(to right, #A8ECEE, #E6F2C2);
     border: 2px solid #BEDC6D;
     border-radius: 25px;
@@ -87,7 +76,6 @@ body {
     padding: 25px;
     position: relative;
     text-align: center;
-    /*    color: #2A9BA5;*/
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
 }
 
@@ -97,7 +85,6 @@ body {
     }
 
     .abText h2 {
-        /*    font-weight: bold;*/
         font-family: 'CustomFont';
         font-size:50px;
     }
@@ -105,7 +92,7 @@ body {
 .abImageContainer {
     margin-top: 50px;
     border-radius: 25px;
-    padding: 4px; /* Adjust this value to control the amount of space */
+    padding: 4px; 
  
 }
 
@@ -121,8 +108,6 @@ body {
 
 
 .abHeader {
-    /*    background: linear-gradient(to right, #F9D354, #BEDC6D);*/
-/*    background: linear-gradient(to right, #FFFFE0, #FFDAB9);*/
     background: linear-gradient(to right, #A8ECEE, #E6F2C2);
     border: 2px solid #BEDC6D !important;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5) !important;
