@@ -15,17 +15,12 @@ public class ProgramService
 
     public User GetUserByEmail(string email)
     {
-        return _context.Users
-            .Include(u => u.FavoriteSpotifyItems) // Haal ook de FavoriteSpotifyItems op
-            .FirstOrDefault(u => u.Email == email);
+        return _context.Users.FirstOrDefault(u => u.Email == email);
     }
-
-
     public void UpdateUser(User user)
     {
         var dbUser = _context.Users.FirstOrDefault(u => u.Id == user.Id);
         if (dbUser == null) return;
-        dbUser.FavoriteSpotifyItems = user.FavoriteSpotifyItems;
         _context.SaveChanges();
     }
 }

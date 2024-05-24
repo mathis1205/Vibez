@@ -18,8 +18,7 @@ public class LoginController : Controller
     private readonly ILogger<LoginController> _logger;
     private readonly LoginService _loginService;
 
-    public LoginController(ILogger<LoginController> logger, VibezDbContext dbContext, EmailService emailService,
-        LoginService loginService)
+    public LoginController(ILogger<LoginController> logger, VibezDbContext dbContext, EmailService emailService, LoginService loginService)
     {
         _dbContext = dbContext;
         _logger = logger;
@@ -50,8 +49,7 @@ public class LoginController : Controller
         return View();
     }
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
+    [HttpPost,ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(User user)
     {
         if (_dbContext.Users.Any(_user => _user.Email.Equals(user.Email)))
@@ -82,8 +80,7 @@ public class LoginController : Controller
         _loginService.Create(user);
 
         var validationLink = $"https://localhost:7286/Login/Validate?token={user.ValidationToken}";
-        var emailBody =
-            $"Welcome to Vibez! </br> Please click <a href='{validationLink}'>here</a> to validate your account and login. </br> If you have any questions or issues please contact : vibezteamhelp@gmail.com </br> Have fun and vibe on!";
+        var emailBody = $"Welcome to Vibez! </br> Please click <a href='{validationLink}'>here</a> to validate your account and login. </br> If you have any questions or issues please contact : vibezteamhelp@gmail.com </br> Have fun and vibe on!";
         await _emailService.SendEmailAsync(user.Email, "Dear user,", emailBody);
 
         return RedirectToAction("Index", "Login");
@@ -109,8 +106,7 @@ public class LoginController : Controller
 
         if (!storedUser.IsValid)
         {
-            ModelState.AddModelError("",
-                "Please validate your account first by clicking on the link in the email we sent you.");
+            ModelState.AddModelError("", "Please validate your account first by clicking on the link in the email we sent you.");
             return View("Index", user);
         }
 
@@ -205,44 +201,42 @@ public class LoginController : Controller
     [HttpPost]
     public IActionResult SetNewPassword(ResetPasswordModel model)
     {
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid) return View("Index", model);
+        var user = _dbContext.Users.FirstOrDefault(u => u.ValidationToken == model.Token);
+        if (user != null)
         {
-            var user = _dbContext.Users.FirstOrDefault(u => u.ValidationToken == model.Token);
-            if (user != null)
+            if (user.Password == HashingHelper.HashPassword(model.NewPassword))
             {
-                if (user.Password == HashingHelper.HashPassword(model.NewPassword))
-                {
-                    ModelState.AddModelError("SamePassword", "New password must be different from the old one.");
-                    return View("ResetPassword", model);
-                }
-
-                if (!Regex.IsMatch(model.NewPassword, "[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]"))
-                {
-                    ModelState.AddModelError("special character",
-                        "Password must include at least one special character");
-                    return View("ResetPassword", model);
-                }
-
-                if (!Regex.IsMatch(model.NewPassword, "[A-Z]"))
-                {
-                    ModelState.AddModelError("capitalized letter",
-                        "Password must include at least one capitalized letter");
-                    return View("ResetPassword", model);
-                }
-
-                if (!Regex.IsMatch(model.NewPassword, "[0-9]"))
-                {
-                    ModelState.AddModelError("Number", "Password must include at least one Number");
-                    return View("ResetPassword", model);
-                }
-
-                user.Password = HashingHelper.HashPassword(model.NewPassword);
-                _dbContext.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                ModelState.AddModelError("SamePassword", "New password must be different from the old one.");
+                return View("ResetPassword", model);
             }
 
-            ModelState.AddModelError("InvalidToken", "Invalid or expired token.");
+            if (!Regex.IsMatch(model.NewPassword, "[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]"))
+            {
+                ModelState.AddModelError("special character",
+                    "Password must include at least one special character");
+                return View("ResetPassword", model);
+            }
+
+            if (!Regex.IsMatch(model.NewPassword, "[A-Z]"))
+            {
+                ModelState.AddModelError("capitalized letter",
+                    "Password must include at least one capitalized letter");
+                return View("ResetPassword", model);
+            }
+
+            if (!Regex.IsMatch(model.NewPassword, "[0-9]"))
+            {
+                ModelState.AddModelError("Number", "Password must include at least one Number");
+                return View("ResetPassword", model);
+            }
+
+            user.Password = HashingHelper.HashPassword(model.NewPassword);
+            _dbContext.SaveChanges();
+            return RedirectToAction("Index", "Home");
         }
+
+        ModelState.AddModelError("InvalidToken", "Invalid or expired token.");
 
         return View("Index", model);
     }
