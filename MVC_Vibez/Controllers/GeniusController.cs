@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MVC_Vibez.Model;
 using MVC_Vibez.Services;
 using System.Net.Http.Headers;

@@ -108,12 +108,23 @@ public class GeniusSearch
                 var lyrics = new StringBuilder();
                 foreach (var lyricsDiv in lyricsDivs)
                 {
-                    lyrics.AppendLine(lyricsDiv.InnerText.Trim());
+                    lyrics.AppendLine(lyricsDiv.InnerText + "<br>" +"<br>");
+
+                    //var spans = lyricsDiv.SelectNodes(".//span");
+                    //if (spans != null)
+                    //{
+                    //    foreach (var span in spans)
+                    //    {
+                    //        lyrics.AppendLine(span.InnerText + "<br>");
+                    //    }
+                    //}
                 }
 
+
                 var lyricsText = lyrics.ToString();
-                lyricsText = lyricsText.Replace("&#x27;", "'").Replace("[", " [").Replace(" & quot;", " ");
+                lyricsText = lyricsText.Replace("&#x27;", "'").Replace("[", " [").Replace("&quot;", "'' ").Replace("&amp;", "&");
                 return lyricsText;
+                
             }
 
             throw new Exception("Failed to get lyrics");
