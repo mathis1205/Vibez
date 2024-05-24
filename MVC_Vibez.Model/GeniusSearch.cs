@@ -112,7 +112,8 @@ public class GeniusSearch
                 }
 
                 var lyricsText = lyrics.ToString();
-                lyricsText = lyricsText.Replace("&#x27;", "'").Replace("[", " [").Replace(" & quot;", " ");
+                lyricsText = lyricsText.Replace("&#x27;", "'").Replace("[", " [").Replace("&quot;", "'' ").Replace("&amp;", "&");
+                return lyricsText;
                 return lyricsText;
             }
 

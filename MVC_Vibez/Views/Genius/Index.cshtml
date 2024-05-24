@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="~/css/Genius.css">
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-3">
         <div class="sidebar bg-light">
             <div class="search-box">
                 <form action="/Genius/Search" method="get" class="search-form">
@@ -40,17 +40,21 @@
         </div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
         @if (!string.IsNullOrEmpty(Model.Lyrics))
-        {   <div class="info">
-                
-                <h3>@Model.SelectedHit?.result.primary_artist.name</h3>
+        {   
+            <div class="info">
                 <img src="@Model.SelectedHit?.result.SongArtImageUrl" alt="Song Art">
+                <h3>@Model.SelectedHit?.result.primary_artist.name</h3>
                 <h2>@Model.SelectedHit?.result.title</h2>
                 <p>Release date: @Model.SelectedHit?.result.ReleaseDateForDisplay</p>
-
-
             </div>
+        }
+    </div>
+
+    <div class="col-md-5">
+        @if (!string.IsNullOrEmpty(Model.Lyrics))
+        {   
             <div class="lyrics">
                 <p>@Model.Lyrics</p>
             </div>
