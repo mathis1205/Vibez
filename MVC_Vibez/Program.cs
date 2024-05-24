@@ -56,7 +56,7 @@ else
 {
     using var scope = app.Services.CreateScope();
     var vibezDbContect = scope.ServiceProvider.GetRequiredService<VibezDbContext>();
-    vibezDbContect.Seed();
+    vibezDbContect.SeedAsync();
 }
 
 app.UseHttpsRedirection();

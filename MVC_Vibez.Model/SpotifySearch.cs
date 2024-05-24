@@ -1,4 +1,7 @@
-﻿namespace MVC_Vibez.Model;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
+
+namespace MVC_Vibez.Model;
 
 public class Welcome
 {
@@ -54,7 +57,9 @@ public class ExternalUrls
 
 public class Image
 {
-    public Uri Url { get; set; }
+	[Key]
+	public int Id { get; set; }
+	public Uri Url { get; set; }
     public long? Height { get; set; }
     public long? Width { get; set; }
 }
@@ -116,7 +121,6 @@ public class PlaylistsItem
     public Followers Tracks { get; set; }
     public string Type { get; set; }
     public string Uri { get; set; }
-    public object PrimaryColor { get; set; }
 }
 
 public class FeaturedPlaylistsResponse
