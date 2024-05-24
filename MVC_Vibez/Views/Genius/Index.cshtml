@@ -1,6 +1,7 @@
 ﻿@model MVC_Vibez.Model.ProgramPage
 @{
     ViewData["Title"] = "Genius";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @await Html.PartialAsync("_Navbar", Model.user)
