@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Headers;
+using System.Text;
 using Microsoft.Extensions.Options;
 using HtmlAgilityPack;
 
@@ -67,6 +68,25 @@ public class GeniusSearch
             throw new Exception("Failed to search songs");
         }
     }
+    public async Task<GeniusSong> GetSongDetails(int id)
+    {
+        using (var client = new HttpClient())
+        {
+            client.BaseAddress = new Uri("https://api.genius.com/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
+
+            var response = await client.GetAsync($"songs/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                var data = await response.Content.ReadAsAsync<GeniusSongResult>();
+                return data.response.song;
+            }
+
+            throw new Exception("Failed to get song details");
+        }
+    }
 
     public async Task<string> GetLyrics(string path)
     {
@@ -79,14 +99,24 @@ public class GeniusSearch
                 var pageDocument = new HtmlDocument();
                 pageDocument.LoadHtml(pageContent);
 
-                var lyricsDiv = pageDocument.DocumentNode.SelectSingleNode("//div[contains(@class, 'Lyrics__Container-sc-1ynbvzw-1') and contains(@class, 'kUgSbL')]");
+                var lyricsDivs = pageDocument.DocumentNode.SelectNodes("//div[contains(@class, 'Lyrics__Container-sc-1ynbvzw-1') and contains(@class, 'kUgSbL')]");
+                if (lyricsDivs == null || !lyricsDivs.Any())
+                {
+                    throw new Exception("Failed to get lyrics");
+                }
 
-                return lyricsDiv?.InnerText.Trim() ?? "Lyrics not found";
+                var lyrics = new StringBuilder();
+                foreach (var lyricsDiv in lyricsDivs)
+                {
+                    lyrics.AppendLine(lyricsDiv.InnerText.Trim());
+                }
+
+                var lyricsText = lyrics.ToString();
+                lyricsText = lyricsText.Replace("&#x27;", "'").Replace("[", " [").Replace(" & quot;", " ");
+                return lyricsText;
             }
 
             throw new Exception("Failed to get lyrics");
         }
     }
-
-
 }
