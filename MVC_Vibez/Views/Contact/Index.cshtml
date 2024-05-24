@@ -19,15 +19,15 @@
 
 <div class="container-contact-form">
 	<div class="text-center">
-		<h1 class="display-4">Contact form</h1>
+		<h1 class="display-4 Fonth1">Contact form</h1>
 	</div>
 	@using (Html.BeginForm("SubmitContactForm", "Contact", FormMethod.Post))
 	{
-		<label asp-for="contactForm.Email" class="form-label">Email</label>
+		<label asp-for="contactForm.Email" class="form-label Fontlabel">Email</label>
 		<input asp-for="contactForm.Email" class="form-control" required/>
 		@Html.ValidationMessageFor(model => model.contactForm.Email, "", new { @class = "text-danger" })
 
-		<label asp-for="contactForm.Message" class="form-label">Message</label>
+		<label asp-for="contactForm.Message" class="form-label Fontlabel">Message</label>
 		<textarea asp-for="contactForm.Message" class="form-control" required rows="4"></textarea>
 		@Html.ValidationMessageFor(model => model.contactForm.Message, "", new { @class = "text-danger" })
 
