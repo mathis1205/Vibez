@@ -57,7 +57,7 @@
         @if (!string.IsNullOrEmpty(Model.Lyrics))
         {   
             <div class="lyrics">
-                <p>@Model.Lyrics</p>
+                <p>@Html.Raw(Model.Lyrics)</p>
             </div>
         }
     </div>

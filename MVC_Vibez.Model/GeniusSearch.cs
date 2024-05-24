@@ -108,16 +108,16 @@ public class GeniusSearch
                 var lyrics = new StringBuilder();
                 foreach (var lyricsDiv in lyricsDivs)
                 {
-                    lyrics.AppendLine(lyricsDiv.InnerText + Environment.NewLine);
+                    lyrics.AppendLine(lyricsDiv.InnerText + "<br>" +"<br>");
 
-                    var spans = lyricsDiv.SelectNodes(".//span");
-                    if (spans != null)
-                    {
-                        foreach (var span in spans)
-                        {
-                            lyrics.AppendLine(span.InnerText + Environment.NewLine);
-                        }
-                    }
+                    //var spans = lyricsDiv.SelectNodes(".//span");
+                    //if (spans != null)
+                    //{
+                    //    foreach (var span in spans)
+                    //    {
+                    //        lyrics.AppendLine(span.InnerText + "<br>");
+                    //    }
+                    //}
                 }
 
 
