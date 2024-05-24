@@ -68,6 +68,25 @@ public class GeniusSearch
             throw new Exception("Failed to search songs");
         }
     }
+    public async Task<GeniusSong> GetSongDetails(int id)
+    {
+        using (var client = new HttpClient())
+        {
+            client.BaseAddress = new Uri("https://api.genius.com/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
+
+            var response = await client.GetAsync($"songs/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                var data = await response.Content.ReadAsAsync<GeniusSongResult>();
+                return data.response.song;
+            }
+
+            throw new Exception("Failed to get song details");
+        }
+    }
 
     public async Task<string> GetLyrics(string path)
     {
@@ -100,7 +119,4 @@ public class GeniusSearch
             throw new Exception("Failed to get lyrics");
         }
     }
-
-
-
 }

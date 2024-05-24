@@ -1,0 +1,101 @@
+﻿
+.lyrics {
+    display: flex;
+    align-items: flex-start;
+}
+
+.lyrics img {
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+}
+
+.sidebar {
+    border: solid black 1px;
+    border-top-right-radius: 10px;
+    height: calc(100vh - 70px);
+    left: 0;
+    max-width: 350px;
+    overflow-x: hidden;
+    padding-top: 20px;
+    position: fixed;
+    top: 130px;
+    transition: all 0.3s;
+    z-index: 1;
+}
+
+.sidebar .search-box {
+    padding: 20px;
+}
+
+.sidebar .search-results {
+    padding: 20px;
+}
+
+.search-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input {
+    margin-right: 20px;
+    border: solid 2px #BEDC6D;
+    border-radius: 5px;
+}
+
+.btnsend {
+    padding: 10px 20px; 
+    border-radius: 5px; 
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+    background-color: #52F6FB;
+    border-color: #52F6FB;
+}
+
+.btn-primary {
+    background-color: #BEDC6D;
+    border-color: #BEDC6D;
+}
+
+.result {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.result img {
+    width: 50px; /* Verklein de afbeelding */
+    height: 50px;
+    margin-right: 10px;
+}
+
+.result a {
+    color: black; /* Maak de tekst zwart */
+    text-decoration: none; /* Verwijder de onderstreping */
+}
+
+.result a:hover {
+    color: black; /* Behoud de zwarte kleur bij hover */
+}
+
+.result h2, .result h3 {
+    font-size: 1rem; /* Verklein de tekst */
+    margin: 0; /* Verwijder de standaard marges */
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info .details {
+    flex: 1;
+}
+
+.info .lyrics {
+    flex: 2;
+}
+
+

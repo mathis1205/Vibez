@@ -4,36 +4,54 @@
 }
 
 @await Html.PartialAsync("_Navbar", Model.user)
+<link rel="stylesheet" type="text/css" href="~/css/Genius.css">
 
 <div class="row">
     <div class="col-md-6">
-        <form action="/Genius/Search" method="get">
-            <input type="text" name="searchTerm" placeholder="Enter a song or artist">
-            <input type="submit" value="Search">
-        </form>
-
-        @if (Model.Hits != null && Model.Hits.Any())
-        {
-            <div class="results">
-                @foreach (var hit in Model.Hits)
+        <div class="sidebar bg-light">
+            <div class="search-box">
+                <form action="/Genius/Search" method="get" class="search-form">
+                    <input type="text" name="searchTerm" class="form-control mb-3 input" placeholder="Enter a song or artist">
+                    <input type="submit" value="Search" class="btnsend btn-primary">
+                </form>
+            </div>
+            <div id="searchResults" class="search-results list-group">
+                @if (Model.Hits != null && Model.Hits.Any())
                 {
-                    <div class="result">
-                        <a href="/Genius/Lyrics?path=@Uri.EscapeDataString(hit.result.path)">
-                            <h2>@hit.result.title</h2>
-                            <h3>@hit.result.primary_artist.name</h3>
-                        </a>
+                    foreach (var hit in Model.Hits)
+                    {
+                        <div class="result">
+                            <img src="@hit.result.song_art_image_thumbnail_url" alt="Song Art">
+                            <a href="/Genius/Lyrics?path=@Uri.EscapeDataString(hit.result.path)&title=@Uri.EscapeDataString(hit.result.title)&artist=@Uri.EscapeDataString(hit.result.primary_artist.name)&id=@hit.result.id">
+                                <h2>@hit.result.title</h2>
+                                <h3>@hit.result.primary_artist.name</h3>
+                            </a>
+
+                        </div>
+                    }
+                }
+                else if (Model.SearchPerformed)
+                {
+                    <div class="no-results">
+                        No search results
                     </div>
                 }
             </div>
-        }
-       
+        </div>
     </div>
 
     <div class="col-md-6">
         @if (!string.IsNullOrEmpty(Model.Lyrics))
-        {
+        {   <div class="info">
+                
+                <h3>@Model.SelectedHit?.result.primary_artist.name</h3>
+                <img src="@Model.SelectedHit?.result.SongArtImageUrl" alt="Song Art">
+                <h2>@Model.SelectedHit?.result.title</h2>
+                <p>Release date: @Model.SelectedHit?.result.ReleaseDateForDisplay</p>
+
+
+            </div>
             <div class="lyrics">
-                <h1>Lyrics</h1>
                 <p>@Model.Lyrics</p>
             </div>
         }

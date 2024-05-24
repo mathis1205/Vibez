@@ -10,5 +10,7 @@ public class ProgramPage
     public List<Spotify> favoriteSongs { get; set; }
     public List<GeniusHit> Hits { get; set; }
     public string Lyrics { get; set; }
+    public GeniusHit SelectedHit { get; set; }
+    public bool SearchPerformed { get; set; }
 
 }
