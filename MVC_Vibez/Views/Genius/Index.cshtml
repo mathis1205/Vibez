@@ -1,4 +1,5 @@
 ﻿@model MVC_Vibez.Model.ProgramPage
+
 @{
     ViewData["Title"] = "Genius";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -27,7 +28,6 @@
                                 <h2>@hit.result.title</h2>
                                 <h3>@hit.result.primary_artist.name</h3>
                             </a>
-
                         </div>
                     }
                 }
@@ -43,7 +43,7 @@
 
     <div class="col-md-4">
         @if (!string.IsNullOrEmpty(Model.Lyrics))
-        {   
+        {
             <div class="info">
                 <img src="@Model.SelectedHit?.result.SongArtImageUrl" alt="Song Art">
                 <h3>@Model.SelectedHit?.result.primary_artist.name</h3>
@@ -55,7 +55,7 @@
 
     <div class="col-md-5">
         @if (!string.IsNullOrEmpty(Model.Lyrics))
-        {   
+        {
             <div class="lyrics">
                 <p>@Html.Raw(Model.Lyrics)</p>
             </div>

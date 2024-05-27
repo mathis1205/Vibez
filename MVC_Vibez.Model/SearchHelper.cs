@@ -15,8 +15,7 @@ public class SearchHelper
 
 	private static async Task<Token> GetTokenAsync()
 	{
-		if (_token != null && DateTime.Now < _tokenExpirationTime)
-			return _token;
+		if (_token != null && DateTime.Now < _tokenExpirationTime) return _token;
 
 		var auth = Convert.ToBase64String(Encoding.UTF8.GetBytes(ClientID + ":" + ClientSecret));
 		var args = new List<KeyValuePair<string, string>> { new("grant_type", "client_credentials") };
@@ -38,8 +37,7 @@ public class SearchHelper
 	{
 		var token = await GetTokenAsync();
 		_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.access_token);
-		var response = await _httpClient.GetAsync(
-			$"https://api.spotify.com/v1/search?q={searchWord}&type=artist,album,playlist,track,show,episode,audiobook");
+		var response = await _httpClient.GetAsync($"https://api.spotify.com/v1/search?q={searchWord}&type=artist,album,playlist,track,show,episode,audiobook");
 
 		if (response.IsSuccessStatusCode)
 		{
@@ -88,7 +86,7 @@ public class SearchHelper
 		_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.access_token);
 
 		var addTracksContent = new StringContent(JsonConvert.SerializeObject(new { uris = new[] { trackUri } }), Encoding.UTF8, "application/json");
-		var response = await _httpClient.PostAsync($"https://api.spotify.com/v1/playlists/47ukgyNSavcfwMEr4bWbku/tracks", addTracksContent);
+		var response = await _httpClient.PostAsync("https://api.spotify.com/v1/playlists/47ukgyNSavcfwMEr4bWbku/tracks", addTracksContent);
 		response.EnsureSuccessStatusCode();
 	}
 }
