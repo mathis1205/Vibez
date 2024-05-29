@@ -24,11 +24,11 @@ public class ContactController : Controller
     }
 
     [HttpPost]
-    public Task<IActionResult> SubmitContactForm(ContactFormSubmission contactForm)
+    public async Task<IActionResult> SubmitContactForm(ContactFormSubmission contactForm)
     {
-        if (!ModelState.IsValid) return Task.FromResult<IActionResult>(View("Index"));
-        _contactService.Submit(contactForm.Message, contactForm.Email);
+        if (!ModelState.IsValid) return View("Index");
+        await _contactService.Submit(contactForm.Email, contactForm.Message);
         TempData["SuccessMessage"] = "Thanks for the contacting us, we will answer as fast as possible.";
-        return Task.FromResult<IActionResult>(RedirectToAction("Index"));
+        return RedirectToAction("Index");
     }
 }

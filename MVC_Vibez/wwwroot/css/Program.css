@@ -30,6 +30,19 @@
     top: 130px;
     transition: all 0.3s;
     z-index: 1;
+    box-shadow: 0 0 10px #BEDC6D;
+}
+
+.sidebar:hover {
+    box-shadow: 0 0 20px #BEDC6D;
+}
+
+.sidebar .input:focus {
+    box-shadow: 0 0 20px #BEDC6D;
+}
+
+.sidebar .search-box, .sidebar .search-results {
+    padding: 20px;
 }
 
 .sidebar .search-box { padding: 20px; }
@@ -89,6 +102,9 @@
     border: 2px solid #BEDC6D;
 }
 
+.search-options {
+    display: flex;
+}
 
 #mediaPlayer {
     margin-left: 200px;
@@ -104,3 +120,16 @@
     margin: 0 auto;
     width: 100%;
 }
+
+.checkbox {
+    -webkit-appearance: none;
+    appearance: none;
+    border: 0.5px solid #BEDC6D;
+    border-radius: 4px;
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+}
+
+
+.checkbox:checked { background-color: #BEDC6D; }

@@ -4,10 +4,17 @@
     border-radius: 25px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 150px;
     padding: 25px;
     position: relative;
     width: 50%;
+}
+
+.container-contact-form.with-message {
+    margin-top: 20px;
+}
+
+.container-contact-form.without-message {
+    margin-top: 150px;
 }
 
 .Fontlabel {
@@ -40,4 +47,12 @@
     background-color: #52F6FB;
     border-color: #52F6FB;
     font-family: 'CustomFont', Arial, sans-serif;
+}
+
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+    font-size: larger;
+    margin-top: 120px;
+    text-align: center;
 }
