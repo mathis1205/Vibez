@@ -2,36 +2,36 @@
 @model MVC_Vibez.Model.User
 
 @{
-	ViewBag.Title = "Recovery";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Recovery";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section Styles {
-	<link rel="stylesheet" type="text/css" href="~/css/login.css"/>
+    <link rel="stylesheet" type="text/css" href="~/css/login.css"/>
 }
 
 <div class="loglogo-wrapper">
-	<img src="~/images/logo.png" class="loglogo" alt="Logo">
+    <img src="~/images/logo.png" class="loglogo" alt="Logo">
 </div>
 
 <div class="container">
-	<div class="row justify-content-center">
-		<div class="col-md-4">
-			<h1 style="color: #52F6FB;">@ViewBag.Title</h1>
-			<form method="post" asp-action="Recovery">
-				@if (ViewData["MailSentTo"] != null)
-				{
-					<div class="alert alert-info" role="alert">
-						Mail sent to <strong>@ViewData["MailSentTo"]</strong>
-					</div>
-				}
-				<div class="mb-3">
-					<label asp-for="Email" class="form-label">Email address</label>
-					<input asp-for="Email" class="form-control" required>
-				</div>
-				<button type="submit" class="btn btn-primary">Recover password</button>
-				<a class="btn btn-secondary" asp-controller="Login" asp-action="Index">Back to login</a>
-			</form>
-		</div>
-	</div>
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <h1 style="color: #52F6FB;">@ViewBag.Title</h1>
+            <form method="post" asp-action="Recovery">
+                @if (ViewData["MailSentTo"] != null)
+                {
+                    <div class="alert alert-info" role="alert">
+                        Mail sent to <strong>@ViewData["MailSentTo"]</strong>
+                    </div>
+                }
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">Email address</label>
+                    <input asp-for="Email" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Recover password</button>
+                <a class="btn btn-secondary" asp-controller="Login" asp-action="Index">Back to login</a>
+            </form>
+        </div>
+    </div>
 </div>

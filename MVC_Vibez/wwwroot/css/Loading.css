@@ -2,62 +2,60 @@
 .btn:active:focus,
 .btn-link.nav-link:focus,
 .form-control:focus,
-.form-check-input:focus {
-    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
+.form-check-input:focus { box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb; }
 
 html {
-    position: relative;
     min-height: 100vh;
+    position: relative;
 }
 
 body {
-    margin-bottom: 0px;
-    height: 100vh;
-    background-size: cover;
+    align-items: center;
     background-position: center;
     background-repeat: no-repeat;
-    display: flex; /* Maak de body een flex container */
-    justify-content: center; /* Horizontaal gecentreerd */
-    align-items: center; /* Verticaal gecentreerd */
+    background-size: cover;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    margin-bottom: 0px;
 }
 
 * {
+    font-family: sans-serif;
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
 }
 
 .mk-logo {
-    width: 200px;
     height: auto;
+    width: 200px;
 }
 
 .btnContinue {
-    text-align: center;
-    margin-top: 30px; /* Ruimte boven de .btnContinue */
     margin-bottom: 80px;
+    margin-top: 30px;
+    text-align: center;
 }
 
-    .btnContinue a {
-        display: inline-block;
-        padding: 25px 25px;
-        border: 1px solid #fff transparent;
-        transition: background-color 1.2s ease, border-radius 1.2s ease;
-    }
+.btnContinue a {
+    border: 1px solid #fff transparent;
+    display: inline-block;
+    padding: 25px 25px;
+    transition: background-color 1.2s ease, border-radius 1.2s ease;
+}
 
-        .btnContinue a:hover {
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 80px;
-        }
+.btnContinue a:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 80px;
+}
 
 .txtContainer {
-    max-width: 650px;
-    width: 90%;
-    text-align: center;
-    color: rgba(82, 246, 251, 0.6);
     background-color: rgba(0, 0, 0, 0.65);
     border-radius: 25px;
-    padding: 20px;
+    color: rgba(82, 246, 251, 0.6);
     margin: 0 auto;
+    max-width: 650px;
+    padding: 20px;
+    text-align: center;
+    width: 90%;
 }

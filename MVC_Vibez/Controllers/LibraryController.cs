@@ -7,17 +7,14 @@ namespace MVC_Vibez.Controllers;
 
 public class LibraryController : Controller
 {
-    private readonly ProgramService _ProgramService;
+    private readonly LoginService _LoginService;
 
-    public LibraryController(ProgramService ProgramService)
-    {
-        _ProgramService = ProgramService;
-    }
+    public LibraryController(LoginService ProgramService) { _LoginService = ProgramService; }
 
     public async Task<IActionResult> Index()
     {
-        var user = _ProgramService.GetUserByEmail(User.Identity.Name);
-        var playlists = await SearchHelper.GetRandomPlaylistsAsync(36);
+        var user = _LoginService.GetUserByEmail(User.Identity.Name);
+        var playlists = await SearchHelper.GetRandomPlaylistsAsync(35);
         var favoritSongs = await SearchHelper.GetPlaylistAsync();
         return View(new ProgramPage { user = user, playlists = playlists, FavoritSongs = favoritSongs});
     }

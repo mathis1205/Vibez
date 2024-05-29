@@ -1,39 +1,41 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC_Vibez.Model;
 using MVC_Vibez.Services;
-using System.Net.Http.Headers;
 
 namespace MVC_Vibez.Controllers;
 
 public class GeniusController : Controller
 {
-    private readonly GeniusSearch _geniusSearch;
-    private readonly ProgramService _programService;
+    private readonly LoginService _LoginService;
 
-    public GeniusController(GeniusSearch geniusSearch, ProgramService programService)
+    public GeniusController(LoginService programService) { _LoginService = programService; }
+
+    public Task<IActionResult> Index()
     {
-        _geniusSearch = geniusSearch;
-        _programService = programService;
+        var user = _LoginService.GetUserByEmail(User.Identity.Name);
+        var model = new ProgramPage { user = user, SearchPerformed = false };
+        return Task.FromResult<IActionResult>(View(model));
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> SearchResults(string searchTerm)
     {
-        var user = _programService.GetUserByEmail(User.Identity.Name);
-        return View(new ProgramPage { user = user });
+        var user = _LoginService.GetUserByEmail(User.Identity.Name);
+        var model = new ProgramPage { user = user, SearchPerformed = true };
+
+        if (string.IsNullOrEmpty(searchTerm)) return View("Index", model);
+        model.Hits = await GeniusSearch.SearchSongs(searchTerm);
+
+        return View("Index", model);
     }
 
-    public async Task<IActionResult> Search(string searchTerm)
+    public async Task<IActionResult> SongDetails(string path, string title, string artist, int id)
     {
-        var user = _programService.GetUserByEmail(User.Identity.Name);
-        var hits = await _geniusSearch.SearchSongs(searchTerm ?? string.Empty);
-        return View("Index", new ProgramPage { user = user, Hits = hits, SearchPerformed = true });
-    }
+        var user = _LoginService.GetUserByEmail(User.Identity.Name);
+        var model = new ProgramPage { user = user, SearchPerformed = false };
 
-    public async Task<IActionResult> Lyrics(string path, string title, string artist, int id)
-    {
-        var user = _programService.GetUserByEmail(User.Identity.Name);
-        var lyrics = await _geniusSearch.GetLyrics(path);
-        var songDetails = await _geniusSearch.GetSongDetails(id);
+        if (string.IsNullOrEmpty(path) || id == 0) return View("Index", model);
+        var lyrics = await GeniusSearch.GetLyrics(path);
+        var songDetails = await GeniusSearch.GetSongDetails(id);
         var selectedHit = new GeniusHit
         {
             result = new GeniusResult
@@ -45,12 +47,12 @@ public class GeniusController : Controller
                 FeaturedArtists = songDetails.featured_artists
             }
         };
-        var model = new ProgramPage { user = user, Lyrics = lyrics, SelectedHit = selectedHit, SearchPerformed = false };
+        model.Lyrics = lyrics;
+        model.SelectedHit = selectedHit;
+
         return View("Index", model);
     }
+
+    public IActionResult Search(string searchTerm) => RedirectToAction("SearchResults", new { searchTerm });
+    public IActionResult Lyrics(string path, string title, string artist, int id) => RedirectToAction("SongDetails", new { path, title, artist, id });
 }
-
-
-
-
-

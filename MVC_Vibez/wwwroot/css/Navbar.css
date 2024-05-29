@@ -1,0 +1,49 @@
+﻿body {
+    align-items: center;
+    background: linear-gradient(to bottom, white, gray);
+    height: auto;
+    justify-content: center;
+    margin: 0;
+}
+
+@font-face {
+    font-family: 'CustomFont';
+    src: url('/Fonts/slabstruct-too.ttf') format('truetype');
+}
+
+.navbar {
+    background-color: whitesmoke !important;
+    border: solid rgb(0, 0, 0, 0.2) 3px;
+    border-radius: 35px;
+    left: 50%;
+    margin-bottom: 20px;
+    margin-top: 15px;
+    max-width: 1000px;
+    position: fixed;
+    top: 0;
+    transform: translateX(-50%);
+    width: 80%;
+    z-index: 1000;
+}
+
+.navbar-nav {
+    align-items: center;
+    display: flex;
+}
+
+.navbar-nav .nav-item.dropdown .dropdown-menu { display: none; }
+
+.navbar-nav .nav-item.dropdown:hover .dropdown-menu { display: block; }
+
+.navbar-nav .nav-item.dropdown .dropdown-toggle::after { display: none; }
+
+.navbar-nav .nav-item .nav-link {
+    align-items: center;
+    border-radius: 15px;
+    display: flex;
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+    transition: background-color 0.3s;
+}
+
+.navbar-nav .nav-item .nav-link:not(.dropdown-toggle):hover { background-color: rgba(239, 209, 9, 0.6); }

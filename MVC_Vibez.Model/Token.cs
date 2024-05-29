@@ -1,8 +1,7 @@
-﻿namespace MVC_Vibez.Models;
+﻿namespace MVC_Vibez.Model;
 
 public class Token
 {
-    //create the variables for the token
     public string access_token { get; set; }
     public int expires_in { get; set; }
 }

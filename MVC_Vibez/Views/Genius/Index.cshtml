@@ -1,11 +1,16 @@
 ﻿@model MVC_Vibez.Model.ProgramPage
+
 @{
     ViewData["Title"] = "Genius";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @await Html.PartialAsync("_Navbar", Model.user)
-<link rel="stylesheet" type="text/css" href="~/css/Genius.css">
+
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="~/css/Genius.css">
+    <link rel="stylesheet" type="text/css" href="~/css/Navbar.css"/>
+}
 
 <div class="row">
     <div class="col-md-3">
@@ -16,6 +21,7 @@
                     <input type="submit" value="Search" class="btnsend btn-primary">
                 </form>
             </div>
+
             <div id="searchResults" class="search-results list-group">
                 @if (Model.Hits != null && Model.Hits.Any())
                 {
@@ -27,7 +33,6 @@
                                 <h2>@hit.result.title</h2>
                                 <h3>@hit.result.primary_artist.name</h3>
                             </a>
-
                         </div>
                     }
                 }
@@ -43,7 +48,7 @@
 
     <div class="col-md-4">
         @if (!string.IsNullOrEmpty(Model.Lyrics))
-        {   
+        {
             <div class="info">
                 <img src="@Model.SelectedHit?.result.SongArtImageUrl" alt="Song Art">
                 <h3>@Model.SelectedHit?.result.primary_artist.name</h3>
@@ -55,7 +60,7 @@
 
     <div class="col-md-5">
         @if (!string.IsNullOrEmpty(Model.Lyrics))
-        {   
+        {
             <div class="lyrics">
                 <p>@Html.Raw(Model.Lyrics)</p>
             </div>

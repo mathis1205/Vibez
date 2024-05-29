@@ -1,9 +1,8 @@
-namespace MVC_Vibez.Models
+namespace MVC_Vibez.Model
 {
     public class ErrorViewModel
     {
-        //create the variables for if it errors
-        public string? RequestId { get; set; }
+        public string? RequestId { get; init; }
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
     }
 }

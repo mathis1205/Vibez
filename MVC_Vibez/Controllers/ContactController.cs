@@ -8,27 +8,27 @@ namespace MVC_Vibez.Controllers;
 public class ContactController : Controller
 {
     private readonly ContactService _contactService;
-    private readonly ProgramService _ProgramService;
-    public ContactController(ContactService contact, ProgramService programService)
-    { 
+    private readonly LoginService _LoginService;
+
+    public ContactController(ContactService contact, LoginService programService)
+    {
         _contactService = contact;
-        _ProgramService = programService;
+        _LoginService = programService;
     }
+
     public IActionResult Index()
     {
-        var currentUser = _ProgramService.GetUserByEmail(User.Identity.Name);
-        var newContactFormSubmission = new ContactFormSubmission();
+        var currentUser = _LoginService.GetUserByEmail(User.Identity.Name);
         if (currentUser == null) return NotFound();
-        return View(new ProgramPage { user = currentUser, contactForm = newContactFormSubmission });
+        return View(new ProgramPage { user = currentUser, contactForm = new ContactFormSubmission() });
     }
+
     [HttpPost]
-    public async Task<IActionResult> SubmitContactForm(ContactFormSubmission contactForm)
+    public Task<IActionResult> SubmitContactForm(ContactFormSubmission contactForm)
     {
-        // Check if the model is valid
-        if (!ModelState.IsValid) return View("Index");
+        if (!ModelState.IsValid) return Task.FromResult<IActionResult>(View("Index"));
         _contactService.Submit(contactForm.Message, contactForm.Email);
-		// Redirect to a confirmation view
-		TempData["SuccessMessage"] = "Thanks for the contacting us, we will answer as fast as possible.";
-		return RedirectToAction("Index");
+        TempData["SuccessMessage"] = "Thanks for the contacting us, we will answer as fast as possible.";
+        return Task.FromResult<IActionResult>(RedirectToAction("Index"));
     }
 }

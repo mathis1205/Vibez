@@ -1,5 +1,4 @@
 ﻿using MVC_Vibez.Models;
-
 namespace MVC_Vibez.Model;
 
 public class ProgramPage

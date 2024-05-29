@@ -4,73 +4,52 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using MVC_Vibez.Core;
 using MVC_Vibez.Model;
 using MVC_Vibez.Models;
 using MVC_Vibez.Services;
 
 namespace MVC_Vibez.Controllers;
 
-public class LoginController : Controller
+public partial class LoginController : Controller
 {
-    private readonly VibezDbContext _dbContext;
     private readonly EmailService _emailService;
     private readonly ILogger<LoginController> _logger;
     private readonly LoginService _loginService;
 
-    public LoginController(ILogger<LoginController> logger, VibezDbContext dbContext, EmailService emailService, LoginService loginService)
+    public LoginController(ILogger<LoginController> logger, EmailService emailService, LoginService loginService)
     {
-        _dbContext = dbContext;
         _logger = logger;
         _emailService = emailService;
         _loginService = loginService;
     }
 
-    public IActionResult Index()
-    {
-        return View();
-    }
+    public IActionResult Index() => View();
+    [HttpGet] public IActionResult Create() => View();
+    [HttpGet] public IActionResult Recovery() => View();
+    [HttpPost] public IActionResult ResetPassword() => View();
 
-    [HttpGet]
-    public IActionResult Create()
-    {
-        return View();
-    }
-
-    [HttpGet]
-    public IActionResult Recovery()
-    {
-        return View();
-    }
-
-    [HttpPost]
-    public IActionResult ResetPassword()
-    {
-        return View();
-    }
-
-    [HttpPost,ValidateAntiForgeryToken]
+    [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(User user)
     {
-        if (_dbContext.Users.Any(_user => _user.Email.Equals(user.Email)))
+        if (_loginService.GetUsers().Any(_user => _user.Email.Equals(user.Email)))
         {
             ModelState.AddModelError("alreadyExist", "User already exists!");
             return View(user);
         }
 
-        if (!Regex.IsMatch(user.Password, "[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]"))
+        if (!MyRegexTekens().IsMatch(user.Password))
         {
             ModelState.AddModelError("special character", "Password must include at least one special character");
             return View(user);
         }
 
-        if (!Regex.IsMatch(user.Password, "[A-Z]"))
+        if (!MyRegexLetters().IsMatch(user.Password))
         {
             ModelState.AddModelError("capitalized letter", "Password must include at least one capitalized letter");
             return View(user);
         }
 
-        if (!Regex.IsMatch(user.Password, "[0-9]"))
+        if (!MyRegexCijfers().IsMatch(user.Password))
         {
             ModelState.AddModelError("Number", "Password must include at least one Number");
             return View(user);
@@ -89,7 +68,7 @@ public class LoginController : Controller
     [HttpPost]
     public async Task<IActionResult> Login(User user)
     {
-        var storedUser = _dbContext.Users.FirstOrDefault(u => u.Email == user.Email);
+        var storedUser = _loginService.GetUsers().FirstOrDefault(u => u.Email == user.Email);
 
         if (storedUser == null)
         {
@@ -111,7 +90,7 @@ public class LoginController : Controller
         }
 
         storedUser.Loggedin = true;
-        await _dbContext.SaveChangesAsync();
+        _loginService.Update(storedUser);
 
         var claims = new[] { new Claim(ClaimTypes.Name, storedUser.Email) };
         var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -121,23 +100,15 @@ public class LoginController : Controller
         return RedirectToAction("Index", "Program");
     }
 
-    public IActionResult Logout()
-    {
-        return RedirectToAction("Index", "Login");
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
+    public IActionResult Logout() => RedirectToAction("Index", "Home");
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)] public IActionResult Error() => View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 
     [HttpGet]
     public async Task<IActionResult> Validate(string token)
     {
         try
         {
-            var user = _dbContext.Users.FirstOrDefault(u => u.ValidationToken == token);
+            var user = _loginService.GetUsers().FirstOrDefault(u => u.ValidationToken == token);
 
             if (user == null)
             {
@@ -146,7 +117,7 @@ public class LoginController : Controller
             }
 
             user.IsValid = true;
-            await _dbContext.SaveChangesAsync();
+            _loginService.Update(user);
 
             var claims = new[] { new Claim(ClaimTypes.Name, user.Email) };
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -166,7 +137,7 @@ public class LoginController : Controller
     {
         if (!string.IsNullOrEmpty(user.Email)) ViewData["MailSentTo"] = user.Email;
 
-        var existingUser = _dbContext.Users.FirstOrDefault(_user => _user.Email.Equals(user.Email));
+        var existingUser = _loginService.GetUsers().FirstOrDefault(_user => _user.Email.Equals(user.Email));
         if (existingUser == null)
         {
             ModelState.AddModelError("notFound", "Email not found!");
@@ -176,12 +147,10 @@ public class LoginController : Controller
         try
         {
             existingUser.ValidationToken = Guid.NewGuid().ToString();
-            _dbContext.SaveChanges();
+            _loginService.Update(existingUser);
 
-            var recoveryLink = Url.Action("ResetPassword", "Login", new { token = existingUser.ValidationToken },
-                Request.Scheme);
-            var emailBody =
-                $"Dear user, </br> Please click <a href='{recoveryLink}'>here</a> to reset your password. </br> If you did not request a password reset, please ignore this email.";
+            var recoveryLink = Url.Action("ResetPassword", "Login", new { token = existingUser.ValidationToken }, Request.Scheme);
+            var emailBody = $"Dear user, </br> Please click <a href='{recoveryLink}'>here</a> to reset your password. </br> If you did not request a password reset, please ignore this email.";
             await _emailService.SendEmailAsync(existingUser.Email, "Password Recovery", emailBody);
 
             return View(user);
@@ -193,16 +162,13 @@ public class LoginController : Controller
         }
     }
 
-    public IActionResult ResetPassword(string token)
-    {
-        return View(new ResetPasswordModel { Token = token });
-    }
+    public IActionResult ResetPassword(string token) => View(new ResetPasswordModel { Token = token });
 
     [HttpPost]
     public IActionResult SetNewPassword(ResetPasswordModel model)
     {
         if (!ModelState.IsValid) return View("Index", model);
-        var user = _dbContext.Users.FirstOrDefault(u => u.ValidationToken == model.Token);
+        var user = _loginService.GetUsers().FirstOrDefault(u => u.ValidationToken == model.Token);
         if (user != null)
         {
             if (user.Password == HashingHelper.HashPassword(model.NewPassword))
@@ -211,28 +177,26 @@ public class LoginController : Controller
                 return View("ResetPassword", model);
             }
 
-            if (!Regex.IsMatch(model.NewPassword, "[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]"))
+            if (!MyRegexTekens().IsMatch(model.NewPassword))
             {
-                ModelState.AddModelError("special character",
-                    "Password must include at least one special character");
+                ModelState.AddModelError("special character", "Password must include at least one special character");
                 return View("ResetPassword", model);
             }
 
-            if (!Regex.IsMatch(model.NewPassword, "[A-Z]"))
+            if (!MyRegexLetters().IsMatch(model.NewPassword))
             {
-                ModelState.AddModelError("capitalized letter",
-                    "Password must include at least one capitalized letter");
+                ModelState.AddModelError("capitalized letter", "Password must include at least one capitalized letter");
                 return View("ResetPassword", model);
             }
 
-            if (!Regex.IsMatch(model.NewPassword, "[0-9]"))
+            if (!MyRegexCijfers().IsMatch(model.NewPassword))
             {
                 ModelState.AddModelError("Number", "Password must include at least one Number");
                 return View("ResetPassword", model);
             }
 
             user.Password = HashingHelper.HashPassword(model.NewPassword);
-            _dbContext.SaveChanges();
+            _loginService.Update(user);
             return RedirectToAction("Index", "Home");
         }
 
@@ -240,4 +204,8 @@ public class LoginController : Controller
 
         return View("Index", model);
     }
+
+    [GeneratedRegex("[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]")] private static partial Regex MyRegexTekens();
+    [GeneratedRegex("[A-Z]")] private static partial Regex MyRegexLetters();
+    [GeneratedRegex("[0-9]")] private static partial Regex MyRegexCijfers();
 }

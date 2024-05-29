@@ -1,12 +1,19 @@
 @model MVC_Vibez.Model.ProgramPage
-@{
-    ViewData["Title"] = "Library";
-}
+
+@{ ViewData["Title"] = "Library"; }
 
 @await Html.PartialAsync("_Navbar", Model.user)
 
-<link rel="stylesheet" href="css/Library.css"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+@section Styles {
+    <link rel="stylesheet" href="css/Navbar.css"/>
+    <link rel="stylesheet" href="css/Library.css"/>
+}
+
+@section Scripts
+{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/Library.js"></script>
+}
 
 <div class="main-content">
     <div class="container">
@@ -14,7 +21,6 @@
             <div class="col-md-12">
                 <div class="playlist-container">
                     <div class="playlist-items">
-
                         <div class="playlist-item">
                             <div class="card playlist-card">
                                 <img src="@Model.FavoritSongs.Images?[0].Url" class="card-img-top" alt="Playlist Image">
@@ -24,6 +30,7 @@
                                 </div>
                             </div>
                         </div>
+
                         @foreach (var playlist in Model.playlists)
                         {
                             <div class="playlist-item">
@@ -42,12 +49,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    $(document).ready(function () {
-        $('.play-btn').click(function () {
-            var playlistId = $(this).data('playlist-id');
-            window.location.href = '@Url.Action("Index", "Program")?playlistId=' + playlistId;
-        });
-    });
-</script>

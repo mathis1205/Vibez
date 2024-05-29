@@ -1,74 +1,20 @@
-﻿body {
-    align-items: center;
-    background: linear-gradient(to bottom, white, gray);
-    justify-content: center;
-    margin: 0;
-}
-@font-face {
-    font-family: 'CustomFont';
-    src: url('/Fonts/slabstruct-too.ttf') format('truetype');
-
-}
-
-.navbar {
-    background-color: whitesmoke !important;
-    border: solid rgb(0, 0, 0, 0.2) 3px;
-    border-radius: 35px;
-    margin-bottom: 20px;
-    margin-top: 15px;
-    max-width: 1000px;
-    width: 80%;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.navbar-nav {
-    display: flex;
-    align-items: center;
-}
-
-    .navbar-nav .nav-item.dropdown .dropdown-menu {
-        display: none;
-    }
-
-    .navbar-nav .nav-item.dropdown:hover .dropdown-menu {
-        display: block;
-    }
-
-    .navbar-nav .nav-item.dropdown .dropdown-toggle::after {
-        display: none;
-    }
-
-    .navbar-nav .nav-item .nav-link {
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-        display: flex;
-        align-items: center;
-        border-radius: 15px;
-        transition: background-color 0.3s;
-    }
-
-        .navbar-nav .nav-item .nav-link:not(.dropdown-toggle):hover {
-            background-color: rgba(239, 209, 9, 0.6);
-        }
-
-.container-contact-form {
+﻿.container-contact-form {
     background: linear-gradient(to right, #A8ECEE, #E6F2C2);
     border: 2px solid #BEDC6D;
     border-radius: 25px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 100px;
+    margin-top: 150px;
     padding: 25px;
     position: relative;
     width: 50%;
-
 }
 
 .Fontlabel {
     font-family: 'CustomFont';
-    font-size: 20px;
+    font-size: 30px;
 }
+
 .Fonth1 {
     font-family: 'CustomFont';
     font-size: 80px;
@@ -79,17 +25,19 @@
     margin-top: 40px;
     position: absolute;
     transform: translateX(-50%);
-
 }
 
 .btn-primary {
     background-color: #BEDC6D;
     border-color: #BEDC6D;
     font-family: 'CustomFont', Arial, sans-serif;
+    font-size: 30px;
+    height: 50px;
+    width: 200px;
 }
 
-    .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
-        background-color: #52F6FB;
-        border-color: #52F6FB;
-        font-family: 'CustomFont', Arial, sans-serif;
-    }
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+    background-color: #52F6FB;
+    border-color: #52F6FB;
+    font-family: 'CustomFont', Arial, sans-serif;
+}
