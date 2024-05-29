@@ -1,42 +1,40 @@
 ﻿@model MVC_Vibez.Model.ProgramPage
 @{
-    ViewData["Title"] = "Program";
+	ViewData["Title"] = "Program";
 }
 
 @await Html.PartialAsync("_Navbar", Model.user)
 
 <div id="message" class="alert" style="margin-top: 20px;"></div>
 
+<div class="sidebar bg-light">
+	<div class="search-box">
+		<input type="text" id="txtSearch" class="form-control mb-3" placeholder="Search">
+		<div class="search-options">
+			<label><input class="checkbox" type="checkbox" id="chkArtists" checked> Artists</label>
+			<label><input class="checkbox" type="checkbox" id="chkSongs" checked> Songs</label>
+			<label><input class="checkbox" type="checkbox" id="chkAlbums" checked> Albums</label>
+			<label><input class="checkbox" type="checkbox" id="chkPlaylists" checked> Playlists</label>
+		</div>
+	</div>
+	<div id="searchResults" class="search-results list-group"></div>
+</div>
+
+<div class="main-content">
+	<div id="mediaPlayer">
+		<iframe allow="encrypted-media"></iframe>
+	</div>
+</div>
+
 @section Scripts
 {
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
-    <script src="~/js/Program.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+	<script src="~/js/Program.js"></script>
 }
 
 @section Styles
 {
-    <link rel="stylesheet" type="text/css" href="~/css/Navbar.css"/>
-    <link rel="stylesheet" type="text/css" href="~/css/Program.css"/>
+	<link rel="stylesheet" type="text/css" href="~/css/Navbar.css"/>
+	<link rel="stylesheet" type="text/css" href="~/css/Program.css"/>
 }
-
-<body>
-<div class="sidebar bg-light">
-    <div class="search-box">
-	    <input type="text" id="txtSearch" class="form-control mb-3" placeholder="Search">
-	    <div class="search-options">
-		    <label><input type="checkbox" id="chkArtists" checked> Artists</label>
-		    <label><input type="checkbox" id="chkSongs" checked> Songs</label>
-		    <label><input type="checkbox" id="chkAlbums" checked> Albums</label>
-		    <label><input type="checkbox" id="chkPlaylists" checked> Playlists</label>
-	    </div>
-    </div>
-    <div id="searchResults" class="search-results list-group"></div>
-</div>
-
-<div class="main-content">
-    <div id="mediaPlayer">
-        <iframe allow="encrypted-media"></iframe>
-    </div>
-</div>
-</body>

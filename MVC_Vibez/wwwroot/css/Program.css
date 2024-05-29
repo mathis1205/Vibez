@@ -104,3 +104,16 @@
     margin: 0 auto;
     width: 100%;
 }
+
+.checkbox {
+    -webkit-appearance: none;
+    appearance: none;
+    border: 0.5px solid #BEDC6D;
+    border-radius: 4px;
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+}
+
+
+.checkbox:checked { background-color: #BEDC6D; }
