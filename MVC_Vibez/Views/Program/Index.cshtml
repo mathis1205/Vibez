@@ -23,7 +23,13 @@
 <body>
 <div class="sidebar bg-light">
     <div class="search-box">
-        <input type="text" id="txtSearch" class="form-control mb-3" placeholder="Search">
+	    <input type="text" id="txtSearch" class="form-control mb-3" placeholder="Search">
+	    <div class="search-options">
+		    <label><input type="checkbox" id="chkArtists" checked> Artists</label>
+		    <label><input type="checkbox" id="chkSongs" checked> Songs</label>
+		    <label><input type="checkbox" id="chkAlbums" checked> Albums</label>
+		    <label><input type="checkbox" id="chkPlaylists" checked> Playlists</label>
+	    </div>
     </div>
     <div id="searchResults" class="search-results list-group"></div>
 </div>
