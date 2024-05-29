@@ -41,3 +41,12 @@
     border-color: #52F6FB;
     font-family: 'CustomFont', Arial, sans-serif;
 }
+
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+    font-size: larger;
+    margin-top: 60px;
+    margin-bottom: 20px;
+    text-align: center;
+}
