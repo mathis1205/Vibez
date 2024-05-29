@@ -2,13 +2,13 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using MVC_Vibez.Core;
 using MVC_Vibez.Model;
 using MVC_Vibez.Services;
-#if !DEBUG
-using (var context = new VibezDbContext())
-{
-    // Migrate the database
-    context.Database.Migrate();
-}
-#endif
+//#if !DEBUG
+//using (var context = new VibezDbContext())
+//{
+//    // Migrate the database
+//    context.Database.Migrate();
+//}
+//#endif
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
