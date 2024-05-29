@@ -4,24 +4,27 @@
     flex-direction: column;
     justify-content: center;
     margin-bottom: 5%;
-    margin-bottom: -5px;
     margin-top: 5%;
-    margin-top: -5px;
 }
 
 .abText {
-
     background: linear-gradient(to right, #A8ECEE, #E6F2C2);
     border: 2px solid #BEDC6D;
     border-radius: 25px;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
-    margin-top: 20px;
+    margin-top: 120px; /* Increased top margin */
     padding: 25px;
     position: relative;
     text-align: center;
 }
 
 .abText p {
+    font-family: 'CustomFont';
+    font-size: 25px;
+}
+
+.bold-text {
+    font-weight: bold;
     font-family: 'CustomFont';
     font-size: 25px;
 }
@@ -43,10 +46,10 @@
     border-radius: 25px;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
     margin: 0 auto;
-    max-width: 100%;
+    max-width: 80%;
+    max-height: 80%;
     padding: 5px;
 }
-
 
 .abHeader {
     background: linear-gradient(to right, #A8ECEE, #E6F2C2);
@@ -65,4 +68,6 @@
     font-weight: bolder;
 }
 
-.center { margin-bottom: 20px; }
+.center {
+    margin-bottom: 20px;
+}
