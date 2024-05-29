@@ -9,11 +9,7 @@ public class VibezDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-//#if DEBUG
-        //optionsBuilder.UseInMemoryDatabase(nameof(VibezDbContext));
-//#else
         optionsBuilder.UseSqlServer(@"Server=LaptopMathis\VIVES;Database=Vibez;Trusted_Connection=True;TrustServerCertificate=True");
-//#endif
     }
 
     public void SeedAsync()
