@@ -14,12 +14,12 @@
 
 @if (TempData["SuccessMessage"] != null)
 {
-    <div class="alert alert-succes" role="alert" style="background-color: #d4edda; color: #155724; font-size: larger; left: 50%; position: fixed; top: 25%; transform: translate(-50%, -50%);">
+    <div id="successMessage" class="alert alert-succes success-message" role="alert">
         @TempData["SuccessMessage"]
     </div>
 }
 
-<div class="container-contact-form">
+<div id="contactFormContainer" class="container-contact-form @(TempData["SuccessMessage"] != null ? "with-message" : "without-message")">
     <div class="text-center">
         <h1 class="display-4 Fonth1">Contact form</h1>
     </div>
