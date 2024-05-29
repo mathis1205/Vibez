@@ -23,7 +23,7 @@
 .input, .btnsend {
     border: solid 2px #BEDC6D;
     border-radius: 5px;
-    margin-bottom: 20px;
+    margin-right: 20px;
 }
 
 .btn-primary, .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
