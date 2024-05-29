@@ -5,6 +5,7 @@ using MVC_Vibez.Model;
 using Newtonsoft.Json;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using RestSharp;
 
 namespace MVC_Vibez.Models;
 
@@ -35,14 +36,24 @@ public class SearchHelper
         return _token;
     }
 
-    public static async Task<Welcome> SearchAll(string searchWord)
+    public static async Task<Welcome> SearchAll(string searchWord, List<string> types)
     {
         var token = await GetTokenAsync();
-        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.access_token);
+        var client = new RestClient("https://api.spotify.com/v1/search");
 
-        var response = await _httpClient.GetAsync($"https://api.spotify.com/v1/search?q={searchWord}&type=artist,album,playlist,track,show,episode,audiobook");
-        if (response.IsSuccessStatusCode) return JsonConvert.DeserializeObject<Welcome>(await response.Content.ReadAsStringAsync())!;
-        throw new Exception($"Failed to search for '{searchWord}'. Status code: {response.StatusCode}, Reason: {response.ReasonPhrase}");
+        // Construct query string based on selected types
+        var queryString = new StringBuilder();
+        foreach (var type in types)
+        {
+            queryString.Append($"{type},");
+        }
+        var request = new RestRequest($"?q={searchWord}&type={queryString.ToString().TrimEnd(',')}");
+        client.AddDefaultHeader("Authorization", $"Bearer {token.access_token}");
+        var response = await client.ExecuteAsync(request);
+
+        if (response.IsSuccessful) return JsonConvert.DeserializeObject<Welcome>(response.Content);
+
+        throw new Exception($"Failed to search for '{searchWord}'. Status code: {response.StatusCode}, Error: {response.ErrorMessage}");
     }
 
     public static async Task<List<PlaylistsItem>> GetRandomPlaylistsAsync(int count)
