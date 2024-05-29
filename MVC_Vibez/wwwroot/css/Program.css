@@ -1,47 +1,4 @@
-﻿body {
-    align-items: center;
-    background: linear-gradient(to bottom, white, gray);
-    height: auto;
-    justify-content: center;
-    margin: 0;
-}
-
-.navbar {
-    background-color: whitesmoke !important;
-    border: solid rgb(0, 0, 0, 0.2) 3px;
-    border-radius: 35px;
-    left: 50%;
-    margin-bottom: 20px;
-    margin-top: 15px;
-    max-width: 1000px;
-    transform: translateX(-50%);
-    width: 80%;
-    z-index: 1000;
-}
-
-.navbar-nav {
-    align-items: center;
-    display: flex;
-}
-
-.navbar-nav .nav-item.dropdown .dropdown-menu { display: none; }
-
-.navbar-nav .nav-item.dropdown:hover .dropdown-menu { display: block; }
-
-.navbar-nav .nav-item.dropdown .dropdown-toggle::after { display: none; }
-
-.navbar-nav .nav-item .nav-link {
-    align-items: center;
-    border-radius: 15px;
-    display: flex;
-    padding-bottom: 0.5rem;
-    padding-top: 0.5rem;
-    transition: background-color 0.3s;
-}
-
-.navbar-nav .nav-item .nav-link:not(.dropdown-toggle):hover { background-color: rgba(239, 209, 9, 0.6); }
-
-.playlist-container {
+﻿.playlist-container {
     max-height: 680px;
     overflow-y: auto;
     position: fixed;
@@ -81,7 +38,7 @@
 
 .main-content {
     margin-left: 250px;
-    padding-top: 0; /* Verwijder de bovenvulling */
+    margin-top: 100px;
 }
 
 .artist-info {
@@ -104,9 +61,7 @@
     margin-left: auto;
 }
 
-.favorite-btn {
-    margin-right: 10px; /* Pas de marge tussen de knoppen aan indien nodig */
-}
+.favorite-btn { margin-right: 10px; }
 
 .playlist-card { height: 100%; }
 
@@ -120,13 +75,13 @@
 .col-md-2 { margin-bottom: 20px; }
 
 .alert {
-    left: 54%; /* Plaats het horizontaal in het midden */
-    position: fixed; /* Maak de alert positie vast */
+    left: 54%;
+    position: fixed;
     text-align: center;
-    top: 100px; /* Afstand vanaf de bovenkant van het venster */
-    transform: translateX(-50%); /* Centreer horizontaal */
+    top: 100px;
+    transform: translateX(-50%);
     width: 50%;
-    z-index: 1001; /* Zorg ervoor dat de alert bovenop alles blijft */
+    z-index: 1001;
 }
 
 .alert-visible {
@@ -136,8 +91,8 @@
 
 
 #mediaPlayer {
-    margin-left: 200px; /* Halve breedte van het element */
-    margin-top: 100px; /* Verhoog de marge vanaf de bovenkant */
+    margin-left: 200px;
+    margin-top: 100px;
     position: absolute;
     text-align: center;
     width: 500px;

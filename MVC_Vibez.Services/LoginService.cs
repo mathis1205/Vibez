@@ -7,10 +7,9 @@ public class LoginService
 {
     private readonly VibezDbContext _context;
 
-    public LoginService(VibezDbContext context)
-    {
-        _context = context;
-    }
+    public LoginService(VibezDbContext context) => _context = context;
+
+    public User GetUserByEmail(string email) => _context.Users.FirstOrDefault(u => u.Email == email);
 
     public User? Create(User user)
     {
@@ -19,5 +18,22 @@ public class LoginService
         _context.Users.Add(user);
         _context.SaveChanges();
         return user;
+    }
+    public IEnumerable<User> GetUsers() => [.. _context.Users];
+
+    public User? Update(User user)
+    {
+        var existingUser = _context.Users.FirstOrDefault(u => u.Id == user.Id);
+        if (existingUser == null) return existingUser;
+        existingUser.FirstName = user.FirstName;
+        existingUser.LastName = user.LastName;
+        existingUser.Loggedin = user.Loggedin;
+        existingUser.ProfilePicture = user.ProfilePicture;
+        existingUser.IsValid = user.IsValid;
+        existingUser.ValidationToken = user.ValidationToken;
+        existingUser.Email = user.Email;
+        existingUser.Password = HashingHelper.HashPassword(user.Password);
+        _context.SaveChanges();
+        return existingUser;
     }
 }

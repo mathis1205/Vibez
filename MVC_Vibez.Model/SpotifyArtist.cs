@@ -1,4 +1,5 @@
 ﻿namespace MVC_Vibez.Model;
+
 public class Spotify
 {
     public string ID { get; set; }

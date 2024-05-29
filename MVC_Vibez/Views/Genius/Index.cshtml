@@ -6,7 +6,11 @@
 }
 
 @await Html.PartialAsync("_Navbar", Model.user)
-<link rel="stylesheet" type="text/css" href="~/css/Genius.css">
+
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="~/css/Genius.css">
+    <link rel="stylesheet" type="text/css" href="~/css/Navbar.css"/>
+}
 
 <div class="row">
     <div class="col-md-3">
@@ -17,6 +21,7 @@
                     <input type="submit" value="Search" class="btnsend btn-primary">
                 </form>
             </div>
+
             <div id="searchResults" class="search-results list-group">
                 @if (Model.Hits != null && Model.Hits.Any())
                 {

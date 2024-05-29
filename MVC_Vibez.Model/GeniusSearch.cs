@@ -1,17 +1,26 @@
 ﻿using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text;
-using Microsoft.Extensions.Options;
 using HtmlAgilityPack;
+using Microsoft.Extensions.Options;
 
 namespace MVC_Vibez.Model;
 
 public class GeniusSearch
 {
+    private const string AccessToken = "5zMOXvjfUgpx2H0zHmI01-xEkgWRRvS3rZGV09oV_hpJinMRVLj_q3k1Wm0jtxg3";
+    private static readonly HttpClient Client;
     private readonly string clientId;
     private readonly string clientSecret;
     private readonly string redirectUri;
-    private const string AccessToken = "5zMOXvjfUgpx2H0zHmI01-xEkgWRRvS3rZGV09oV_hpJinMRVLj_q3k1Wm0jtxg3";
 
+    static GeniusSearch()
+    {
+        Client = new HttpClient { BaseAddress = new Uri("https://api.genius.com/") };
+        Client.DefaultRequestHeaders.Accept.Clear();
+        Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
+    }
 
     public GeniusSearch(IOptions<GeniusSearchOptions> options)
     {
@@ -19,86 +28,41 @@ public class GeniusSearch
         clientSecret = options.Value.ClientSecret;
         redirectUri = options.Value.RedirectUri;
     }
-    public async Task<List<GeniusHit>> SearchSongs(string searchTerm)
+
+    public static async Task<List<GeniusHit>> SearchSongs(string searchTerm)
     {
-        using (var client = new HttpClient())
-        {
-            client.BaseAddress = new Uri("https://api.genius.com/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
+        var response = await Client.GetAsync($"search?q={Uri.EscapeDataString(searchTerm)}");
+        response.EnsureSuccessStatusCode();
 
-            var response = await client.GetAsync($"search?q={Uri.EscapeDataString(searchTerm)}");
-            if (response.IsSuccessStatusCode)
-            {
-                var data = await response.Content.ReadAsAsync<GeniusSearchResult>();
-                return data.response.hits;
-            }
-
-            throw new Exception("Failed to search songs");
-        }
+        var data = await response.Content.ReadFromJsonAsync<GeniusSearchResult>();
+        return data?.response.hits ?? [];
     }
 
-    public async Task<GeniusSong> GetSongDetails(int id)
+    public static async Task<GeniusSong> GetSongDetails(int id)
     {
-        using (var client = new HttpClient())
-        {
-            client.BaseAddress = new Uri("https://api.genius.com/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
+        var response = await Client.GetAsync($"songs/{id}");
+        response.EnsureSuccessStatusCode();
 
-            var response = await client.GetAsync($"songs/{id}");
-            if (response.IsSuccessStatusCode)
-            {
-                var data = await response.Content.ReadAsAsync<GeniusSongResult>();
-                return data.response.song;
-            }
-
-            throw new Exception("Failed to get song details");
-        }
+        var data = await response.Content.ReadFromJsonAsync<GeniusSongResult>();
+        return data?.response.song ?? throw new Exception("Song details not found");
     }
 
-    public async Task<string> GetLyrics(string path)
+    public static async Task<string> GetLyrics(string path)
     {
-        using (var client = new HttpClient())
-        {
-            var response = await client.GetAsync($"https://genius.com{path}");
-            if (response.IsSuccessStatusCode)
-            {
-                var pageContent = await response.Content.ReadAsStringAsync();
-                var pageDocument = new HtmlDocument();
-                pageDocument.LoadHtml(pageContent);
+        var response = await Client.GetAsync($"https://genius.com{path}");
+        response.EnsureSuccessStatusCode();
 
-                var lyricsDivs = pageDocument.DocumentNode.SelectNodes("//div[contains(@class, 'Lyrics__Container-sc-1ynbvzw-1') and contains(@class, 'kUgSbL')]");
-                if (lyricsDivs == null || !lyricsDivs.Any())
-                {
-                    throw new Exception("Failed to get lyrics");
-                }
+        var pageContent = await response.Content.ReadAsStringAsync();
+        var pageDocument = new HtmlDocument();
+        pageDocument.LoadHtml(pageContent);
 
-                var lyrics = new StringBuilder();
-                foreach (var lyricsDiv in lyricsDivs)
-                {
-                    lyrics.AppendLine(lyricsDiv.InnerText + "<br>" +"<br>");
+        var lyricsDivs = pageDocument.DocumentNode.SelectNodes("//div[starts-with(@class, 'Lyrics__Container')]");
+        if (lyricsDivs == null || lyricsDivs.Count == 0) throw new Exception("Failed to get lyrics");
 
-                    //var spans = lyricsDiv.SelectNodes(".//span");
-                    //if (spans != null)
-                    //{
-                    //    foreach (var span in spans)
-                    //    {
-                    //        lyrics.AppendLine(span.InnerText + "<br>");
-                    //    }
-                    //}
-                }
+        var lyrics = new StringBuilder();
+        foreach (var lyricsDiv in lyricsDivs) lyrics.AppendLine(lyricsDiv.InnerText + "<br>" + "<br>");
 
-
-                var lyricsText = lyrics.ToString();
-                lyricsText = lyricsText.Replace("&#x27;", "'").Replace("[", " [").Replace("&quot;", "'' ").Replace("&amp;", "&");
-                return lyricsText;
-                
-            }
-
-            throw new Exception("Failed to get lyrics");
-        }
+        var lyricsText = lyrics.ToString();
+        return lyricsText.Replace("&#x27;", "'").Replace("[", " [").Replace("&quot;", "\"").Replace("&amp;", "&");
     }
 }

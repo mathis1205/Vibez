@@ -6,14 +6,22 @@
 }
 
 @await Html.PartialAsync("_Navbar", Model.user)
-<link rel="stylesheet" href="~/css/Youtube.css"/>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Navbar.css"/>
+    <link rel="stylesheet" href="~/css/Youtube.css"/>
+}
+
+@section Scripts {
+    <script src="~/js/Youtube.js"></script>
+}
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-3">
             <div class="sidebar bg-light">
                 <div class="search-box">
-                    <form class="search-form" onsubmit="event.preventDefault(); searchVideos();">
+                    <form class="search-form" onsubmit="event.preventDefault();searchVideos();">
                         <input type="text" name="searchQuery" id="searchQuery" class="form-control mb-3 input" placeholder="Search for videos" required>
                         <button type="submit" class="btn btnSend btn-primary">Search</button>
                     </form>
@@ -28,50 +36,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    async function searchVideos() {
-        const query = document.getElementById('searchQuery').value.trim();
-        if (!query) {
-            alert('Query required');
-            return;
-        }
-
-        const videosContainer = document.getElementById('videos');
-        const loadingIndicator = document.getElementById('loading');
-
-        videosContainer.innerHTML = '';
-        loadingIndicator.style.display = 'block';
-
-        try {
-            const response = await fetch(`/YoutubeApi/SearchVideos?query=${encodeURIComponent(query)}`);
-            const data = await response.json();
-            displayVideos(data);
-        } catch (error) {
-            console.error('Error fetching YouTube API:', error);
-            videosContainer.innerHTML = '<p>Failed to fetch videos. Please try again later.</p>';
-        } finally {
-            loadingIndicator.style.display = 'none';
-        }
-    }
-
-    function displayVideos(videos) {
-        const videosContainer = document.getElementById('videos');
-        videosContainer.innerHTML = '';
-
-        if (videos.length === 0) {
-            videosContainer.innerHTML = '<p>No videos found.</p>';
-            return;
-        }
-
-        videos.forEach(video => {
-            const videoId = video.videoId;
-            const iframe = document.createElement('iframe');
-            iframe.src = `https://www.youtube.com/embed/${videoId}`;
-            iframe.frameBorder = '0';
-            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-            iframe.allowFullscreen = true;
-            videosContainer.appendChild(iframe);
-        });
-    }
-</script>

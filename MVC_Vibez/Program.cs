@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.Extensions.Configuration;
 using MVC_Vibez.Core;
 using MVC_Vibez.Model;
 using MVC_Vibez.Services;
-
 #if !DEBUG
 using (var context = new VibezDbContext())
 {
@@ -13,11 +11,8 @@ using (var context = new VibezDbContext())
 #endif
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<VibezDbContext>();
-
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
@@ -27,29 +22,17 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.AccessDeniedPath = "/Home/AccessDenied";
         options.SlidingExpiration = true;
     });
-
-// Register EmailService and configure EmailSettings
 builder.Services.Configure<EmailService.EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.Configure<GeniusSearchOptions>(builder.Configuration.GetSection("GeniusSearch"));
 builder.Services.AddTransient<EmailService>();
-builder.Services.AddScoped<AboutService>();
 builder.Services.AddScoped<ContactService>();
-builder.Services.AddScoped<HomeService>();
-builder.Services.AddScoped<LibraryService>();
 builder.Services.AddScoped<LoginService>();
-builder.Services.AddScoped<ProfileService>();
-builder.Services.AddScoped<ProgramService>();
 builder.Services.AddScoped<GeniusSearch>();
 
-
-
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 else

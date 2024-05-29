@@ -2,72 +2,39 @@
 using MVC_Vibez.Model;
 using MVC_Vibez.Services;
 using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
 
-namespace MVC_Vibez.Controllers
+namespace MVC_Vibez.Controllers;
+
+public class YoutubeController : Controller
 {
-    public class YoutubeController : Controller
+    private readonly string _apiKey = "AIzaSyBQ1G_Kei2BSW3veNJaWpWyiRLTD7ORqNk";
+    private readonly LoginService _LoginService;
+
+    public YoutubeController(LoginService ProgramService) => _LoginService = ProgramService;
+
+    public IActionResult Index() => View(new ProgramPage { user = _LoginService.GetUserByEmail(User.Identity.Name) });
+
+    [HttpGet, Route("/YoutubeApi/SearchVideos")]
+    public async Task<IActionResult> SearchVideos(string query)
     {
-        private readonly ProgramService _ProgramService;
-        private readonly string _apiKey = "AIzaSyBQ1G_Kei2BSW3veNJaWpWyiRLTD7ORqNk";
-        public YoutubeController(ProgramService ProgramService)
+        if (string.IsNullOrEmpty(query)) return BadRequest("Query is required.");
+
+        try { return Json(await FetchVideosFromYouTube(query)); }
+        catch (Exception ex)
         {
-            _ProgramService = ProgramService;
-        }
-        public IActionResult Index()
-        {
-            var user = _ProgramService.GetUserByEmail(User.Identity.Name);
-            return View(new ProgramPage { user = user });
-        }
-
-        [HttpGet]
-        [Route("/YoutubeApi/SearchVideos")]
-        public async Task<IActionResult> SearchVideos(string query)
-        {
-            if (string.IsNullOrEmpty(query))
-            {
-                return BadRequest("Query is required.");
-            }
-
-            try
-            {
-                var videos = await FetchVideosFromYouTube(query);
-                return Json(videos);
-            }
-            catch (Exception ex)
-            {
-                // Log the exception for diagnosis
-                Console.WriteLine($"Error fetching YouTube API: {ex.Message}");
-                return StatusCode(500, $"Failed to fetch videos. Error: {ex.Message}");
-            }
-        }
-
-        private async Task<List<YoutubeVideo>> FetchVideosFromYouTube(string query)
-        {
-            var apiUrl = $"https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=24&q={query}&type=video&key={_apiKey}";
-            using (var httpClient = new HttpClient())
-            {
-                var response = await httpClient.GetStringAsync(apiUrl);
-                var jsonResponse = JObject.Parse(response);
-                var videos = new List<YoutubeVideo>();
-
-                foreach (var item in jsonResponse["items"])
-                {
-                    videos.Add(new YoutubeVideo
-                    {
-                        VideoId = item["id"]["videoId"].ToString()
-                    });
-                }
-
-                return videos;
-            }
+            Console.WriteLine($"Error fetching YouTube API: {ex.Message}");
+            return StatusCode(500, $"Failed to fetch videos. Error: {ex.Message}");
         }
     }
 
-    public class YoutubeVideo
+    private async Task<List<YoutubeVideo>> FetchVideosFromYouTube(string query)
     {
-        public string VideoId { get; set; }
+        var apiUrl = $"https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=24&q={query}&type=video&key={_apiKey}";
+        using var httpClient = new HttpClient();
+        var jsonResponse = JObject.Parse(await httpClient.GetStringAsync(apiUrl));
+
+        return jsonResponse["items"].Select(item => new YoutubeVideo { VideoId = item["id"]["videoId"].ToString() }).ToList();
     }
 }
+
+public class YoutubeVideo { public string VideoId { get; set; } }

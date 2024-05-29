@@ -78,7 +78,6 @@ public class Artists
 public class ArtistsItem
 {
     public ExternalUrls ExternalUrls { get; set; }
-    public Followers Followers { get; set; }
     public List<string> Genres { get; set; }
     public Uri Href { get; set; }
     public string Id { get; set; }
@@ -87,12 +86,6 @@ public class ArtistsItem
     public long Popularity { get; set; }
     public string Type { get; set; }
     public string Uri { get; set; }
-}
-
-public class Followers
-{
-    public Uri Href { get; set; }
-    public long Total { get; set; }
 }
 
 public class Playlists
@@ -118,7 +111,6 @@ public class PlaylistsItem
     public Owner Owner { get; set; }
     public object Public { get; set; }
     public string SnapshotId { get; set; }
-    public Followers Tracks { get; set; }
     public string Type { get; set; }
     public string Uri { get; set; }
 }

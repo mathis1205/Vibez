@@ -1,17 +1,9 @@
-﻿public class GeniusSearchResult
-{
-    public GeniusSearchResponse response { get; set; }
-}
+﻿namespace MVC_Vibez.Model;
+public class GeniusSearchResult { public GeniusSearchResponse response { get; set; } }
 
-public class GeniusSearchResponse
-{
-    public List<GeniusHit> hits { get; set; }
-}
+public class GeniusSearchResponse { public List<GeniusHit>? hits { get; set; } }
 
-public class GeniusHit
-{
-    public GeniusResult result { get; set; }
-}
+public class GeniusHit { public GeniusResult result { get; set; } }
 
 public class GeniusResult
 {
@@ -25,21 +17,11 @@ public class GeniusResult
     public string path { get; set; }
 }
 
+public class GeniusArtist { public string name { get; set; } }
 
-public class GeniusArtist
-{
-    public string name { get; set; }
-}
+public class GeniusSongResult { public GeniusSongResponse response { get; set; } }
 
-public class GeniusSongResult
-{
-    public GeniusSongResponse response { get; set; }
-}
-
-public class GeniusSongResponse
-{
-    public GeniusSong song { get; set; }
-}
+public class GeniusSongResponse { public GeniusSong song { get; set; } }
 
 public class GeniusSong
 {

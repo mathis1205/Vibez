@@ -6,42 +6,36 @@ namespace MVC_Vibez.Controllers;
 
 public class GeniusController : Controller
 {
-    private readonly GeniusSearch _geniusSearch;
-    private readonly ProgramService _programService;
+    private readonly LoginService _LoginService;
 
-    public GeniusController(GeniusSearch geniusSearch, ProgramService programService)
-    {
-        _geniusSearch = geniusSearch;
-        _programService = programService;
-    }
+    public GeniusController(LoginService programService) { _LoginService = programService; }
 
-    public async Task<IActionResult> Index()
+    public Task<IActionResult> Index()
     {
-        var user = _programService.GetUserByEmail(User.Identity.Name);
+        var user = _LoginService.GetUserByEmail(User.Identity.Name);
         var model = new ProgramPage { user = user, SearchPerformed = false };
-        return View(model);
+        return Task.FromResult<IActionResult>(View(model));
     }
 
     public async Task<IActionResult> SearchResults(string searchTerm)
     {
-        var user = _programService.GetUserByEmail(User.Identity.Name);
+        var user = _LoginService.GetUserByEmail(User.Identity.Name);
         var model = new ProgramPage { user = user, SearchPerformed = true };
 
         if (string.IsNullOrEmpty(searchTerm)) return View("Index", model);
-        var hits = await _geniusSearch.SearchSongs(searchTerm);
-        model.Hits = hits;
+        model.Hits = await GeniusSearch.SearchSongs(searchTerm);
 
         return View("Index", model);
     }
 
     public async Task<IActionResult> SongDetails(string path, string title, string artist, int id)
     {
-        var user = _programService.GetUserByEmail(User.Identity.Name);
+        var user = _LoginService.GetUserByEmail(User.Identity.Name);
         var model = new ProgramPage { user = user, SearchPerformed = false };
 
         if (string.IsNullOrEmpty(path) || id == 0) return View("Index", model);
-        var lyrics = await _geniusSearch.GetLyrics(path);
-        var songDetails = await _geniusSearch.GetSongDetails(id);
+        var lyrics = await GeniusSearch.GetLyrics(path);
+        var songDetails = await GeniusSearch.GetSongDetails(id);
         var selectedHit = new GeniusHit
         {
             result = new GeniusResult
@@ -59,13 +53,6 @@ public class GeniusController : Controller
         return View("Index", model);
     }
 
-    public IActionResult Search(string searchTerm)
-    {
-        return RedirectToAction("SearchResults", new { searchTerm });
-    }
-
-    public IActionResult Lyrics(string path, string title, string artist, int id)
-    {
-        return RedirectToAction("SongDetails", new { path, title, artist, id });
-    }
+    public IActionResult Search(string searchTerm) => RedirectToAction("SearchResults", new { searchTerm });
+    public IActionResult Lyrics(string path, string title, string artist, int id) => RedirectToAction("SongDetails", new { path, title, artist, id });
 }
