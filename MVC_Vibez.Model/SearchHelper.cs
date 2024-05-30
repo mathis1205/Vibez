@@ -36,27 +36,17 @@ public class SearchHelper
         return _token;
     }
 
-    public static async Task<Welcome> SearchAll(string searchWord, List<string> types)
+    public static async Task<Welcome> SearchAll(string searchWord)
     {
-        var token = await GetTokenAsync();
-        var client = new RestClient("https://api.spotify.com/v1/search");
+	    var token = await GetTokenAsync();
+	    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.access_token);
 
-        // Construct query string based on selected types
-        var queryString = new StringBuilder();
-        foreach (var type in types)
-        {
-            queryString.Append($"{type},");
-        }
-        var request = new RestRequest($"?q={searchWord}&type={queryString.ToString().TrimEnd(',')}");
-        client.AddDefaultHeader("Authorization", $"Bearer {token.access_token}");
-        var response = await client.ExecuteAsync(request);
-
-        if (response.IsSuccessful) return JsonConvert.DeserializeObject<Welcome>(response.Content);
-
-        throw new Exception($"Failed to search for '{searchWord}'. Status code: {response.StatusCode}, Error: {response.ErrorMessage}");
+	    var response = await _httpClient.GetAsync($"https://api.spotify.com/v1/search?q={searchWord}&type=artist,album,playlist,track,show,episode,audiobook");
+	    if (response.IsSuccessStatusCode) return JsonConvert.DeserializeObject<Welcome>(await response.Content.ReadAsStringAsync())!;
+	    throw new Exception($"Failed to search for '{searchWord}'. Status code: {response.StatusCode}, Reason: {response.ReasonPhrase}");
     }
 
-    public static async Task<List<PlaylistsItem>> GetRandomPlaylistsAsync(int count)
+	public static async Task<List<PlaylistsItem>> GetRandomPlaylistsAsync(int count)
     {
         var token = await GetTokenAsync();
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.access_token);
