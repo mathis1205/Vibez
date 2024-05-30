@@ -160,6 +160,27 @@
                 }
             });
         });
+    $(document).on("click",
+        ".play-btn",
+        function () {
+            var songId = $(this).data("song-id");
+            var artistId = $(this).data("artist-id");
+            var albumId = $(this).data("album-id");
+            var playlistId = $(this).data("playlist-id");
+            var src = "";
+
+            if (songId) {
+                src = `https://open.spotify.com/embed/track/${songId}`;
+            } else if (artistId) {
+                src = `https://open.spotify.com/embed/artist/${artistId}`;
+            } else if (albumId) {
+                src = `https://open.spotify.com/embed/album/${albumId}`;
+            } else if (playlistId) {
+                src = `https://open.spotify.com/embed/playlist/${playlistId}`;
+            }
+
+            $("#mediaPlayer iframe").attr("src", src);
+        });
 
     // Check URL for playlistId parameter and set iframe source
     if (window.location.href) {
