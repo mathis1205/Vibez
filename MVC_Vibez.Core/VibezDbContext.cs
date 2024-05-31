@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MVC_Vibez.Model;
 
 namespace MVC_Vibez.Core
