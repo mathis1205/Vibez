@@ -49,10 +49,27 @@ public class GeniusSearch
 
     public static async Task<string> GetLyrics(string path)
     {
-        var response = await Client.GetAsync($"https://genius.com{path}");
-        response.EnsureSuccessStatusCode();
+        HttpResponseMessage response;
+        try
+        {
+            response = await Client.GetAsync($"https://genius.com{path}");
+            response.EnsureSuccessStatusCode();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Failed to make GET request", ex);
+        }
 
-        var pageContent = await response.Content.ReadAsStringAsync();
+        string pageContent;
+        try
+        {
+            pageContent = await response.Content.ReadAsStringAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Failed to read response content", ex);
+        }
+
         var pageDocument = new HtmlDocument();
         pageDocument.LoadHtml(pageContent);
 
