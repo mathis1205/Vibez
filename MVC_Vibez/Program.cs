@@ -26,8 +26,10 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     });
 
 builder.Services.Configure<EmailService.EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.Configure<GeniusSearchOptions>(builder.Configuration.GetSection("GeniusSearch"));
 builder.Services.AddTransient<EmailService>();
 builder.Services.AddScoped<ContactService>();
+builder.Services.AddScoped<LoginService>();
 builder.Services.AddScoped<GeniusSearch>();
 
 var app = builder.Build();
