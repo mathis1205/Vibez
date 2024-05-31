@@ -79,7 +79,6 @@ public class SearchHelper
         await Task.Run(() =>
         {
             var options = new ChromeOptions();
-            //options.AddArguments("--headless");
             ChromeDriver driver = new(options);
 
             try
