@@ -43,9 +43,7 @@ public class LoginService
         existingUser.IsValid = user.IsValid;
         existingUser.ValidationToken = user.ValidationToken;
         existingUser.Email = user.Email;
-
-        // Only update the password if it has changed
-        if (!string.IsNullOrEmpty(user.Password) && user.Password != existingUser.Password) existingUser.Password = HashingHelper.HashPassword(user.Password);
+        existingUser.Password = HashingHelper.HashPassword(user.Password);
 
         _context.SaveChanges();
         return existingUser;

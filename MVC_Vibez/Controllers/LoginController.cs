@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using MVC_Vibez.Model;
-using MVC_Vibez.Models;
 using MVC_Vibez.Services;
 
 namespace MVC_Vibez.Controllers;
@@ -23,12 +22,31 @@ public partial class LoginController : Controller
         _loginService = loginService;
     }
 
-    public IActionResult Index() => View();
-    [HttpGet] public IActionResult Create() => View();
-    [HttpGet] public IActionResult Recovery() => View();
-    [HttpPost] public IActionResult ResetPassword() => View();
+    public IActionResult Index()
+    {
+        return View();
+    }
 
-    [HttpPost, ValidateAntiForgeryToken]
+    [HttpGet]
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpGet]
+    public IActionResult Recovery()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult ResetPassword()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(User user)
     {
         if (_loginService.GetUsers().Any(_user => _user.Email.Equals(user.Email)))
@@ -58,8 +76,9 @@ public partial class LoginController : Controller
         user.ValidationToken = Guid.NewGuid().ToString();
         _loginService.Create(user);
 
-        var validationLink = $"https://localhost:7286/Login/Validate?token={user.ValidationToken}";
-        var emailBody = $"Welcome to Vibez! </br> Please click <a href='{validationLink}'>here</a> to validate your account and login. </br> If you have any questions or issues please contact : vibezteamhelp@gmail.com </br> Have fun and vibe on!";
+        var validationLink = $"https://vibez.azurewebsites.net/Login/Validate?token={user.ValidationToken}";
+        var emailBody =
+            $"Welcome to Vibez! </br> Please click <a href='{validationLink}'>here</a> to validate your account and login. </br> If you have any questions or issues please contact : vibezteamhelp@gmail.com </br> Have fun and vibe on!";
         await _emailService.SendEmailAsync(user.Email, "Dear user,", emailBody);
 
         return RedirectToAction("Index", "Login");
@@ -71,7 +90,7 @@ public partial class LoginController : Controller
         var storedUser = _loginService.GetUsers().FirstOrDefault(u => u.Email == user.Email);
 
         if (storedUser == null)
-        {   
+        {
             ModelState.AddModelError("", "Invalid email or password");
             return View("Index", user);
         }
@@ -85,7 +104,8 @@ public partial class LoginController : Controller
 
         if (!storedUser.IsValid)
         {
-            ModelState.AddModelError("", "Please validate your account first by clicking on the link in the email we sent you.");
+            ModelState.AddModelError("",
+                "Please validate your account first by clicking on the link in the email we sent you.");
             return View("Index", user);
         }
 
@@ -100,8 +120,16 @@ public partial class LoginController : Controller
         return RedirectToAction("Index", "Program");
     }
 
-    public IActionResult Logout() => RedirectToAction("Index", "Home");
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)] public IActionResult Error() => View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    public IActionResult Logout()
+    {
+        return RedirectToAction("Index", "Home");
+    }
+
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
 
     [HttpGet]
     public async Task<IActionResult> Validate(string token)
@@ -149,8 +177,10 @@ public partial class LoginController : Controller
             existingUser.ValidationToken = Guid.NewGuid().ToString();
             _loginService.Update(existingUser);
 
-            var recoveryLink = Url.Action("ResetPassword", "Login", new { token = existingUser.ValidationToken }, Request.Scheme);
-            var emailBody = $"Dear user, </br> Please click <a href='{recoveryLink}'>here</a> to reset your password. </br> If you did not request a password reset, please ignore this email.";
+            var recoveryLink = Url.Action("ResetPassword", "Login", new { token = existingUser.ValidationToken },
+                Request.Scheme);
+            var emailBody =
+                $"Dear user, </br> Please click <a href='{recoveryLink}'>here</a> to reset your password. </br> If you did not request a password reset, please ignore this email.";
             await _emailService.SendEmailAsync(existingUser.Email, "Password Recovery", emailBody);
 
             return View(user);
@@ -162,7 +192,10 @@ public partial class LoginController : Controller
         }
     }
 
-    public IActionResult ResetPassword(string token) => View(new ResetPasswordModel { Token = token });
+    public IActionResult ResetPassword(string token)
+    {
+        return View(new ResetPasswordModel { Token = token });
+    }
 
     [HttpPost]
     public IActionResult SetNewPassword(ResetPasswordModel model)
@@ -205,7 +238,12 @@ public partial class LoginController : Controller
         return View("Index", model);
     }
 
-    [GeneratedRegex("[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]")] private static partial Regex MyRegexTekens();
-    [GeneratedRegex("[A-Z]")] private static partial Regex MyRegexLetters();
-    [GeneratedRegex("[0-9]")] private static partial Regex MyRegexCijfers();
+    [GeneratedRegex("[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]")]
+    private static partial Regex MyRegexTekens();
+
+    [GeneratedRegex("[A-Z]")]
+    private static partial Regex MyRegexLetters();
+
+    [GeneratedRegex("[0-9]")]
+    private static partial Regex MyRegexCijfers();
 }
