@@ -7,11 +7,17 @@ public class LoginService
 {
     private readonly VibezDbContext _context;
 
-    public LoginService(VibezDbContext context) => _context = context;
+    public LoginService(VibezDbContext context)
+    {
+        _context = context;
+    }
 
-    public User GetUserByEmail(string email) => _context.Users.FirstOrDefault(u => u.Email == email);
+    public User GetUserByEmail(string email)
+    {
+        return _context.Users.FirstOrDefault(u => u.Email == email);
+    }
 
-    public User? Create(User user)
+    public User Create(User user)
     {
         user.ProfilePicture = "images/defaultuser.jpg";
         user.Password = HashingHelper.HashPassword(user.Password);
@@ -19,12 +25,17 @@ public class LoginService
         _context.SaveChanges();
         return user;
     }
-    public IEnumerable<User> GetUsers() => [.. _context.Users];
 
-    public User? Update(User user)
+    public IEnumerable<User> GetUsers()
+    {
+        return _context.Users.ToList();
+    }
+
+    public User Update(User user)
     {
         var existingUser = _context.Users.FirstOrDefault(u => u.Id == user.Id);
-        if (existingUser == null) return existingUser;
+        if (existingUser == null) return null;
+
         existingUser.FirstName = user.FirstName;
         existingUser.LastName = user.LastName;
         existingUser.Loggedin = user.Loggedin;
@@ -32,7 +43,10 @@ public class LoginService
         existingUser.IsValid = user.IsValid;
         existingUser.ValidationToken = user.ValidationToken;
         existingUser.Email = user.Email;
-        existingUser.Password = HashingHelper.HashPassword(user.Password);
+
+        // Only update the password if it has changed
+        if (!string.IsNullOrEmpty(user.Password) && user.Password != existingUser.Password) existingUser.Password = HashingHelper.HashPassword(user.Password);
+
         _context.SaveChanges();
         return existingUser;
     }

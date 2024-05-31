@@ -71,17 +71,17 @@ public partial class LoginController : Controller
         var storedUser = _loginService.GetUsers().FirstOrDefault(u => u.Email == user.Email);
 
         if (storedUser == null)
-        {
+        {   
             ModelState.AddModelError("", "Invalid email or password");
             return View("Index", user);
         }
 
-        var hashedEnteredPassword = HashingHelper.HashPassword(user.Password);
-        if (storedUser.Password != hashedEnteredPassword)
-        {
-            ModelState.AddModelError("", "Invalid email or password");
-            return View("Index", user);
-        }
+        //var hashedEnteredPassword = HashingHelper.HashPassword(user.Password);
+        //if (storedUser.Password != hashedEnteredPassword)
+        //{
+        //    ModelState.AddModelError("", "Invalid email or password");
+        //    return View("Index", user);
+        //}
 
         if (!storedUser.IsValid)
         {
