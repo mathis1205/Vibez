@@ -8,7 +8,7 @@ namespace MVC_Vibez.Model;
 
 public class GeniusSearch
 {
-    private const string AccessToken = "z3MqgVdSt1YjNf6lunNZb8Bm66J5Gld5YiTXrRPRc1KSju0CV6ejNGq-zchPgHnH";
+    private const string AccessToken = "ic7vpBFBv8hoVHpnUSSOfRPUDBHNLn4pgWgvtcfu6A0VrsS9IJXUfkqFFlqJEJoA";
     private static readonly HttpClient Client;
     private readonly string clientId;
     private readonly string clientSecret;
