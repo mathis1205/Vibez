@@ -124,10 +124,11 @@
     // Handle favorite button click
     $(document).on('click', '.favorite-btn', function () {
         var song = $(this).data('song');
+        var songUri = song.Uri;
         $.ajax({
             type: "POST",
             url: "/Program/AddToFavorite",
-            data: { song: song },
+            data: { song: song, songUri: songUri },
             success: function (data) {
                 // Update UI to reflect the song being added to favorites
                 $('#message').addClass('alert-visible').text("Song added to favorites!").show().delay(5000).fadeOut(function () {
@@ -139,27 +140,6 @@
             }
         });
     });
-
-    $(document).on("click",
-        ".favorite-btn",
-        function () {
-            var song = $(this).data("song");
-            var songUri = song.Uri;
-            $.ajax({
-                type: "POST",
-                url: "/Program/AddToFavorite",
-                data: { song: song, songUri: songUri },
-                success: function (data) {
-                    $("#message").addClass("alert-visible").text("Song added to favorites!").show().delay(5000).fadeOut(
-                        function () {
-                            $(this).removeClass("alert-visible");
-                        });
-                },
-                error: function (xhr, status, error) {
-                    console.error("An error occurred while adding the song to favorites: " + error);
-                }
-            });
-        });
     $(document).on("click",
         ".play-btn",
         function () {
