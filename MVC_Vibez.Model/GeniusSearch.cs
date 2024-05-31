@@ -8,7 +8,7 @@ namespace MVC_Vibez.Model;
 
 public class GeniusSearch
 {
-    private const string AccessToken = "5zMOXvjfUgpx2H0zHmI01-xEkgWRRvS3rZGV09oV_hpJinMRVLj_q3k1Wm0jtxg3";
+    private const string AccessToken = "ic7vpBFBv8hoVHpnUSSOfRPUDBHNLn4pgWgvtcfu6A0VrsS9IJXUfkqFFlqJEJoA";
     private static readonly HttpClient Client;
     private readonly string clientId;
     private readonly string clientSecret;
@@ -49,10 +49,27 @@ public class GeniusSearch
 
     public static async Task<string> GetLyrics(string path)
     {
-        var response = await Client.GetAsync($"https://genius.com{path}");
-        response.EnsureSuccessStatusCode();
+        HttpResponseMessage response;
+        try
+        {
+            response = await Client.GetAsync($"https://genius.com{path}");
+            response.EnsureSuccessStatusCode();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Failed to make GET request", ex);
+        }
 
-        var pageContent = await response.Content.ReadAsStringAsync();
+        string pageContent;
+        try
+        {
+            pageContent = await response.Content.ReadAsStringAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Failed to read response content", ex);
+        }
+
         var pageDocument = new HtmlDocument();
         pageDocument.LoadHtml(pageContent);
 
