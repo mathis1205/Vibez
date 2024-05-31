@@ -7,6 +7,20 @@
 
 <div id="message" class="alert" style="margin-top: 20px;"></div>
 
+@section Scripts
+{
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+	<script src="~/js/Program.js"></script>
+}
+
+@section Styles
+{
+	<link rel="stylesheet" type="text/css" href="~/css/Navbar.css"/>
+	<link rel="stylesheet" type="text/css" href="~/css/Program.css"/>
+}
+
+<body>
 <div class="sidebar bg-light">
 	<div class="search-box">
 		<input type="text" id="txtSearch" class="form-control mb-3" placeholder="Search">
@@ -25,16 +39,4 @@
 		<iframe allow="encrypted-media"></iframe>
 	</div>
 </div>
-
-@section Scripts
-{
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
-	<script src="~/js/Program.js"></script>
-}
-
-@section Styles
-{
-	<link rel="stylesheet" type="text/css" href="~/css/Navbar.css"/>
-	<link rel="stylesheet" type="text/css" href="~/css/Program.css"/>
-}
+</body>

@@ -14,5 +14,6 @@ public class User
     public LoginToken? LoginToken { get; set; }
     public string ValidationToken { get; set; }
     public bool IsValid { get; set; }
-    public string? ProfilePicture { get; set; }
+    public string ProfilePicture { get; set; } = "images/defaultuser.jpg";
+
 }

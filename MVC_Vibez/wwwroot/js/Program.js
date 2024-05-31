@@ -140,26 +140,47 @@
         });
     });
 
-    // Handle play button click
-    $(document).on('click', '.play-btn', function () {
-        var songId = $(this).data('song-id');
-        var artistId = $(this).data('artist-id');
-        var albumId = $(this).data('album-id');
-        var playlistId = $(this).data('playlist-id');
-        var src = '';
+    $(document).on("click",
+        ".favorite-btn",
+        function () {
+            var song = $(this).data("song");
+            var songUri = song.Uri;
+            $.ajax({
+                type: "POST",
+                url: "/Program/AddToFavorite",
+                data: { song: song, songUri: songUri },
+                success: function (data) {
+                    $("#message").addClass("alert-visible").text("Song added to favorites!").show().delay(5000).fadeOut(
+                        function () {
+                            $(this).removeClass("alert-visible");
+                        });
+                },
+                error: function (xhr, status, error) {
+                    console.error("An error occurred while adding the song to favorites: " + error);
+                }
+            });
+        });
+    $(document).on("click",
+        ".play-btn",
+        function () {
+            var songId = $(this).data("song-id");
+            var artistId = $(this).data("artist-id");
+            var albumId = $(this).data("album-id");
+            var playlistId = $(this).data("playlist-id");
+            var src = "";
 
-        if (songId) {
-            src = `https://open.spotify.com/embed/track/${songId}`;
-        } else if (artistId) {
-            src = `https://open.spotify.com/embed/artist/${artistId}`;
-        } else if (albumId) {
-            src = `https://open.spotify.com/embed/album/${albumId}`;
-        } else if (playlistId) {
-            src = `https://open.spotify.com/embed/playlist/${playlistId}`;
-        }
+            if (songId) {
+                src = `https://open.spotify.com/embed/track/${songId}`;
+            } else if (artistId) {
+                src = `https://open.spotify.com/embed/artist/${artistId}`;
+            } else if (albumId) {
+                src = `https://open.spotify.com/embed/album/${albumId}`;
+            } else if (playlistId) {
+                src = `https://open.spotify.com/embed/playlist/${playlistId}`;
+            }
 
-        $('#mediaPlayer iframe').attr('src', src);
-    });
+            $("#mediaPlayer iframe").attr("src", src);
+        });
 
     // Check URL for playlistId parameter and set iframe source
     if (window.location.href) {
