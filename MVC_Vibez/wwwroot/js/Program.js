@@ -140,8 +140,7 @@
         });
     });
 
-    $(document).on("click",
-        ".favorite-btn",
+    $(document).on("click", ".favorite-btn",
         function () {
             var song = $(this).data("song");
             var songUri = song.Uri;
@@ -154,6 +153,7 @@
                         function () {
                             $(this).removeClass("alert-visible");
                         });
+                    $(".main-content").css("margin-top", "190px");
                 },
                 error: function (xhr, status, error) {
                     console.error("An error occurred while adding the song to favorites: " + error);

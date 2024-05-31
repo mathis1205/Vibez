@@ -21,6 +21,7 @@
 .sidebar {
     border: solid black 1px;
     border-top-right-radius: 10px;
+    box-shadow: 0 0 10px #BEDC6D;
     height: calc(100vh - 70px);
     left: 0;
     max-width: 350px;
@@ -30,20 +31,13 @@
     top: 130px;
     transition: all 0.3s;
     z-index: 1;
-    box-shadow: 0 0 10px #BEDC6D;
 }
 
-.sidebar:hover {
-    box-shadow: 0 0 20px #BEDC6D;
-}
+.sidebar:hover { box-shadow: 0 0 20px #BEDC6D; }
 
-.sidebar .input:focus {
-    box-shadow: 0 0 20px #BEDC6D;
-}
+.sidebar .input:focus { box-shadow: 0 0 20px #BEDC6D; }
 
-.sidebar .search-box, .sidebar .search-results {
-    padding: 20px;
-}
+.sidebar .search-box, .sidebar .search-results { padding: 20px; }
 
 .sidebar .search-box { padding: 20px; }
 
@@ -51,7 +45,7 @@
 
 .main-content {
     margin-left: 250px;
-    margin-top: 100px;
+    margin-top: 150px;
 }
 
 .artist-info {
@@ -102,13 +96,10 @@
     border: 2px solid #BEDC6D;
 }
 
-.search-options {
-    display: flex;
-}
+.search-options { display: flex; }
 
 #mediaPlayer {
     margin-left: 200px;
-    margin-top: 100px;
     position: absolute;
     text-align: center;
     width: 500px;
@@ -130,6 +121,5 @@
     height: 15px;
     width: 15px;
 }
-
 
 .checkbox:checked { background-color: #BEDC6D; }
