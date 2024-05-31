@@ -57,17 +57,17 @@ public class ProgramController : Controller
 		}
 	}
 
-	[HttpPost]
-	public Task<IActionResult> AddToFavoriteAsync(PlaylistsItem song)
-	{
-		try
-		{
-			_ = SearchHelper.AddTrackToPlaylistAsync(song.Uri);
-			return Task.FromResult<IActionResult>(RedirectToAction("Index"));
-		}
-		catch (Exception ex)
-		{
-			return Task.FromResult<IActionResult>(RedirectToAction("Index", new { error = ex.Message }));
-		}
-	}
+    [HttpPost]
+    public Task<IActionResult> AddToFavoriteAsync(PlaylistsItem song)
+    {
+        try
+        {
+            _ = SearchHelper.AddTrackToPlaylistAsync(song.Uri);
+            return Task.FromResult<IActionResult>(RedirectToAction("Index"));
+        }
+        catch (Exception ex)
+        {
+            return Task.FromResult<IActionResult>(RedirectToAction("Index", new { error = ex.Message }));
+        }
+    }
 }
